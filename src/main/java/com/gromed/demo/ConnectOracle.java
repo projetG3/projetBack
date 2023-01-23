@@ -1,4 +1,4 @@
-package com.gromed.demo;
+/*package com.gromed.demo;
 import java.sql.*;
 
 public class ConnectOracle
@@ -12,7 +12,7 @@ public class ConnectOracle
       //étape 2: créer l'objet de connexion
       Connection con = DriverManager.getConnection(
       "jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag","bouissai","d9365417e5");
-      //étape 3: créer l'objet statement 
+      //étape 3: créer l'objet statement
       Statement stmt = con.createStatement();
       //étape 4: exécuter la requête
       ResultSet res = stmt.executeQuery("select * from commande");
@@ -23,8 +23,8 @@ public class ConnectOracle
       //étape 5: fermez l'objet de connexion
       con.close();
     }
-    catch(Exception e){ 
-      System.out.println(e); 
+    catch(Exception e){
+      System.out.println(e);
     }
   }
-}
+}*/
