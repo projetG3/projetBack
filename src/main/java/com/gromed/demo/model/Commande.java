@@ -1,0 +1,103 @@
+package com.example.demo.models;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "COMMANDE")
+public class Commande {
+    @Id
+    @Column(name = "IDCOMMANDE", nullable = false)
+    private Integer id;
+
+    @Column(name = "DATEHEURECOMMANDE")
+    private Instant dateheurecommande;
+
+    @Column(name = "STATUS", length = 50)
+    private String status;
+
+    @Column(name = "MONTANTTOTAL", length = 50)
+    private String montanttotal;
+
+    @Column(name = "STATUSFACTURE")
+    private Boolean statusfacture;
+
+    @Column(name = "DATEFACTURE")
+    private LocalDate datefacture;
+
+    @Column(name = "NOM", length = 50)
+    private String nom;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "IDCOMPTE", nullable = false)
+    private Compte compte;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Instant getDateheurecommande() {
+        return dateheurecommande;
+    }
+
+    public void setDateheurecommande(Instant dateheurecommande) {
+        this.dateheurecommande = dateheurecommande;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMontanttotal() {
+        return montanttotal;
+    }
+
+    public void setMontanttotal(String montanttotal) {
+        this.montanttotal = montanttotal;
+    }
+
+    public Boolean getStatusfacture() {
+        return statusfacture;
+    }
+
+    public void setStatusfacture(Boolean statusfacture) {
+        this.statusfacture = statusfacture;
+    }
+
+    public LocalDate getDatefacture() {
+        return datefacture;
+    }
+
+    public void setDatefacture(LocalDate datefacture) {
+        this.datefacture = datefacture;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
+
+
+}
