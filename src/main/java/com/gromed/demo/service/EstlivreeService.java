@@ -1,12 +1,12 @@
 package com.gromed.demo.service;
 
-import com.gromed.demo.model.Compte;
-import org.springframework.beans.BeanUtils;
+import com.gromed.demo.model.Estlivree;
+import com.gromed.demo.model.EstlivreeId;
+import com.gromed.demo.repository.EstlivreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -15,19 +15,19 @@ public class EstlivreeService {
     @Autowired
     private EstlivreeRepository estlivreeRepository;
 
-    public Optional<Compte> getCompte(Integer id) {
-        return compteRepository.findById(id);
+    public Optional<Estlivree> getEstlivree(EstlivreeId id) {
+        return estlivreeRepository.findById(id);
     }
 
-    public List<Compte> getAllComptes() {
-        return compteRepository.findAll();
+    public List<Estlivree> getAllEstlivrees() {
+        return estlivreeRepository.findAll();
     }
 
-    public void deleteCompte(Integer id) {
-        compteRepository.deleteById(id);
+    public void deleteEstlivree(EstlivreeId id) {
+        estlivreeRepository.deleteById(id);
     }
 
-    public Compte saveCompte(Compte id){
-        return compteRepository.save(id);
+    public Estlivree saveEstlivree(Estlivree id){
+        return estlivreeRepository.save(id);
     }
 }

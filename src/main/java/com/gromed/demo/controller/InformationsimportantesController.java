@@ -1,6 +1,6 @@
 package com.gromed.demo.controller;
 
-import com.gromed.demo.service.InformationsimportantesService;
+import com.gromed.demo.service.InformationsimportanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class InformationsimportantesController {
 
     @Autowired
-    private InformationsimportantesService informationsimportantesService;
+    private InformationsimportanteService informationsimportantesService;
 
     @PostMapping
     public String save(@Valid @RequestBody InformationsimportantesVO vO) {

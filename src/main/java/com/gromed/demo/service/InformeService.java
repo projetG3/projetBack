@@ -1,6 +1,7 @@
 package com.gromed.demo.service;
 
 import com.gromed.demo.model.Informe;
+import com.gromed.demo.model.InformeId;
 import com.gromed.demo.repository.InformeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class InformeService {
     @Autowired
     private InformeRepository informeRepository;
 
-    public Optional<Informe> getInforme(final Integer id) {
+    public Optional<Informe> getInforme(InformeId id) {
         return informeRepository.findById(id);
     }
 
@@ -22,7 +23,7 @@ public class InformeService {
         return informeRepository.findAll();
     }
 
-    public void deleteInforme(final Integer id) {
+    public void deleteInforme(InformeId id) {
         informeRepository.deleteById(id);
     }
 
