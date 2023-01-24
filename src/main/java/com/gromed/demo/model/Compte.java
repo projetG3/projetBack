@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
@@ -8,7 +8,8 @@ import java.util.List;
 @Table(name = "COMPTE")
 public class Compte {
     @Id
-    @GeneratedValue(Strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(Strategy = GenerationType.IDENTITY)
+    @Column(name="id", nullable = false)
     private Integer id;
 
     @Column(name = "NOM", nullable = false, length = 50)

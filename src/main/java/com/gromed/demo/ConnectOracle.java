@@ -1,4 +1,4 @@
-/*package com.gromed.demo;
+package com.gromed.demo;
 import java.sql.*;
 
 public class ConnectOracle
@@ -15,7 +15,7 @@ public class ConnectOracle
       //étape 3: créer l'objet statement
       Statement stmt = con.createStatement();
       //étape 4: exécuter la requête
-      ResultSet res = stmt.executeQuery("select * from commande");
+      ResultSet res = stmt.executeQuery("select * from Titulaire");
       while(res.next()){
         System.out.println(res.getInt(1)+"  "+res.getString(2)+"  "
         +res.getString(3));
@@ -27,4 +27,4 @@ public class ConnectOracle
       System.out.println(e);
     }
   }
-}*/
+}

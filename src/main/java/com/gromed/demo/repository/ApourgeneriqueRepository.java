@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Apourgenerique;
-import com.example.demo.models.ApourgeneriqueId;
+import com.gromed.demo.model.Apourgenerique;
+import com.gromed.demo.model.ApourgeneriqueId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApourgeneriqueRepository extends JpaRepository<Apourgenerique, ApourgeneriqueId> {

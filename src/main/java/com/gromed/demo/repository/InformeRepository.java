@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Informe;
-import com.example.demo.models.InformeId;
+import com.gromed.demo.model.Informe;
+import com.gromed.demo.model.InformeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InformeRepository extends JpaRepository<Informe, InformeId> {

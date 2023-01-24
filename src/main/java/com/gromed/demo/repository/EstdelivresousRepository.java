@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Estdelivresous;
-import com.example.demo.models.EstdelivresousId;
+import com.gromed.demo.model.Estdelivresous;
+import com.gromed.demo.model.EstdelivresousId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EstdelivresousRepository extends JpaRepository<Estdelivresous, EstdelivresousId> {

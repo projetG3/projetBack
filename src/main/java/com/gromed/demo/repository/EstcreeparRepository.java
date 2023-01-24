@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Estcreepar;
-import com.example.demo.models.EstcreeparId;
+import com.gromed.demo.model.Estcreepar;
+import com.gromed.demo.model.EstcreeparId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EstcreeparRepository extends JpaRepository<Estcreepar, EstcreeparId> {

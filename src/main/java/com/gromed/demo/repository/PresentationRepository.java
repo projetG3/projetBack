@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Presentation;
+import com.gromed.demo.model.Presentation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PresentationRepository extends JpaRepository<Presentation, Long> {

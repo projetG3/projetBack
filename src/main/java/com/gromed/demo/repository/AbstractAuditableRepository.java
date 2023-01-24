@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
 import org.springframework.data.jpa.domain.AbstractAuditable;
 import org.springframework.data.jpa.repository.JpaRepository;

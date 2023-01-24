@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.gromed.demo.repository;
 
-import com.example.demo.models.Administrepar;
-import com.example.demo.models.AdministreparId;
+import com.gromed.demo.model.Administrepar;
+import com.gromed.demo.model.AdministreparId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdministreparRepository extends JpaRepository<Administrepar, AdministreparId> {
