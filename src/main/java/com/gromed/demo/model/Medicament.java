@@ -63,22 +63,6 @@ public class Medicament {
     @JoinColumn(name = "id", nullable = false)
     private List<Avis> avis;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Presentation> presentations;
-
-    public List<Presentation> getPresentations() {
-        return presentations;
-    }
-
-    public void setPresentations(List<Presentation> presentations) {
-        this.presentations= presentations;
-    }
-
-    public void addPresentation(Presentation presentation){presentations.add(presentation);}
-
-    public void removePresentation(Presentation presentation){this.presentations.remove(presentation);}
-
     public List<Avis> getAvis() {
         return avis;
     }

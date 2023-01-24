@@ -30,10 +30,6 @@ public class Composition {
     @Column(name = "NUMEROLIER")
     private Integer numerolier;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament codecis;
-
     public Integer getId() {
         return id;
     }
@@ -97,13 +93,4 @@ public class Composition {
     public void setNumerolier(Integer numerolier) {
         this.numerolier = numerolier;
     }
-
-    public Medicament getCodecis() {
-        return codecis;
-    }
-
-    public void setCodecis(Medicament codecis) {
-        this.codecis = codecis;
-    }
-
 }

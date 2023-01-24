@@ -2,8 +2,6 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "COMPTE")
 public class Compte {
@@ -24,10 +22,6 @@ public class Compte {
 
     @Column(name = "MOTDEPASSE", nullable = false, length = 50)
     private String motDePasse;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCommand", nullable = false)
-    private List<Commande> commandes;
 
     public Integer getId() {
         return id;
@@ -67,14 +61,4 @@ public class Compte {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;}
-
-    public List<Commande> getCommandes(){return commandes;}
-
-    public void setCommandes(List<Commande> commandes){this.commandes = commandes;}
-
-    public void addCommandes(Commande commande){commandes.add(commande);}
-
-    public void removeCommandes(Commande commande){commandes.remove(commande);}
-
-
 }

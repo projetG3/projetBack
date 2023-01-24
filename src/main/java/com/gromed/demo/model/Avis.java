@@ -22,10 +22,6 @@ public class Avis {
     @Column(name = "TYPEAVIS")
     private Boolean typeavis;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament codecis;
-
     public AvisId getId() {
         return id;
     }
@@ -65,13 +61,4 @@ public class Avis {
     public void setTypeavis(Boolean typeavis) {
         this.typeavis = typeavis;
     }
-
-    public Medicament getCodecis() {
-        return codecis;
-    }
-
-    public void setCodecis(Medicament codecis) {
-        this.codecis = codecis;
-    }
-
 }

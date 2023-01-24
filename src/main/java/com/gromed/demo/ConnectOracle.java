@@ -1,4 +1,4 @@
-package com.gromed.demo;
+/*package com.gromed.demo;
 import java.sql.*;
 
 public class ConnectOracle
@@ -27,4 +27,4 @@ public class ConnectOracle
       System.out.println(e);
     }
   }
-}
+}*/

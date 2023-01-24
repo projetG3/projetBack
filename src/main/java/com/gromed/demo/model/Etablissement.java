@@ -56,10 +56,10 @@ public class Etablissement {
     private String complementdistribution;
 
     @Column(name = "COORDX", nullable = false, precision = 8, scale = 1)
-    private BigDecimal coordx;
+    private Long coordx;
 
     @Column(name = "COORDY", nullable = false, precision = 8, scale = 1)
-    private BigDecimal coordy;
+    private Long coordy;
 
     @Column(name = "NUMEROVOIE")
     private Integer numerovoie;
@@ -68,7 +68,7 @@ public class Etablissement {
     private String nomvoie;
 
     @Column(name = "COMPLEMENTVOIE")
-    private Boolean complementvoie;
+    private Character complementvoie;
 
     @Column(name = "LIEUDIT", length = 32)
     private String lieudit;
@@ -84,10 +84,6 @@ public class Etablissement {
 
     @Column(name = "NOMDEPARTEMENT", length = 24)
     private String nomdepartement;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCompte", nullable = false)
-    private List<Compte> comptes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CODESPH")
@@ -125,7 +121,7 @@ public class Etablissement {
         return ligneacheminement;
     }
 
-    public void setLigneacheminement(String ligneacheminement) {
+    public void setFinessej(String ligneacheminement) {
         this.ligneacheminement = ligneacheminement;
     }
 
@@ -225,19 +221,19 @@ public class Etablissement {
         this.complementdistribution = complementdistribution;
     }
 
-    public BigDecimal getCoordx() {
+    public Long getCoordx() {
         return coordx;
     }
 
-    public void setCoordx(BigDecimal coordx) {
+    public void setCoordx(Long coordx) {
         this.coordx = coordx;
     }
 
-    public BigDecimal getCoordy() {
+    public Long getCoordy() {
         return coordy;
     }
 
-    public void setCoordy(BigDecimal coordy) {
+    public void setCoordy(Long coordy) {
         this.coordy = coordy;
     }
 
@@ -257,11 +253,11 @@ public class Etablissement {
         this.nomvoie = nomvoie;
     }
 
-    public Boolean getComplementvoie() {
+    public Character getComplementvoie() {
         return complementvoie;
     }
 
-    public void setComplementvoie(Boolean complementvoie) {
+    public void setComplementvoie(Character complementvoie) {
         this.complementvoie = complementvoie;
     }
 
@@ -336,17 +332,4 @@ public class Etablissement {
     public void setCategorie(Categorieetablissement categorie) {
         this.categorie = categorie;
     }
-
-    public List<Compte> getComptes() {
-        return comptes;
-    }
-
-    public void setComptes(List<Compte> comptes) {
-        this.comptes = comptes;
-    }
-
-    public void addCompte(Compte compte){comptes.add(compte);}
-
-    public void removeCompte(Compte compte){comptes.remove(compte);}
-
 }
