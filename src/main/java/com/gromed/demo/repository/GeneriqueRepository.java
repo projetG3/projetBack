@@ -2,6 +2,8 @@ package com.gromed.demo.repository;
 
 import com.gromed.demo.model.Generique;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GeneriqueRepository extends JpaRepository<Generique, Long> {
+@Repository
+public interface GeneriqueRepository extends JpaRepository<Generique, Integer> {
 }

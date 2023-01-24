@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "VOIEADMINISTRATION")
-public class Voieadministration {
+public class VoieAdministration {
     @Id
     @Column(name = "TYPEDEVOIE", nullable = false, length = 50)
     private String id;

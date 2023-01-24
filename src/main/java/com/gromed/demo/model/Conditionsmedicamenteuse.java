@@ -20,5 +20,4 @@ public class Conditionsmedicamenteuse {
         this.id = id;
     }
 
-    //TODO [JPA Buddy] generate columns from DB
 }

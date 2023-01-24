@@ -1,0 +1,32 @@
+package com.gromed.demo.service;
+
+import com.gromed.demo.model.Etablissement;
+import com.gromed.demo.repository.EtablissementRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class EtablissementService {
+
+    @Autowired
+    private EtablissementRepository etablissementRepository;
+
+    public Optional<Etablissement> getRembourse(Integer id) {
+        return etablissementRepository.findById(id);
+    }
+
+    public List<Etablissement> getAllRembourse() {
+        return etablissementRepository.findAll();
+    }
+
+    public void deleteRembourse(Integer id) {
+        etablissementRepository.deleteById(id);
+    }
+
+    public Etablissement saveRembourse(Etablissement id){
+        return etablissementRepository.save(id);
+    }
+}

@@ -2,6 +2,8 @@ package com.gromed.demo.repository;
 
 import com.gromed.demo.model.Compte;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CompteRepository extends JpaRepository<Compte, Long> {
+@Repository
+public interface CompteRepository extends JpaRepository<Compte, Integer> {
 }

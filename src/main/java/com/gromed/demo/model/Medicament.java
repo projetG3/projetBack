@@ -2,7 +2,6 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class Medicament {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeDeVoie")
-    private List<Voieadministration> voieadministrations;
+    private List<VoieAdministration> voieadministrations;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
@@ -140,17 +139,17 @@ public class Medicament {
 
     public void removeTitulaire(Titulaire titulaire){titulaires.remove(titulaire);}
 
-    public List<Voieadministration> getVoieadministrations() {
+    public List<VoieAdministration> getVoieadministrations() {
         return voieadministrations;
     }
 
-    public void setVoieadministrations(List<Voieadministration> voieadministrations) {
+    public void setVoieadministrations(List<VoieAdministration> voieadministrations) {
         this.voieadministrations = voieadministrations;
     }
 
-    public void addVoieadministration(Voieadministration voieadministration){voieadministrations.add(voieadministration);}
+    public void addVoieadministration(VoieAdministration voieadministration){voieadministrations.add(voieadministration);}
 
-    public void removeVoieadministration(Voieadministration voieadministration){voieadministrations.remove(voieadministration);}
+    public void removeVoieadministration(VoieAdministration voieadministration){voieadministrations.remove(voieadministration);}
 
     public Integer getId() {
         return id;
