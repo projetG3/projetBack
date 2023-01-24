@@ -13,29 +13,6 @@ public class PresentationController {
     @Autowired
     private PresentationService presentationService;
 
-    @PostMapping
-    public String save(@Valid @RequestBody PresentationVO vO) {
-        return presentationService.save(vO).toString();
-    }
 
-    @DeleteMapping("/{id}")
-    public void delete(@Valid @NotNull @PathVariable("id") String id) {
-        presentationService.delete(id);
-    }
 
-    @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") String id,
-                       @Valid @RequestBody PresentationUpdateVO vO) {
-        presentationService.update(id, vO);
-    }
-
-    @GetMapping("/{id}")
-    public PresentationDTO getById(@Valid @NotNull @PathVariable("id") String id) {
-        return presentationService.getById(id);
-    }
-
-    @GetMapping
-    public Page<PresentationDTO> query(@Valid PresentationQueryVO vO) {
-        return presentationService.query(vO);
-    }
 }

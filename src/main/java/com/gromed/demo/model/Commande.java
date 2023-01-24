@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COMMANDE")
@@ -13,7 +14,7 @@ public class Commande {
     private Integer id;
 
     @Column(name = "DATEHEURECOMMANDE")
-    private Instant dateheurecommande;
+    private LocalDateTime dateheurecommande;
 
     @Column(name = "STATUS", length = 50)
     private String status;
@@ -42,11 +43,11 @@ public class Commande {
         this.id = id;
     }
 
-    public Instant getDateheurecommande() {
+    public LocalDateTime getDateheurecommande() {
         return dateheurecommande;
     }
 
-    public void setDateheurecommande(Instant dateheurecommande) {
+    public void setDateheurecommande(LocalDateTime dateheurecommande) {
         this.dateheurecommande = dateheurecommande;
     }
 

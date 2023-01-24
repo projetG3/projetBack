@@ -32,7 +32,7 @@ public class Presentation {
     private String agrement;
 
     @Column(name = "PRIX", precision = 5, scale = 2)
-    private BigDecimal prix;
+    private Long prix;
 
     @Column(name = "INDICATIONS", length = 50)
     private String indications;
@@ -116,11 +116,11 @@ public class Presentation {
         this.agrement = agrement;
     }
 
-    public BigDecimal getPrix() {
+    public Long getPrix() {
         return prix;
     }
 
-    public void setPrix(BigDecimal prix) {
+    public void setPrix(Long prix) {
         this.prix = prix;
     }
 

@@ -13,29 +13,6 @@ public class AdministreparController {
     @Autowired
     private AdministreparService administreparService;
 
-    @PostMapping
-    public String save(@Valid @RequestBody AdministreparVO vO) {
-        return administreparService.save(vO).toString();
-    }
 
-    @DeleteMapping("/{id}")
-    public void delete(@Valid @NotNull @PathVariable("id") String id) {
-        administreparService.delete(id);
-    }
 
-    @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") String id,
-                       @Valid @RequestBody AdministreparUpdateVO vO) {
-        administreparService.update(id, vO);
-    }
-
-    @GetMapping("/{id}")
-    public AdministreparDTO getById(@Valid @NotNull @PathVariable("id") String id) {
-        return administreparService.getById(id);
-    }
-
-    @GetMapping
-    public Page<AdministreparDTO> query(@Valid AdministreparQueryVO vO) {
-        return administreparService.query(vO);
-    }
 }

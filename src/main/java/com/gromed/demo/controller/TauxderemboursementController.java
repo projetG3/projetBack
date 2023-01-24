@@ -13,29 +13,6 @@ public class TauxderemboursementController {
     @Autowired
     private TauxderemboursementService tauxderemboursementService;
 
-    @PostMapping
-    public String save(@Valid @RequestBody TauxderemboursementVO vO) {
-        return tauxderemboursementService.save(vO).toString();
-    }
 
-    @DeleteMapping("/{id}")
-    public void delete(@Valid @NotNull @PathVariable("id") String id) {
-        tauxderemboursementService.delete(id);
-    }
 
-    @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") String id,
-                       @Valid @RequestBody TauxderemboursementUpdateVO vO) {
-        tauxderemboursementService.update(id, vO);
-    }
-
-    @GetMapping("/{id}")
-    public TauxderemboursementDTO getById(@Valid @NotNull @PathVariable("id") String id) {
-        return tauxderemboursementService.getById(id);
-    }
-
-    @GetMapping
-    public Page<TauxderemboursementDTO> query(@Valid TauxderemboursementQueryVO vO) {
-        return tauxderemboursementService.query(vO);
-    }
 }

@@ -13,29 +13,6 @@ public class VoieAdministrationController {
     @Autowired
     private VoieAdministrationService voieadministrationService;
 
-    @PostMapping
-    public String save(@Valid @RequestBody VoieadministrationVO vO) {
-        return voieadministrationService.save(vO).toString();
-    }
 
-    @DeleteMapping("/{id}")
-    public void delete(@Valid @NotNull @PathVariable("id") String id) {
-        voieadministrationService.delete(id);
-    }
 
-    @PutMapping("/{id}")
-    public void update(@Valid @NotNull @PathVariable("id") String id,
-                       @Valid @RequestBody VoieadministrationUpdateVO vO) {
-        voieadministrationService.update(id, vO);
-    }
-
-    @GetMapping("/{id}")
-    public VoieadministrationDTO getById(@Valid @NotNull @PathVariable("id") String id) {
-        return voieadministrationService.getById(id);
-    }
-
-    @GetMapping
-    public Page<VoieadministrationDTO> query(@Valid VoieadministrationQueryVO vO) {
-        return voieadministrationService.query(vO);
-    }
 }

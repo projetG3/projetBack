@@ -13,6 +13,7 @@ public class Estconstitueede {
     @JoinColumn(name = "IDCOMMANDE", nullable = false)
     private Commande commande;
 
+
     @MapsId("codecip7")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CODECIP7", nullable = false)
