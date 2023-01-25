@@ -30,6 +30,17 @@ public class Composition {
     @Column(name = "NUMEROLIER")
     private Integer numerolier;
 
+    public Medicament getCodecis() {
+        return codecis;
+    }
+
+    public void setCodecis(Medicament codecis) {
+        this.codecis = codecis;
+    }
+
+    @OneToOne()
+    Medicament codecis;
+
     public Integer getId() {
         return id;
     }

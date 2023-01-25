@@ -15,16 +15,20 @@ public class Medicament {
     @Column(name = "NOM", nullable = false, length = 50)
     private String nom;
 
-    @Column(name = "FORMEPHARMACEUTIQUE", nullable = false, length = 50)
+    @ManyToOne
+    @JoinColumn(name = "formepharmaceutique")
     private String formepharmaceutique;
 
-    @Column(name = "STATUTADMINISTRATIF", nullable = false, length = 50)
+    @ManyToOne
+    @JoinColumn(name = "statutadministratif")
     private String statutadministratif;
 
-    @Column(name = "TYPEPROCEDURE", nullable = false, length = 50)
+    @ManyToOne
+    @JoinColumn(name = "typeprocedure")
     private String typeprocedure;
 
-    @Column(name = "ETATCOMMERCIALISATION", length = 50)
+    @ManyToOne
+    @JoinColumn(name = "etatcommercialisation")
     private String etatcommercialisation;
 
     @Column(name = "DATEAMM", nullable = false)
@@ -32,6 +36,10 @@ public class Medicament {
 
     @Column(name = "STATUSBDM", length = 50)
     private String statusbdm;
+
+    public void setTitulaires(List<Titulaire> titulaires) {
+        this.titulaires = titulaires;
+    }
 
     @Column(name = "NUMEROAUTORISATIONEUROPEENNE", length = 50)
     private String numeroautorisationeuropeenne;
@@ -54,7 +62,7 @@ public class Medicament {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private List<Informationsimportante> informationsimportantes;
-
+/*
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private List<Composition> compositions;
@@ -62,6 +70,7 @@ public class Medicament {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private List<Avis> avis;
+
 
     public List<Avis> getAvis() {
         return avis;
@@ -75,6 +84,8 @@ public class Medicament {
 
     public void removeAvis(Avis avis){this.avis.remove(avis);}
 
+
+
     public List<Composition> getCompositions() {
         return compositions;
     }
@@ -83,10 +94,13 @@ public class Medicament {
         this.compositions= compositions;
     }
 
+
     public void addComposition(Composition composition){compositions.add(composition);}
 
     public void removeComposition(Composition composition){compositions.remove(composition);}
 
+
+ */
     public List<Informationsimportante> getInformationsimportantes() {
         return informationsimportantes;
     }
@@ -156,9 +170,8 @@ public class Medicament {
     }
 
     public void setFormepharmaceutique(String formepharmaceutique) {
-        this.formepharmaceutique = formepharmaceutique;
+        this.formepharmaceutique= formepharmaceutique;
     }
-
     public String getStatutadministratif() {
         return statutadministratif;
     }

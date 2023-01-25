@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Fixtures {
-/*
+
     public static Commande createCommande(Compte compte) {
         Commande commande = new Commande();
         commande.setId(12);
@@ -59,8 +59,8 @@ public class Fixtures {
     public static Etablissement createEtablissement(Servicepublichospitalier servicepublichospitalier, Modedefixationdestarif modedefixationdestarif, Codeape codeape, Categorieetablissement categorieetablissement) {
         Etablissement etablissement = new Etablissement();
         etablissement.setId(14);
-        etablissement.setFinessej("bou");
-        etablissement.setFinessej("hi");
+        etablissement.setFinessej(23);
+        etablissement.setLigneacheminement("hi");
         etablissement.setSiret(3456);
         etablissement.setDateouverture(LocalDate.now());
         etablissement.setDateautorisation(LocalDate.now());
@@ -118,11 +118,9 @@ public class Fixtures {
         return categorieetablissement;
     }
 
-    public static Medicament createMedicament(List<Avis> avis, List<Composition> compositions, List<Informationsimportante> informationsimportantes, List<Conditionsmedicamenteuse> conditionsmedicamenteuses, List<Titulaire> titulaires, List<VoieAdministration> voieAdministrations) {
+    public static Medicament createMedicament(List<Informationsimportante> informationsimportantes, List<Conditionsmedicamenteuse> conditionsmedicamenteuses, List<Titulaire> titulaires, List<VoieAdministration> voieAdministrations) {
         Medicament medicament = new Medicament();
         medicament.setId(14);
-        medicament.setAvis(avis);
-        medicament.setCompositions(compositions);
         medicament.setInformationsimportantes(informationsimportantes);
         medicament.setConditionsmedicamenteuses(conditionsmedicamenteuses);
         medicament.setTitulaire(titulaires);
@@ -141,11 +139,13 @@ public class Fixtures {
 
     public static Avis createAvis() {
         Avis avis = new Avis();
-        avis.setId(new AvisId());
         avis.setMotifevaluation("bou");
         avis.setDateavis(LocalDate.now());
         avis.setLien("jeje");
         avis.setTypeavis(true);
+        avis.setCodehas(16);
+        avis.setValeur("heh");
+        avis.setLibelle("info");
         return avis;
     }
 
@@ -199,5 +199,6 @@ public class Fixtures {
         informationsimportanteId.setDatefininfo(LocalDate.now());
         informationsimportanteId.setInformation("info");
         return informationsimportanteId;
-    }*/
+    }
+
 }

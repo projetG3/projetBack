@@ -36,7 +36,5 @@ public class MonTestDeConnection {
             System.out.println(compte.get().getPrenom());
         }
         System.out.println("GET FIRST COMPTE OK");
-
     }
-
 }

@@ -2,55 +2,118 @@ package com.gromed.demo;
 
 import com.gromed.demo.model.*;
 import com.gromed.demo.repository.*;
-import com.gromed.demo.service.EstconstitueedeService;
+import com.gromed.demo.service.AvisService;
+import com.gromed.demo.service.CompteService;
+import com.gromed.demo.service.MedicamentService;
+import com.gromed.demo.service.TitulaireService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@SpringBootTest
 public class EstconstitueedeTest {
-/*
-    @Autowired
-    private EstconstitueedeRepository estconstitueedeRepository;
-    @Autowired
-    private CommandeRepository commandeRepository;
-    @Autowired
-    private PresentationRepository presentationRepository;
-    @Autowired
-    private ServicepublichospitalierRepository servicepublichospitalierRepository;
-    @Autowired
-    private ModedefixationdestarifRepository modedefixationdestarifRepository;
-    @Autowired
-    private CodeapeRepository codeapeRepository;
-    @Autowired
-    private CategorieetablissementRepository categorieetablissementRepository;
-    @Autowired
-    private EtablissementRepository etablissementRepository;
-    @Autowired
-    private CompteRepository compteRepository;
-    @Autowired
-    private AvisRepository avisRepository;
-    @Autowired
-    private CompositionRepository compositionRepository;
-    @Autowired
-    private InformationsimportanteRepository informationsimportanteRepository;
-    @Autowired
-    private ConditionsmedicamenteuseRepository conditionsmedicamenteuseRepository;
-    @Autowired
-    private TitulaireRepository titulaireRepository;
-    @Autowired
-    private VoieAdministrationRepository voieAdministrationRepository;
-    @Autowired
-    private MedicamentRepository medicamentRepository;
 
+    @Autowired
+    EstconstitueedeRepository estconstitueedeRepository;
+    @Autowired
+    CommandeRepository commandeRepository;
+    @Autowired
+    PresentationRepository presentationRepository;
+    @Autowired
+    ServicepublichospitalierRepository servicepublichospitalierRepository;
+    @Autowired
+    ModedefixationdestarifRepository modedefixationdestarifRepository;
+    @Autowired
+    CodeapeRepository codeapeRepository;
+    @Autowired
+    CategorieetablissementRepository categorieetablissementRepository;
+    @Autowired
+    EtablissementRepository etablissementRepository;
+    @Autowired
+    CompteRepository compteRepository;
+    @Autowired
+    AvisRepository avisRepository;
+    @Autowired
+    CompositionRepository compositionRepository;
+    @Autowired
+    InformationsimportanteRepository informationsimportanteRepository;
+    @Autowired
+    ConditionsmedicamenteuseRepository conditionsmedicamenteuseRepository;
+    @Autowired
+    TitulaireRepository titulaireRepository;
+    @Autowired
+    VoieAdministrationRepository voieAdministrationRepository;
+    @Autowired
+    MedicamentRepository medicamentRepository;
+    @Autowired
+    AvisService avisService;
+    @Autowired
+    MedicamentService medicamentService;
+
+
+    public EstconstitueedeTest() {
+    }
+
+    @Autowired
+    TitulaireService titulaireService;
+
+    @Test
+    public void addTitulaire() throws SQLException {
+
+        Titulaire test = new Titulaire();
+        test.setId("mon test");
+        titulaireService.saveTitulaire(test);
+        System.out.println("ADD TITULAIRE OK");
+    }
+
+    @Test
+    public void testAvis(){
+        InformationsimportanteId informationsimportanteId = Fixtures.createInformationsimportantesid();
+        Informationsimportante informationsimportante = Fixtures.createInformationsimportantes(informationsimportanteId);
+        Conditionsmedicamenteuse conditionsmedicamenteuse = Fixtures.createConditionsmedicamenteuses();
+        Titulaire titulaire = Fixtures.createTitulaires();
+        VoieAdministration voieAdministration = Fixtures.createVoieadministrations();
+        List<Informationsimportante> informationsimportantes = new ArrayList<>();
+        informationsimportantes.add(informationsimportante);
+        List<Conditionsmedicamenteuse> conditionsmedicamenteuses = new ArrayList<>();
+        conditionsmedicamenteuses.add(conditionsmedicamenteuse);
+        List<Titulaire> titulaires = new ArrayList<>();
+        titulaires.add(titulaire);
+        List<VoieAdministration> voieAdministrations = new ArrayList<>();
+        voieAdministrations.add(voieAdministration);
+        for (Informationsimportante i: informationsimportantes) {
+            informationsimportanteRepository.save(i);
+        }
+        for (Conditionsmedicamenteuse c: conditionsmedicamenteuses) {
+            conditionsmedicamenteuseRepository.save(c);
+        }
+        for (Titulaire t: titulaires) {
+            titulaireRepository.save(t);
+        }
+        voieAdministrationRepository.save(voieAdministration);
+        final var medicament = Fixtures.createMedicament(informationsimportantes,  conditionsmedicamenteuses, titulaires, voieAdministrations);
+        medicamentService.saveMedicament(medicament);
+        Avis avis = new Avis();
+        avis.setId(1456890);
+        avis.setMotifevaluation("bou");
+        avis.setDateavis(LocalDate.now());
+        avis.setLien("jeje");
+        avis.setTypeavis(true);
+        avis.setCodehas(16);
+        avis.setValeur("heh");
+        avis.setLibelle("info");
+        avis.setCodecis(medicament);
+        Avis a = avisService.saveAvis(avis);
+        assertThat(a).isNotNull();
+    }
+/*
     @Test
     public void testRepo1() {
         final var servicepublichospitalier = Fixtures.createServicepublichospitalier();
@@ -60,6 +123,7 @@ public class EstconstitueedeTest {
         final var etablissement = Fixtures.createEtablissement(servicepublichospitalier, modedefixationdestarif, codeape, categorie);
         final var compte = Fixtures.createCompte(etablissement);
         final var commande = Fixtures.createCommande(compte);
+        //final var avisId = Fixtures.createAvisid();
         final var avis = Fixtures.createAvis();
         final var composition = Fixtures.createComposition();
         final var informationsimportanteId = Fixtures.createInformationsimportantesid();
@@ -79,7 +143,7 @@ public class EstconstitueedeTest {
         titulaires.add(titulaire);
         List<VoieAdministration> voieAdministrations = new ArrayList<>();
         voieAdministrations.add(voieAdministration);
-        final var medicament = Fixtures.createMedicament(avisList, compositions, informationsimportantes,  conditionsmedicamenteuses, titulaires, voieAdministrations);
+        final var medicament = Fixtures.createMedicament(compositions, informationsimportantes,  conditionsmedicamenteuses, titulaires, voieAdministrations);
         final var presentation = Fixtures.createPresentation(medicament);
         final var estconstitueedeId = Fixtures.createEstconstitueedeid();
         final var estconstitueede = Fixtures.createEstconstitueede(commande, presentation, estconstitueedeId);
@@ -90,11 +154,21 @@ public class EstconstitueedeTest {
         categorieetablissementRepository.save(categorie);
         etablissementRepository.save(etablissement);
         compteRepository.save(compte);
-        avisRepository.saveAll(avisList);
-        compositionRepository.save(composition);
-        informationsimportanteRepository.saveAll(informationsimportantes);
-        conditionsmedicamenteuseRepository.saveAll(conditionsmedicamenteuses);
-        titulaireRepository.save(titulaire);
+        for (Avis a: avisList) {
+            avisRepository.save(a);
+        }
+        for (Composition c: compositions) {
+            compositionRepository.save(composition);
+        }
+        for (Informationsimportante i: informationsimportantes) {
+            informationsimportanteRepository.save(i);
+        }
+        for (Conditionsmedicamenteuse c: conditionsmedicamenteuses) {
+            conditionsmedicamenteuseRepository.save(c);
+        }
+        for (Titulaire t: titulaires) {
+            titulaireRepository.save(t);
+        }
         voieAdministrationRepository.save(voieAdministration);
         medicamentRepository.save(medicament);
         commandeRepository.save(commande);
@@ -105,5 +179,7 @@ public class EstconstitueedeTest {
         assertThat(pEstconstitueede).isNotNull();
         assertThat(pEstconstitueede).isNotNull().isNotSameAs(estconstitueede);
         assertThat(pEstconstitueede.get(0)).isEqualTo(pEstconstitueede.get(0));
-    }*/
+    }
+
+ */
 }

@@ -1,7 +1,6 @@
 package com.gromed.demo.service;
 
 import com.gromed.demo.model.Avis;
-import com.gromed.demo.model.AvisId;
 import com.gromed.demo.repository.AvisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,9 @@ import java.util.Optional;
 public class AvisService {
 
     @Autowired
-    private AvisRepository avisRepository;
+    AvisRepository avisRepository;
 
-    public Optional<Avis> getAvis(AvisId id) {
+    public Optional<Avis> getAvis(Integer id) {
         return avisRepository.findById(id);
     }
 
@@ -23,7 +22,7 @@ public class AvisService {
         return avisRepository.findAll();
     }
 
-    public void deleteAvis(AvisId id) {
+    public void deleteAvis(Integer id) {
         avisRepository.deleteById(id);
     }
 

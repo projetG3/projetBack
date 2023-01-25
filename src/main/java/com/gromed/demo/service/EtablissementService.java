@@ -14,19 +14,19 @@ public class EtablissementService {
     @Autowired
     private EtablissementRepository etablissementRepository;
 
-    public Optional<Etablissement> getRembourse(Integer id) {
+    public Optional<Etablissement> getEtablissement(Integer id) {
         return etablissementRepository.findById(id);
     }
 
-    public List<Etablissement> getAllRembourse() {
+    public List<Etablissement> getAllEtablissement() {
         return etablissementRepository.findAll();
     }
 
-    public void deleteRembourse(Integer id) {
+    public void deleteEtablissement(Integer id) {
         etablissementRepository.deleteById(id);
     }
 
-    public Etablissement saveRembourse(Etablissement id){
+    public Etablissement saveEtablissement(Etablissement id){
         return etablissementRepository.save(id);
     }
 }

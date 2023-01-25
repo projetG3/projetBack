@@ -121,7 +121,7 @@ public class Etablissement {
         return ligneacheminement;
     }
 
-    public void setFinessej(String ligneacheminement) {
+    public void setLigneacheminement(String ligneacheminement) {
         this.ligneacheminement = ligneacheminement;
     }
 
