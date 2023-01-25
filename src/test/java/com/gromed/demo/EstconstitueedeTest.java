@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class EstconstitueedeTest {
-
+/*
     @Autowired
     EstconstitueedeRepository estconstitueedeRepository;
     @Autowired

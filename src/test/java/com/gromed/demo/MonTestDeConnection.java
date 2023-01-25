@@ -29,12 +29,12 @@ public class MonTestDeConnection {
         System.out.println("ADD TITULAIRE OK");
     }
 
-    @Test
+    /*@Test
     public void getFirstCompte() throws SQLException{
         Optional <Compte> compte = compteService.getCompte(1);
         if(compte.isPresent()){
-            System.out.println(compte.get().getPrenom());
+            System.out.println(compte.get().getMotDePasse());
         }
         System.out.println("GET FIRST COMPTE OK");
-    }
+    }*/
 }

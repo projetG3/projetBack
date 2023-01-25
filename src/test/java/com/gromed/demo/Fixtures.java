@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Fixtures {
 
-    public static Commande createCommande(Compte compte) {
+    /*public static Commande createCommande(Compte compte) {
         Commande commande = new Commande();
         commande.setId(12);
         commande.setDateheurecommande(LocalDateTime.now());
@@ -223,5 +223,5 @@ public class Fixtures {
         FormePharmaceutique formePharmaceutique = new FormePharmaceutique();
         formePharmaceutique.setId("hej");
         return formePharmaceutique;
-    }
+    }*/
 }

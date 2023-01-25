@@ -17,19 +17,19 @@ public class Medicament {
 
     @ManyToOne
     @JoinColumn(name = "formepharmaceutique")
-    private String formepharmaceutique;
+    private FormePharmaceutique formepharmaceutique;
 
     @ManyToOne
     @JoinColumn(name = "statutadministratif")
-    private String statutadministratif;
+    private StatutAdministratif statutadministratif;
 
     @ManyToOne
     @JoinColumn(name = "typeprocedure")
-    private String typeprocedure;
+    private TypeProcedure typeprocedure;
 
     @ManyToOne
     @JoinColumn(name = "ETATCOMMERCIALISATION")
-    private String etatcommercialisation;
+    private EtatCommercialisation etatcommercialisation;
 
     @Column(name = "DATEAMM", nullable = false)
     private LocalDate dateamm;
@@ -165,34 +165,34 @@ public class Medicament {
         this.nom = nom;
     }
 
-    public String getFormepharmaceutique() {
+    public FormePharmaceutique getFormepharmaceutique() {
         return formepharmaceutique;
     }
 
-    public void setFormepharmaceutique(String formepharmaceutique) {
+    public void setFormepharmaceutique(FormePharmaceutique formepharmaceutique) {
         this.formepharmaceutique= formepharmaceutique;
     }
-    public String getStatutadministratif() {
+    public StatutAdministratif getStatutadministratif() {
         return statutadministratif;
     }
 
-    public void setStatutadministratif(String statutadministratif) {
+    public void setStatutadministratif(StatutAdministratif statutadministratif) {
         this.statutadministratif = statutadministratif;
     }
 
-    public String getTypeprocedure() {
+    public TypeProcedure getTypeprocedure() {
         return typeprocedure;
     }
 
-    public void setTypeprocedure(String typeprocedure) {
+    public void setTypeprocedure(TypeProcedure typeprocedure) {
         this.typeprocedure = typeprocedure;
     }
 
-    public String getEtatcommercialisation() {
+    public EtatCommercialisation getEtatcommercialisation() {
         return etatcommercialisation;
     }
 
-    public void setEtatcommercialisation(String etatcommercialisation) {
+    public void setEtatcommercialisation(EtatCommercialisation etatcommercialisation) {
         this.etatcommercialisation = etatcommercialisation;
     }
 
