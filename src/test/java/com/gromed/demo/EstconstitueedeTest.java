@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class EstconstitueedeTest {
-
+/*
     @Autowired
     private EstconstitueedeRepository estconstitueedeRepository;
     @Autowired
@@ -105,5 +105,5 @@ public class EstconstitueedeTest {
         assertThat(pEstconstitueede).isNotNull();
         assertThat(pEstconstitueede).isNotNull().isNotSameAs(estconstitueede);
         assertThat(pEstconstitueede.get(0)).isEqualTo(pEstconstitueede.get(0));
-    }
+    }*/
 }

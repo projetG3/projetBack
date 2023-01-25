@@ -13,7 +13,6 @@ public class TitulaireService {
 
     @Autowired
     private TitulaireRepository titulaireRepository;
-
     public Optional<Titulaire> getTitulaire(final String nom) {
         return titulaireRepository.findById(nom);
     }

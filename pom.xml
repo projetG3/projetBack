@@ -68,6 +68,11 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>6.1.6.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc11</artifactId>
+			<version>19.3.0.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
