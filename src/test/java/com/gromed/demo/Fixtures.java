@@ -118,7 +118,7 @@ public class Fixtures {
         return categorieetablissement;
     }
 
-    public static Medicament createMedicament(List<Informationsimportante> informationsimportantes, List<Conditionsmedicamenteuse> conditionsmedicamenteuses, List<Titulaire> titulaires, List<VoieAdministration> voieAdministrations) {
+    public static Medicament createMedicament(List<Informationsimportante> informationsimportantes, List<Conditionsmedicamenteuse> conditionsmedicamenteuses, List<Titulaire> titulaires, List<VoieAdministration> voieAdministrations,  StatutAdministratif statutAdministratif, TypeProcedure typeProcedure, EtatCommercialisation etatCommercialisation,FormePharmaceutique formePharmaceutique) {
         Medicament medicament = new Medicament();
         medicament.setId(14);
         medicament.setInformationsimportantes(informationsimportantes);
@@ -126,10 +126,10 @@ public class Fixtures {
         medicament.setTitulaire(titulaires);
         medicament.setVoieadministrations(voieAdministrations);
         medicament.setNom("bonjour");
-        medicament.setFormepharmaceutique("bonjour");
-        medicament.setStatutadministratif("bonjour");
-        medicament.setTypeprocedure("bonjour");
-        medicament.setEtatcommercialisation("bonjour");
+        medicament.setFormepharmaceutique(formePharmaceutique.getId());
+        medicament.setStatutadministratif(statutAdministratif.getId());
+        medicament.setTypeprocedure(typeProcedure.getId());
+        medicament.setEtatcommercialisation(etatCommercialisation.getId());
         medicament.setDateamm(LocalDate.now());
         medicament.setStatusbdm("bonjour");
         medicament.setNumeroautorisationeuropeenne("13.3");
@@ -201,4 +201,27 @@ public class Fixtures {
         return informationsimportanteId;
     }
 
+    public static StatutAdministratif createStatusadministratif() {
+        StatutAdministratif statutAdministratif = new StatutAdministratif();
+        statutAdministratif.setId("hej");
+        return statutAdministratif;
+    }
+
+    public static TypeProcedure createTypeprocedure() {
+        TypeProcedure typeProcedure = new TypeProcedure();
+        typeProcedure.setId("hej");
+        return typeProcedure;
+    }
+
+    public static EtatCommercialisation createEtatcommercialisation() {
+        EtatCommercialisation etatCommercialisation = new EtatCommercialisation();
+        etatCommercialisation.setId("hej");
+        return etatCommercialisation;
+    }
+
+    public static FormePharmaceutique createFormepharmaceutique() {
+        FormePharmaceutique formePharmaceutique = new FormePharmaceutique();
+        formePharmaceutique.setId("hej");
+        return formePharmaceutique;
+    }
 }

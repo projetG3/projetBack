@@ -12,21 +12,21 @@ import java.util.Optional;
 public class TypeProcedureService {
 
     @Autowired
-    private TypeProcedureRepository typeProcedureRepository;
+    TypeProcedureRepository typeProcedureRepository;
 
-    public Optional<TypeProcedure> getGenerique(String id) {
+    public Optional<TypeProcedure> getTypeprocedure(String id) {
         return typeProcedureRepository.findById(id);
     }
 
-    public List<TypeProcedure> getAllGeneriques() {
+    public List<TypeProcedure> getAllTypeprocedure() {
         return typeProcedureRepository.findAll();
     }
 
-    public void deleteGenerique(String id) {
+    public void deleteTypeprocedure(String id) {
         typeProcedureRepository.deleteById(id);
     }
 
-    public TypeProcedure saveGenerique(TypeProcedure id){
+    public TypeProcedure save(TypeProcedure id){
         return typeProcedureRepository.save(id);
     }
 }

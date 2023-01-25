@@ -12,21 +12,21 @@ import java.util.Optional;
 public class FormePharmaceutiqueService {
 
     @Autowired
-    private FormePharmaceutiqueRepository formePharmaceutiqueRepository;
+    FormePharmaceutiqueRepository formePharmaceutiqueRepository;
 
-    public Optional<FormePharmaceutique> getGenerique(String id) {
+    public Optional<FormePharmaceutique> getFormePharmaceutique(String id) {
         return formePharmaceutiqueRepository.findById(id);
     }
 
-    public List<FormePharmaceutique> getAllGeneriques() {
+    public List<FormePharmaceutique> getAllFormePharmaceutique() {
         return formePharmaceutiqueRepository.findAll();
     }
 
-    public void deleteGenerique(String id) {
+    public void deleteFormePharmaceutique(String id) {
         formePharmaceutiqueRepository.deleteById(id);
     }
 
-    public FormePharmaceutique saveGenerique(FormePharmaceutique id){
+    public FormePharmaceutique saveFormePharmaceutique(FormePharmaceutique id){
         return formePharmaceutiqueRepository.save(id);
     }
 }

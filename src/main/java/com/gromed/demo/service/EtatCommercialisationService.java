@@ -14,21 +14,21 @@ import java.util.Optional;
 public class EtatCommercialisationService {
 
     @Autowired
-    private EtatCommercialisationRepository etatCommercialisationRepository;
+    EtatCommercialisationRepository etatCommercialisationRepository;
 
-    public Optional<EtatCommercialisation> getGenerique(String id) {
+    public Optional<EtatCommercialisation> getEtatcommercial(String id) {
         return etatCommercialisationRepository.findById(id);
     }
 
-    public List<EtatCommercialisation> getAllGeneriques() {
+    public List<EtatCommercialisation> getAllEtatcommercial() {
         return etatCommercialisationRepository.findAll();
     }
 
-    public void deleteGenerique(String id) {
+    public void deleteEtatcommercial(String id) {
         etatCommercialisationRepository.deleteById(id);
     }
 
-    public EtatCommercialisation saveGenerique(EtatCommercialisation id){
+    public EtatCommercialisation saveEtatcommercial(EtatCommercialisation id){
         return etatCommercialisationRepository.save(id);
     }
 }

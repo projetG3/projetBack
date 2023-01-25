@@ -12,21 +12,21 @@ import java.util.Optional;
 public class StatutAdministratifService {
 
     @Autowired
-    private StatutAdministratifRepository statutAdministratifRepository;
+    StatutAdministratifRepository statutAdministratifRepository;
 
-    public Optional<StatutAdministratif> getGenerique(String id) {
+    public Optional<StatutAdministratif> getAdministratif(String id) {
         return statutAdministratifRepository.findById(id);
     }
 
-    public List<StatutAdministratif> getAllGeneriques() {
+    public List<StatutAdministratif> getAllAdministratif() {
         return statutAdministratifRepository.findAll();
     }
 
-    public void deleteGenerique(String id) {
+    public void deleteAdministratif(String id) {
         statutAdministratifRepository.deleteById(id);
     }
 
-    public StatutAdministratif saveGenerique(StatutAdministratif id){
+    public StatutAdministratif saveAdministratif(StatutAdministratif id){
         return statutAdministratifRepository.save(id);
     }
 }

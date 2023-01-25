@@ -2,10 +2,7 @@ package com.gromed.demo;
 
 import com.gromed.demo.model.*;
 import com.gromed.demo.repository.*;
-import com.gromed.demo.service.AvisService;
-import com.gromed.demo.service.CompteService;
-import com.gromed.demo.service.MedicamentService;
-import com.gromed.demo.service.TitulaireService;
+import com.gromed.demo.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,13 +53,22 @@ public class EstconstitueedeTest {
     AvisService avisService;
     @Autowired
     MedicamentService medicamentService;
+    @Autowired
+    TitulaireService titulaireService;
+    @Autowired
+    StatutAdministratifRepository statutAdministratifRepository;
+    @Autowired
+    TypeProcedureRepository typeProcedureRepository;
+    @Autowired
+    EtatCommercialisationRepository etatCommercialisationRepository;
+    @Autowired
+    FormePharmaceutiqueRepository formePharmaceutiqueRepository;
+    @Autowired
+    EtatCommercialisationService etatCommercialisationService;
 
 
     public EstconstitueedeTest() {
     }
-
-    @Autowired
-    TitulaireService titulaireService;
 
     @Test
     public void addTitulaire() throws SQLException {
@@ -73,6 +79,13 @@ public class EstconstitueedeTest {
         System.out.println("ADD TITULAIRE OK");
     }
 
+    @Test
+    public void testEtatCommercialisation(){
+        EtatCommercialisation etatCommercialisation = Fixtures.createEtatcommercialisation();
+        etatCommercialisationRepository.save(etatCommercialisation);
+        EtatCommercialisation e = etatCommercialisationService.saveEtatcommercial(etatCommercialisation);
+        assertThat(e).isNotNull();
+    }
     @Test
     public void testAvis(){
         InformationsimportanteId informationsimportanteId = Fixtures.createInformationsimportantesid();
@@ -98,7 +111,15 @@ public class EstconstitueedeTest {
             titulaireRepository.save(t);
         }
         voieAdministrationRepository.save(voieAdministration);
-        final var medicament = Fixtures.createMedicament(informationsimportantes,  conditionsmedicamenteuses, titulaires, voieAdministrations);
+        StatutAdministratif statutAdministratif = Fixtures.createStatusadministratif();
+        TypeProcedure typeProcedure = Fixtures.createTypeprocedure();
+        EtatCommercialisation etatCommercialisation = Fixtures.createEtatcommercialisation();
+        FormePharmaceutique formePharmaceutique = Fixtures.createFormepharmaceutique();
+        statutAdministratifRepository.save(statutAdministratif);
+        typeProcedureRepository.save(typeProcedure);
+        etatCommercialisationRepository.save(etatCommercialisation);
+        formePharmaceutiqueRepository.save(formePharmaceutique);
+        Medicament medicament = Fixtures.createMedicament(informationsimportantes, conditionsmedicamenteuses, titulaires, voieAdministrations, statutAdministratif, typeProcedure, etatCommercialisation, formePharmaceutique);
         medicamentService.saveMedicament(medicament);
         Avis avis = new Avis();
         avis.setId(1456890);

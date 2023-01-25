@@ -28,7 +28,7 @@ public class Medicament {
     private String typeprocedure;
 
     @ManyToOne
-    @JoinColumn(name = "etatcommercialisation")
+    @JoinColumn(name = "ETATCOMMERCIALISATION")
     private String etatcommercialisation;
 
     @Column(name = "DATEAMM", nullable = false)
