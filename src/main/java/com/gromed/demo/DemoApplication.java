@@ -17,15 +17,9 @@ import java.util.Optional;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		System.out.println("TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST");
-		SpringApplication.run(DemoApplication.class, args);
-		System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK");
 
-		TitulaireService titulaireService = new TitulaireService();
-		Titulaire test = new Titulaire();
-		test.setId("mon testééé");
-		titulaireService.saveTitulaire(test);
-		System.out.println("ADD TITULAIRE OK");
+		SpringApplication.run(DemoApplication.class, args);
+
 
 
 	}
