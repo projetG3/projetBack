@@ -1,7 +1,6 @@
 package com.gromed.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -95,8 +94,6 @@ public class Medicament {
     public void addComposition(Composition composition){compositions.add(composition);}
 
     public void removeComposition(Composition composition){compositions.remove(composition);}
-
-
  */
     public List<Informe> getInforme() {
         return informes;

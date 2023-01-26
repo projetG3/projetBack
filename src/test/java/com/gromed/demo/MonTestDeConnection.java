@@ -50,12 +50,12 @@ public class MonTestDeConnection {
         }
         System.out.println("GET FIRST COMPTE OK");
     }
-/*
+
     @Test
     public void getConditionsMedicamenteuse(){
-        List<Medicament> medicaments = medicamentService.getAllMedicament();
-        Optional<Medicament> medicament = medicaments.stream().findFirst();
-        //Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
+        //List<Medicament> medicaments = medicamentService.getAllMedicament();
+        //Optional<Medicament> medicament = medicaments.stream().findFirst();
+        Optional<Medicament> medicament = medicamentRepository.findById(62007051);
         List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
         estdelivresous.forEach(s->System.out.println(s));
         //System.out.println(estdelivresous.get(0).getId());
@@ -63,8 +63,6 @@ public class MonTestDeConnection {
         //estdelivresous.forEach(s->System.out.println(s));
     }
 
-
- */
     @Test
     public void getConditionsmedicamenteuse(){
         Optional<Conditionsmedicamenteuse> conditionsmedicamenteuse = conditionsmedicamenteuseService.getConditionsmedicamenteuse("pour toute antériorité de traitement supérieur à 1 an :");
