@@ -14,7 +14,7 @@ public class PresentationService {
     @Autowired
     private PresentationRepository presentationRepository;
 
-    public Optional<Presentation> getPresentation(final Integer id) {
+    public Optional<Presentation> getPresentation(final Long id) {
         return presentationRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class PresentationService {
         return presentationRepository.findAll();
     }
 
-    public void deletePresentation(final Integer id) {
+    public void deletePresentation(final Long id) {
         presentationRepository.deleteById(id);
     }
 

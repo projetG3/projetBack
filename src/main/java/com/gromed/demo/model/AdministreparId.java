@@ -5,22 +5,23 @@ import jakarta.persistence.Embeddable;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
+import java.nio.LongBuffer;
 import java.util.Objects;
 
 @Embeddable
 public class AdministreparId implements Serializable {
     private static final Long serialVersionUID = -3612089949395029532L;
     @Column(name = "CODECIS", nullable = false)
-    private Integer codecis;
+    private Long codecis;
 
     @Column(name = "TYPEDEVOIE", nullable = false, length = 50)
     private String typedevoie;
 
-    public Integer getCodecis() {
+    public Long getCodecis() {
         return codecis;
     }
 
-    public void setCodecis(Integer codecis) {
+    public void setCodecis(Long codecis) {
         this.codecis = codecis;
     }
 

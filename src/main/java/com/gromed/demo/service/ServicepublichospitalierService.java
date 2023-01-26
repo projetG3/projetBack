@@ -14,7 +14,7 @@ public class ServicepublichospitalierService {
     @Autowired
     private ServicepublichospitalierRepository servicepublichospitalierRepository;
 
-    public Optional<Servicepublichospitalier> getServicePubliqueHospitalier(final Integer id) {
+    public Optional<Servicepublichospitalier> getServicePubliqueHospitalier(final Long id) {
         return servicepublichospitalierRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class ServicepublichospitalierService {
         return servicepublichospitalierRepository.findAll();
     }
 
-    public void deleteServicePubliqueHospitalier(final Integer id) {
+    public void deleteServicePubliqueHospitalier(final Long id) {
         servicepublichospitalierRepository.deleteById(id);
     }
 

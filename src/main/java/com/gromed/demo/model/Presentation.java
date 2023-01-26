@@ -2,8 +2,8 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,22 +11,22 @@ import java.util.List;
 public class Presentation {
     @Id
     @Column(name = "CODECIP7", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "LIBELLE", nullable = false, length = 50)
+    @Column(name = "LIBELLE", nullable = false, length = 150)
     private String libelle;
 
-    @Column(name = "STATUS", nullable = false, length = 50)
+    @Column(name = "STATUS", nullable = false, length = 150)
     private String status;
 
-    @Column(name = "ETATCOMMERCIALISATION", nullable = false, length = 50)
+    @Column(name = "ETATCOMMERCIALISATION", nullable = false, length = 150)
     private String etatcommercialisation;
 
     @Column(name = "DATECOMMERCIALISATION")
     private LocalDate datecommercialisation;
 
     @Column(name = "CODECIP13")
-    private Integer codecip13;
+    private Long codecip13;
 
     @Column(name = "AGREMENT", nullable = false, length = 15)
     private String agrement;
@@ -34,37 +34,37 @@ public class Presentation {
     @Column(name = "PRIX", precision = 5, scale = 2)
     private Long prix;
 
-    @Column(name = "INDICATIONS", length = 50)
+    @Column(name = "INDICATIONS", length = 1000)
     private String indications;
 
     @Column(name = "QUANTITEDISPO")
     private Integer quantitedispo;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIS")
     private Medicament codecis;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Tauxderemboursement> tauxderemboursements;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIP7")
+    private List<Estrembourseea> estrembourseeas = new ArrayList<>();
 
-    public List<Tauxderemboursement> getTauxderemboursements() {
-        return tauxderemboursements;
+    public List<Estrembourseea> getEstremboursea() {
+        return estrembourseeas;
     }
 
-    public void setTauxderemboursements(List<Tauxderemboursement> tauxderemboursements) {
-        this.tauxderemboursements = tauxderemboursements;
+    public void setEstremboursea(List<Estrembourseea> estrembourseea) {
+        this.estrembourseeas = estrembourseea;
     }
 
-    public void addTauxderemboursement(Tauxderemboursement tauxderemboursement){tauxderemboursements.add(tauxderemboursement);}
+    public void addEstremboursea(Estrembourseea estrembourseea){estrembourseeas.add(estrembourseea);}
 
-    public void removeTauxderemboursement(Tauxderemboursement tauxderemboursement){tauxderemboursements.remove(tauxderemboursement);}
+    public void removeEstremboursea(Estrembourseea estrembourseea){estrembourseeas.remove(estrembourseea);}
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,11 +100,11 @@ public class Presentation {
         this.datecommercialisation = datecommercialisation;
     }
 
-    public Integer getCodecip13() {
+    public Long getCodecip13() {
         return codecip13;
     }
 
-    public void setCodecip13(Integer codecip13) {
+    public void setCodecip13(Long codecip13) {
         this.codecip13 = codecip13;
     }
 
@@ -147,5 +147,4 @@ public class Presentation {
     public void setCodecis(Medicament codecis) {
         this.codecis = codecis;
     }
-
 }

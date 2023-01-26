@@ -2,9 +2,7 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "ETABLISSEMENT")
@@ -93,8 +91,8 @@ public class Etablissement {
     @JoinColumn(name = "CODEMFT", nullable = false)
     private Modedefixationdestarif codemft;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "CODEAPE", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODEAPE")
     private Codeape codeape;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

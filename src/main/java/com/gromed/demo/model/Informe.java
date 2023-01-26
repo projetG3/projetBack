@@ -8,10 +8,6 @@ public class Informe {
     @EmbeddedId
     private InformeId id;
 
-    @MapsId("codecis")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament codecis;
 
     @MapsId
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -30,13 +26,6 @@ public class Informe {
         this.id = id;
     }
 
-    public Medicament getCodecis() {
-        return codecis;
-    }
-
-    public void setCodecis(Medicament codecis) {
-        this.codecis = codecis;
-    }
 
     public Informationsimportante getInformationsimportantes() {
         return informationsimportantes;

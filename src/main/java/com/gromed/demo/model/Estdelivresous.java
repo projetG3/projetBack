@@ -8,13 +8,8 @@ public class Estdelivresous {
     @EmbeddedId
     private EstdelivresousId id;
 
-    @MapsId("CODECIS")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament codecis;
-
     @MapsId("PRESCRIPTION")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "PRESCRIPTION", nullable = false)
     private Conditionsmedicamenteuse prescription;
 
@@ -26,13 +21,6 @@ public class Estdelivresous {
         this.id = id;
     }
 
-    public Medicament getCodecis() {
-        return codecis;
-    }
-
-    public void setCodecis(Medicament codecis) {
-        this.codecis = codecis;
-    }
 
     public Conditionsmedicamenteuse getPrescription() {
         return prescription;

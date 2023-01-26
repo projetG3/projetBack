@@ -11,16 +11,16 @@ import java.util.Objects;
 public class EstcreeparId implements Serializable {
     private static final Long serialVersionUID = -4823655492404513331L;
     @Column(name = "CODECIS", nullable = false)
-    private Integer codecis;
+    private Long codecis;
 
     @Column(name = "NOM", nullable = false, length = 50)
     private String nom;
 
-    public Integer getCodecis() {
+    public Long getCodecis() {
         return codecis;
     }
 
-    public void setCodecis(Integer codecis) {
+    public void setCodecis(Long codecis) {
         this.codecis = codecis;
     }
 

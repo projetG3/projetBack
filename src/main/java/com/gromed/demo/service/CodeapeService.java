@@ -14,7 +14,7 @@ public class CodeapeService {
     @Autowired
     private CodeapeRepository codeapeRepository;
 
-    public Optional<Codeape> getCodeape(Integer id) {
+    public Optional<Codeape> getCodeape(String id) {
         return codeapeRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class CodeapeService {
         return codeapeRepository.findAll();
     }
 
-    public void deleteCodeape(Integer id) {
+    public void deleteCodeape(String id) {
         codeapeRepository.deleteById(id);
     }
 

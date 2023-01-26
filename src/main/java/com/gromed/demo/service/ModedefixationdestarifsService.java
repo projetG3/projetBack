@@ -14,7 +14,7 @@ public class ModedefixationdestarifsService {
     @Autowired
     private ModedefixationdestarifRepository modedefixationdestarifRepository;
 
-    public Optional<Modedefixationdestarif> getModeDeFixationDesTarifs(final Integer id) {
+    public Optional<Modedefixationdestarif> getModeDeFixationDesTarifs(final Long id) {
         return modedefixationdestarifRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class ModedefixationdestarifsService {
         return modedefixationdestarifRepository.findAll();
     }
 
-    public void deleteModeDeFixationDesTarifs(final Integer id) {
+    public void deleteModeDeFixationDesTarifs(final Long id) {
         modedefixationdestarifRepository.deleteById(id);
     }
 

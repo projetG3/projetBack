@@ -14,7 +14,7 @@ public class CommandeService {
     @Autowired
     private CommandeRepository commandeRepository;
 
-    public Optional<Commande> getCommande(Integer id) {
+    public Optional<Commande> getCommande(Long id) {
         return commandeRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class CommandeService {
         return commandeRepository.findAll();
     }
 
-    public void deleteCommande(Integer id) {
+    public void deleteCommande(Long id) {
         commandeRepository.deleteById(id);
     }
 

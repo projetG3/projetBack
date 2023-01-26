@@ -14,7 +14,7 @@ public class CompositionsService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public Optional<Composition> getComposition(Integer id) {
+    public Optional<Composition> getComposition(Long id) {
         return compositionRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class CompositionsService {
         return compositionRepository.findAll();
     }
 
-    public void deleteComposition(Integer id) {
+    public void deleteComposition(Long id) {
         compositionRepository.deleteById(id);
     }
 

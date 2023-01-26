@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Composition {
     @Id
     @Column(name = "IDCOMPO", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "CODESUBSTANCE")
-    private Integer codesubstance;
+    private Long codesubstance;
 
     @Column(name = "DESIGNATIONPHARMACEUTIQUE", nullable = false, length = 50)
     private String designationpharmaceutique;
@@ -41,19 +41,19 @@ public class Composition {
     @OneToOne()
     Medicament codecis;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getCodesubstance() {
+    public Long getCodesubstance() {
         return codesubstance;
     }
 
-    public void setCodesubstance(Integer codesubstance) {
+    public void setCodesubstance(Long codesubstance) {
         this.codesubstance = codesubstance;
     }
 

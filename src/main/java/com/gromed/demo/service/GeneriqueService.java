@@ -14,7 +14,7 @@ public class GeneriqueService {
     @Autowired
     private GeneriqueRepository generiqueRepository;
 
-    public Optional<Generique> getGenerique(Integer id) {
+    public Optional<Generique> getGenerique(Long id) {
         return generiqueRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class GeneriqueService {
         return generiqueRepository.findAll();
     }
 
-    public void deleteGenerique(Integer id) {
+    public void deleteGenerique(Long id) {
         generiqueRepository.deleteById(id);
     }
 

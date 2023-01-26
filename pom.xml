@@ -3,8 +3,8 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
-	<artifactId>myproject</artifactId>
+	<groupId>fr.uga.miage.m1</groupId>
+	<artifactId>visiopad_3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
+		<sonar.host.url>http://im2ag-sonar.u-ga.fr:9000</sonar.host.url>
 	</properties>
 
 	<dependencies>

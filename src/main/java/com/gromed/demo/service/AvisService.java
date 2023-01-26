@@ -14,7 +14,7 @@ public class AvisService {
     @Autowired
     AvisRepository avisRepository;
 
-    public Optional<Avis> getAvis(Integer id) {
+    public Optional<Avis> getAvis(Long id) {
         return avisRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class AvisService {
         return avisRepository.findAll();
     }
 
-    public void deleteAvis(Integer id) {
+    public void deleteAvis(Long id) {
         avisRepository.deleteById(id);
     }
 

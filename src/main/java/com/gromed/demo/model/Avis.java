@@ -10,7 +10,7 @@ public class Avis{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idavis;
+    private Long idavis;
 
     @Column(name = "MOTIFEVALUATION", length = 50)
     private String motifevaluation;
@@ -33,7 +33,7 @@ public class Avis{
     private Boolean typeavis;
 
     @Column(name = "CODEHAS")
-    private Integer codehas;
+    private Long codehas;
 
     @Column(name = "VALEUR")
     private String valeur;
@@ -44,11 +44,11 @@ public class Avis{
     @OneToOne()
     Medicament codecis;
 
-    public Integer getCodehas() {
+    public Long getCodehas() {
         return codehas;
     }
 
-    public void setCodehas(Integer codehas) {
+    public void setCodehas(Long codehas) {
         this.codehas = codehas;
     }
 
@@ -67,11 +67,11 @@ public class Avis{
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-    public Integer getId() {
+    public Long getId() {
         return idavis;
     }
 
-    public void setId(Integer idavis) {
+    public void setId(Long idavis) {
         this.idavis = idavis;
     }
 

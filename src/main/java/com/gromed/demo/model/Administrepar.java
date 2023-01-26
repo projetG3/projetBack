@@ -8,11 +8,6 @@ public class Administrepar {
     @EmbeddedId
     private AdministreparId id;
 
-    @MapsId("medicament")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament medicament;
-
     @MapsId("voieadministration")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TYPEDEVOIE", nullable = false)
@@ -24,14 +19,6 @@ public class Administrepar {
 
     public void setId(AdministreparId id) {
         this.id = id;
-    }
-
-    public Medicament getMedicament() {
-        return medicament;
-    }
-
-    public void setMedicament(Medicament medicament) {
-        medicament = medicament;
     }
 
     public VoieAdministration getVoieadministration() {

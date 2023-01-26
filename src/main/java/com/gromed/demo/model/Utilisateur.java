@@ -2,11 +2,11 @@ package com.gromed.demo.model;
 
 public class Utilisateur {
 
-    private Integer id;
+    private Long id;
 
     private String password;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

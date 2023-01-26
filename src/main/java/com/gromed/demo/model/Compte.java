@@ -8,7 +8,7 @@ public class Compte {
     @Id
     //@GeneratedValue(Strategy = GenerationType.IDENTITY)
     @Column(name="IDCOMPTE", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "NOM", nullable = false, length = 50)
     private String nom;
@@ -23,11 +23,11 @@ public class Compte {
     @Column(name = "MOTDEPASSE", nullable = false, length = 50)
     private String motDePasse;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,8 +3,8 @@ package com.gromed.demo.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 @Entity
 @Table(name = "MEDICAMENT")
@@ -13,137 +13,116 @@ public class Medicament {
     @Column(name = "CODECIS", nullable = false)
     private Long id;
 
-    @Column(name = "NOM", nullable = false, length = 50)
+    @Column(name = "NOM", nullable = false, length = 150)
     private String nom;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "formepharmaceutique")
     private FormePharmaceutique formepharmaceutique;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "statutadministratif")
     private StatutAdministratif statutadministratif;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeprocedure")
     private TypeProcedure typeprocedure;
 
-    @ManyToOne
-    @JoinColumn(name = "ETATCOMMERCIALISATION")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "etatcommercialisation")
     private EtatCommercialisation etatcommercialisation;
 
-    @Column(name = "DATEAMM", nullable = false)
+    @Column(name = "dateamm", nullable = false)
     private LocalDate dateamm;
 
-    @Column(name = "STATUSBDM", length = 50)
+    @Column(name = "statusbdm", length = 150)
     private String statusbdm;
 
-
-    @Column(name = "NUMEROAUTORISATIONEUROPEENNE", length = 50)
+    @Column(name = "numeroautorisationeuropeenne", length = 150)
     private String numeroautorisationeuropeenne;
 
-    @Column(name = "SURVEILLANCERENFORCEE", nullable = false)
+    @Column(name = "surveillancerenforcee", nullable = false)
     private String surveillancerenforcee;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "typeDeVoie")
-    private List<VoieAdministration> voieadministrations;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codecis")
+    private List<Administrepar> administrepars = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private List<Titulaire> titulaires;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codecis")
+    private List<Estcreepar> estcreepars = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "prescription")
-    private List<Estdelivresous> estdelivresous;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codecis")
+    private List<Estdelivresous> estdelivresous = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Informationsimportante> informationsimportantes;
-/*
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private List<Composition> compositions;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codecis")
+    private List<Informe> informes = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Avis> avis;
-
-
-    public List<Avis> getAvis() {
-        return avis;
+    public List<Administrepar> getAdministrepars() {
+        return administrepars;
     }
 
-    public void setAvis(List<Avis> avis) {
-        this.avis= avis;
+    public void setAdministrepars(List<Administrepar> administrepars) {
+        this.administrepars = administrepars;
     }
 
-    public void addAvis(Avis avis){this.avis.add(avis);}
-
-    public void removeAvis(Avis avis){this.avis.remove(avis);}
-
-
-
-    public List<Composition> getCompositions() {
-        return compositions;
+    public List<Estcreepar> getEstcreepars() {
+        return estcreepars;
     }
 
-    public void setCompositions(List<Composition> compositions) {
-        this.compositions= compositions;
+    public void setEstcreepars(List<Estcreepar> estcreepars) {
+        this.estcreepars = estcreepars;
     }
-
-
-    public void addComposition(Composition composition){compositions.add(composition);}
-
-    public void removeComposition(Composition composition){compositions.remove(composition);}
-
-
- */
-    public List<Informationsimportante> getInformationsimportantes() {
-        return informationsimportantes;
-    }
-
-    public void setInformationsimportantes(List<Informationsimportante> informationsimportantes) {
-        this.informationsimportantes= informationsimportantes;
-    }
-
-    public void addInformationsimportante(Informationsimportante informationsimportante){informationsimportantes.add(informationsimportante);}
-
-    public void removeInformationsimportante(Informationsimportante informationsimportante){informationsimportantes.remove(informationsimportantes);}
 
     public List<Estdelivresous> getEstdelivresous() {
         return estdelivresous;
     }
 
     public void setEstdelivresous(List<Estdelivresous> estdelivresous) {
-        this.estdelivresous= estdelivresous;
+        this.estdelivresous = estdelivresous;
     }
 
-    public void addEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.add(estdelivresous);}
-
-    public void removeEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.remove(estdelivresous);}
-
-    public List<Titulaire> getTitulaires() {
-        return titulaires;
-    }
-    public void setTitulaires(List<Titulaire> titulaires) {
-        this.titulaires = titulaires;
-    }
-    public void addTitulaire(Titulaire titulaire){titulaires.add(titulaire);}
-
-    public void removeTitulaire(Titulaire titulaire){titulaires.remove(titulaire);}
-
-    public List<VoieAdministration> getVoieadministrations() {
-        return voieadministrations;
+    public List<Informe> getInformes() {
+        return informes;
     }
 
-    public void setVoieadministrations(List<VoieAdministration> voieadministrations) {
-        this.voieadministrations = voieadministrations;
+    public void setInformes(List<Informe> informes) {
+        this.informes = informes;
     }
 
-    public void addVoieadministration(VoieAdministration voieadministration){voieadministrations.add(voieadministration);}
+    public List<Informe> getInforme() {
+        return informes;
+    }
 
-    public void removeVoieadministration(VoieAdministration voieadministration){voieadministrations.remove(voieadministration);}
+    public void addInforme(Informe informe){informes.add(informe);}
+
+    public void removeInforme(Informe informe){informes.remove(informe);}
+
+    public List<Estcreepar> getEstcreepar() {
+        return estcreepars;
+    }
+
+    public void setEstcreepar(List<Estcreepar> estcreepar) {
+        this.estcreepars = estcreepar;
+    }
+
+    public void addEstcreepar(Estcreepar estcreepar){estcreepars.add(estcreepar);}
+
+    public void removeEstcreepar(Estcreepar estcreepar){estcreepars.remove(estcreepars);}
+
+    public List<Administrepar> getAdministrepar() {
+        return administrepars;
+    }
+
+    public void setAdministrepar(List<Administrepar> administrepar) {
+        this.administrepars = administrepar;
+    }
+
+    public void addAdministrepar(Administrepar administrepar){administrepars.add(administrepar);}
+
+    public void removeAdministrepar(Administrepar administrepar){administrepars.remove(administrepar);}
 
     public Long getId() {
         return id;
@@ -223,5 +202,6 @@ public class Medicament {
     public void setSurveillancerenforcee(String surveillancerenforcee) {
         this.surveillancerenforcee = surveillancerenforcee;
     }
+
 
 }
