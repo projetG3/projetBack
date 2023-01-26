@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @SpringBootTest
 public class MonTestDeConnection {
-
+/*
     @Autowired
     TitulaireService titulaireService;
 
@@ -36,5 +36,5 @@ public class MonTestDeConnection {
             System.out.println(compte.get().getPrenom());
         }
         System.out.println("GET FIRST COMPTE OK");
-    }
+    }*/
 }

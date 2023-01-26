@@ -37,9 +37,6 @@ public class Medicament {
     @Column(name = "STATUSBDM", length = 50)
     private String statusbdm;
 
-    public void setTitulaires(List<Titulaire> titulaires) {
-        this.titulaires = titulaires;
-    }
 
     @Column(name = "NUMEROAUTORISATIONEUROPEENNE", length = 50)
     private String numeroautorisationeuropeenne;
@@ -128,11 +125,9 @@ public class Medicament {
     public List<Titulaire> getTitulaires() {
         return titulaires;
     }
-
-    public void setTitulaire(List<Titulaire> titulaires) {
+    public void setTitulaires(List<Titulaire> titulaires) {
         this.titulaires = titulaires;
     }
-
     public void addTitulaire(Titulaire titulaire){titulaires.add(titulaire);}
 
     public void removeTitulaire(Titulaire titulaire){titulaires.remove(titulaire);}

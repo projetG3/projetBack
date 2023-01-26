@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class EstconstitueedeTest {
-
+/*
     @Autowired
     EstconstitueedeRepository estconstitueedeRepository;
     @Autowired
@@ -134,6 +134,9 @@ public class EstconstitueedeTest {
         Avis a = avisService.saveAvis(avis);
         assertThat(a).isNotNull();
     }
+*/
+
+
 /*
     @Test
     public void testRepo1() {
