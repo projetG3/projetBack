@@ -13,4 +13,12 @@ public class Utilisateur {
     public String getPassword() {
         return password;
     }
+
+    public void setId(Long s) {
+        id=s;
+    }
+
+    public void setPassword(String password) {
+        this.password=password;
+    }
 }

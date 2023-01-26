@@ -1,6 +1,7 @@
 package com.gromed.demo.Service;
 
 import com.gromed.demo.model.Estrembourseea;
+import com.gromed.demo.model.Medicament;
 import com.gromed.demo.model.Presentation;
 import com.gromed.demo.service.PresentationService;
 import org.junit.jupiter.api.Test;
@@ -24,5 +25,13 @@ class PresentationServiceTest {
         List<Estrembourseea> estrembourseeas = presentation.get().getEstremboursea();
         estrembourseeas.forEach(s->System.out.println(s.getId()));
         assertThat(estrembourseeas).isNotNull();
+    }
+
+    @Test
+    void getPresentationMedicament(){
+        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(2663360));
+        Medicament medicament = presentation.get().getCodecis();
+        System.out.println(medicament.getId());
+        assertThat(medicament).isNotNull();
     }
 }

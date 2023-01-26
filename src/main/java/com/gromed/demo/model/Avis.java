@@ -18,6 +18,25 @@ public class Avis{
     @Column(name = "DATEAVIS")
     private LocalDate dateavis;
 
+    @Column(name = "LIEN", length = 40)
+    private String lien;
+
+    @Column(name = "TYPEAVIS")
+    private String typeavis;
+
+    @Column(name = "CODEHAS")
+    private String codehas;
+
+    @Column(name = "VALEUR")
+    private String valeur;
+
+    @Column(name = "LIBELLE")
+    private String libelle;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIS")
+    private Medicament codecis;
+
     public Medicament getCodecis() {
         return codecis;
     }
@@ -26,29 +45,11 @@ public class Avis{
         this.codecis = codecis;
     }
 
-    @Column(name = "LIEN", length = 40)
-    private String lien;
-
-    @Column(name = "TYPEAVIS")
-    private Boolean typeavis;
-
-    @Column(name = "CODEHAS")
-    private Long codehas;
-
-    @Column(name = "VALEUR")
-    private String valeur;
-
-    @Column(name = "LIBELLE")
-    private String libelle;
-
-    @OneToOne()
-    Medicament codecis;
-
-    public Long getCodehas() {
+    public String getCodehas() {
         return codehas;
     }
 
-    public void setCodehas(Long codehas) {
+    public void setCodehas(String codehas) {
         this.codehas = codehas;
     }
 
@@ -99,11 +100,11 @@ public class Avis{
         this.lien = lien;
     }
 
-    public Boolean getTypeavis() {
+    public String getTypeavis() {
         return typeavis;
     }
 
-    public void setTypeavis(Boolean typeavis) {
+    public void setTypeavis(String typeavis) {
         this.typeavis = typeavis;
     }
 }

@@ -38,8 +38,9 @@ public class Composition {
         this.codecis = codecis;
     }
 
-    @OneToOne()
-    Medicament codecis;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIS")
+    private Medicament codecis;
 
     public Long getId() {
         return id;

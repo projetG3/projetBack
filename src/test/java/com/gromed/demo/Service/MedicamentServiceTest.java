@@ -1,5 +1,6 @@
 package com.gromed.demo.Service;
 
+import com.gromed.demo.model.Administrepar;
 import com.gromed.demo.model.Estdelivresous;
 import com.gromed.demo.model.Medicament;
 import com.gromed.demo.service.MedicamentService;
@@ -24,6 +25,14 @@ class MedicamentServiceTest {
         List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
         estdelivresous.forEach(s->System.out.println(s.getId()));
         assertThat(estdelivresous).isNotNull();
+    }
+
+    @Test
+    void getMedicamentAdministrepar(){
+        Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
+        List<Administrepar> administrepars = medicament.get().getAdministrepars();
+        administrepars.forEach(s->System.out.println(s.getVoieadministration().getId()));
+        assertThat(administrepars).isNotNull();
     }
 
 }
