@@ -57,8 +57,8 @@ public class Medicament {
     private List<Titulaire> titulaires;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "conditionsmedicamenteuse")
-    private List<Conditionsmedicamenteuse> conditionsmedicamenteuse;
+    @JoinColumn(name = "prescription")
+    private List<Estdelivresous> estdelivresous;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
@@ -114,17 +114,17 @@ public class Medicament {
 
     public void removeInformationsimportante(Informationsimportante informationsimportante){informationsimportantes.remove(informationsimportantes);}
 
-    public List<Conditionsmedicamenteuse> getConditionsmedicamenteuses() {
-        return conditionsmedicamenteuse;
+    public List<Estdelivresous> getEstdelivresous() {
+        return estdelivresous;
     }
 
-    public void setConditionsmedicamenteuses(List<Conditionsmedicamenteuse> conditionsmedicamenteuses) {
-        this.conditionsmedicamenteuse= conditionsmedicamenteuses;
+    public void setEstdelivresous(List<Estdelivresous> estdelivresous) {
+        this.estdelivresous= estdelivresous;
     }
 
-    public void addConditionsmedicamenteuse(Conditionsmedicamenteuse conditionsmedicamenteuse){this.conditionsmedicamenteuse.add(conditionsmedicamenteuse);}
+    public void addEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.add(estdelivresous);}
 
-    public void removeConditionsmedicamenteuse(Conditionsmedicamenteuse conditionsmedicamenteuse){this.conditionsmedicamenteuse.remove(conditionsmedicamenteuse);}
+    public void removeEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.remove(estdelivresous);}
 
     public List<Titulaire> getTitulaires() {
         return titulaires;
