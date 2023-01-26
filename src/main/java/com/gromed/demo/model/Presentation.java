@@ -2,7 +2,6 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +13,13 @@ public class Presentation {
     @Column(name = "CODECIP7", nullable = false)
     private Long id;
 
-    @Column(name = "LIBELLE", nullable = false, length = 50)
+    @Column(name = "LIBELLE", nullable = false, length = 150)
     private String libelle;
 
-    @Column(name = "STATUS", nullable = false, length = 50)
+    @Column(name = "STATUS", nullable = false, length = 150)
     private String status;
 
-    @Column(name = "ETATCOMMERCIALISATION", nullable = false, length = 50)
+    @Column(name = "ETATCOMMERCIALISATION", nullable = false, length = 150)
     private String etatcommercialisation;
 
     @Column(name = "DATECOMMERCIALISATION")
@@ -41,25 +40,25 @@ public class Presentation {
     @Column(name = "QUANTITEDISPO")
     private Integer quantitedispo;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIS")
     private Medicament codecis;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Tauxderemboursement> tauxderemboursements = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODECIP7")
+    private List<Estrembourseea> estrembourseeas = new ArrayList<>();
 
-    public List<Tauxderemboursement> getTauxderemboursements() {
-        return tauxderemboursements;
+    public List<Estrembourseea> getEstremboursea() {
+        return estrembourseeas;
     }
 
-    public void setTauxderemboursements(List<Tauxderemboursement> tauxderemboursements) {
-        this.tauxderemboursements = tauxderemboursements;
+    public void setEstremboursea(List<Estrembourseea> estrembourseea) {
+        this.estrembourseeas = estrembourseea;
     }
 
-    public void addTauxderemboursement(Tauxderemboursement tauxderemboursement){tauxderemboursements.add(tauxderemboursement);}
+    public void addEstremboursea(Estrembourseea estrembourseea){estrembourseeas.add(estrembourseea);}
 
-    public void removeTauxderemboursement(Tauxderemboursement tauxderemboursement){tauxderemboursements.remove(tauxderemboursement);}
+    public void removeEstremboursea(Estrembourseea estrembourseea){estrembourseeas.remove(estrembourseea);}
 
     public Long getId() {
         return id;
@@ -148,5 +147,4 @@ public class Presentation {
     public void setCodecis(Medicament codecis) {
         this.codecis = codecis;
     }
-
 }

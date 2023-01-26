@@ -85,9 +85,9 @@ public class MonTestDeConnection {
 
     @Test
     public void getPresentation(){
-        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(3939752));
-        List<Tauxderemboursement> tauxderemboursements = presentation.get().getTauxderemboursements();
-        tauxderemboursements.forEach(s->System.out.println(s.getId()));
-        assertThat(tauxderemboursements).isNotNull();
+        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(2663360));
+        List<Estrembourseea> estrembourseeas = presentation.get().getEstremboursea();
+        estrembourseeas.forEach(s->System.out.println(s.getId()));
+        assertThat(estrembourseeas).isNotNull();
     }
 }

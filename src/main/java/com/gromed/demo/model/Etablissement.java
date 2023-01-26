@@ -91,8 +91,8 @@ public class Etablissement {
     @JoinColumn(name = "CODEMFT", nullable = false)
     private Modedefixationdestarif codemft;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "CODEAPE", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODEAPE")
     private Codeape codeape;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
