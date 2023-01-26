@@ -13,12 +13,11 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DbConnection {
 
     @Bean
-    public DataSource myDataSource(//
-            @Value("${spring.datasource.url}") String url, //
-            @Value("${spring.datasource.username}") String user, //
-            @Value("${spring.datasource.password}") String password//
+    public DataSource myDataSource(
+            @Value("${spring.datasource.url}") String url,
+            @Value("${spring.datasource.username}") String user,
+            @Value("${spring.datasource.password}") String password
     ) {
-        System.out.println("--- my datasource");
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setUsername(user);

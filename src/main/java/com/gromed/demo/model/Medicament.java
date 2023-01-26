@@ -60,14 +60,6 @@ public class Medicament {
     @JoinColumn(name = "codecis")
     private List<Informe> informes = new ArrayList<>();
 
-    public List<Administrepar> getAdministrepars() {
-        return administrepars;
-    }
-
-    public void setAdministrepars(List<Administrepar> administrepars) {
-        this.administrepars = administrepars;
-    }
-
     public List<Estcreepar> getEstcreepars() {
         return estcreepars;
     }
@@ -88,31 +80,19 @@ public class Medicament {
         return informes;
     }
 
-    public void setInformes(List<Informe> informes) {
-        this.informes = informes;
-    }
-
-    public List<Informe> getInforme() {
-        return informes;
+    public void setInformes(List<Informe> informe) {
+        this.informes = informe;
     }
 
     public void addInforme(Informe informe){informes.add(informe);}
 
     public void removeInforme(Informe informe){informes.remove(informe);}
 
-    public List<Estcreepar> getEstcreepar() {
-        return estcreepars;
-    }
+    public void addEstcreepars(Estcreepar estcreepar){estcreepars.add(estcreepar);}
 
-    public void setEstcreepar(List<Estcreepar> estcreepar) {
-        this.estcreepars = estcreepar;
-    }
+    public void removeEstcreepar(Estcreepar estcreepar){estcreepars.remove(estcreepar);}
 
-    public void addEstcreepar(Estcreepar estcreepar){estcreepars.add(estcreepar);}
-
-    public void removeEstcreepar(Estcreepar estcreepar){estcreepars.remove(estcreepars);}
-
-    public List<Administrepar> getAdministrepar() {
+    public List<Administrepar> getAdministrepars() {
         return administrepars;
     }
 

@@ -1,9 +1,7 @@
 package com.gromed.demo.service;
 
 import com.gromed.demo.model.EtatCommercialisation;
-import com.gromed.demo.model.FormePharmaceutique;
 import com.gromed.demo.repository.EtatCommercialisationRepository;
-import com.gromed.demo.repository.FormePharmaceutiqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

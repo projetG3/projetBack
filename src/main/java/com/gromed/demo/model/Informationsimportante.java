@@ -17,6 +17,4 @@ public class Informationsimportante {
     public void setId(InformationsimportanteId id) {
         this.id = id;
     }
-
-    //TODO [JPA Buddy] generate columns from DB
 }

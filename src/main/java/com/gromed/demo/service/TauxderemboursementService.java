@@ -12,9 +12,9 @@ import java.util.Optional;
 public class TauxderemboursementService {
 
     @Autowired
-    private TauxderemboursementRepository tauxderemboursementRepository;
+    TauxderemboursementRepository tauxderemboursementRepository;
 
-    public Optional<Tauxderemboursement> getTauxDeRemboursement(final String taux) {
+    public Optional<Tauxderemboursement> getTauxDeRemboursement(String taux) {
         return tauxderemboursementRepository.findById(taux);
     }
 
@@ -22,7 +22,7 @@ public class TauxderemboursementService {
         return tauxderemboursementRepository.findAll();
     }
 
-    public void deleteTauxDeRemboursement(final String taux) {
+    public void deleteTauxDeRemboursement(String taux) {
         tauxderemboursementRepository.deleteById(taux);
     }
 

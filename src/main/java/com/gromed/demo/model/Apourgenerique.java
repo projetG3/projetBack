@@ -45,7 +45,7 @@ public class Apourgenerique {
     }
 
     public void setGenerique(Generique idgenerique) {
-        this.generique = generique;
+        this.generique = idgenerique;
     }
 
     public Integer getType() {

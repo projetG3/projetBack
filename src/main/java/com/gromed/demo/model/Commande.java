@@ -1,8 +1,6 @@
 package com.gromed.demo.model;
 
 import jakarta.persistence.*;
-
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

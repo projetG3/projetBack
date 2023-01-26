@@ -5,7 +5,6 @@ import jakarta.persistence.Embeddable;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
-import java.nio.LongBuffer;
 import java.util.Objects;
 
 @Embeddable

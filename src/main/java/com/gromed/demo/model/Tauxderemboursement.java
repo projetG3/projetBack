@@ -2,8 +2,6 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "TAUXDEREMBOURSEMENT")
 public class Tauxderemboursement {
