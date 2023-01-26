@@ -15,7 +15,7 @@ public class MedicamentService {
     MedicamentRepository medicamentRepository;
 
     public Optional<Medicament> getMedicament(Long id) {
-        return medicamentRepository.findById(Math.toIntExact(id));
+        return medicamentRepository.findById(id);
     }
 
     public List<Medicament> getAllMedicament() {
@@ -23,7 +23,7 @@ public class MedicamentService {
     }
 
     public void deleteMedicament(Long id) {
-        medicamentRepository.deleteById(Math.toIntExact(id));
+        medicamentRepository.deleteById(id);
     }
 
     public Medicament saveMedicament(Medicament medoc){

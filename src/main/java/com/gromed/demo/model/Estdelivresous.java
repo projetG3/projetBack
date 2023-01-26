@@ -9,11 +9,11 @@ public class Estdelivresous {
     private EstdelivresousId id;
 
     @MapsId("CODECIS")
-    @JoinColumn(name = "CODECIS", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Medicament codecis;
 
     @MapsId("PRESCRIPTION")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "PRESCRIPTION", nullable = false)
     private Conditionsmedicamenteuse prescription;
 

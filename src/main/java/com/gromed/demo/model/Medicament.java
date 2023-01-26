@@ -15,19 +15,19 @@ public class Medicament {
     @Column(name = "NOM", nullable = false, length = 150)
     private String nom;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "formepharmaceutique")
     private FormePharmaceutique formepharmaceutique;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "statutadministratif")
     private StatutAdministratif statutadministratif;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeprocedure")
     private TypeProcedure typeprocedure;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "etatcommercialisation")
     private EtatCommercialisation etatcommercialisation;
 
@@ -43,20 +43,16 @@ public class Medicament {
     @Column(name = "surveillancerenforcee", nullable = false)
     private String surveillancerenforcee;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "typeDeVoie", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medicament", cascade = CascadeType.ALL)
     private List<Administrepar> administrepars;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codecis", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Estcreepar> estcreepars;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codecis", nullable = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Estdelivresous> estdelivresous;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codecis", nullable = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Informe> informes;
 /*
     @OneToMany(fetch = FetchType.LAZY)
