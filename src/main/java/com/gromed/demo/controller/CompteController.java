@@ -20,7 +20,7 @@ public class CompteController {
     private CompteService compteService;
 
     @PostMapping("/auth")
-    @CrossOrigin("http://localhost:4200")
+    @CrossOrigin()
     public Compte checkUser(@RequestBody Utilisateur user){
         if(user == null || user.getId() == null || user.getPassword() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
