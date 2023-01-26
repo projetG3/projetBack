@@ -10,7 +10,7 @@ import java.util.List;
 public class Medicament {
     @Id
     @Column(name = "CODECIS", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "NOM", nullable = false, length = 50)
     private String nom;
@@ -45,7 +45,7 @@ public class Medicament {
     private String numeroautorisationeuropeenne;
 
     @Column(name = "SURVEILLANCERENFORCEE", nullable = false)
-    private Boolean surveillancerenforcee = false;
+    private String surveillancerenforcee;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeDeVoie")
@@ -55,9 +55,9 @@ public class Medicament {
     @JoinColumn(name = "id")
     private List<Titulaire> titulaires;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private List<Conditionsmedicamenteuse> conditionsmedicamenteuses;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "conditionsmedicamenteuse")
+    private List<Conditionsmedicamenteuse> conditionsmedicamenteuse;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
@@ -165,34 +165,34 @@ public class Medicament {
         this.nom = nom;
     }
 
-    public FormePharmaceutique getFormepharmaceutique() {
+    public String getFormepharmaceutique() {
         return formepharmaceutique;
     }
 
-    public void setFormepharmaceutique(FormePharmaceutique formepharmaceutique) {
+    public void setFormepharmaceutique(String formepharmaceutique) {
         this.formepharmaceutique= formepharmaceutique;
     }
-    public StatutAdministratif getStatutadministratif() {
+    public String getStatutadministratif() {
         return statutadministratif;
     }
 
-    public void setStatutadministratif(StatutAdministratif statutadministratif) {
+    public void setStatutadministratif(String statutadministratif) {
         this.statutadministratif = statutadministratif;
     }
 
-    public TypeProcedure getTypeprocedure() {
+    public String getTypeprocedure() {
         return typeprocedure;
     }
 
-    public void setTypeprocedure(TypeProcedure typeprocedure) {
+    public void setTypeprocedure(String typeprocedure) {
         this.typeprocedure = typeprocedure;
     }
 
-    public EtatCommercialisation getEtatcommercialisation() {
+    public String getEtatcommercialisation() {
         return etatcommercialisation;
     }
 
-    public void setEtatcommercialisation(EtatCommercialisation etatcommercialisation) {
+    public void setEtatcommercialisation(String etatcommercialisation) {
         this.etatcommercialisation = etatcommercialisation;
     }
 

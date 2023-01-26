@@ -8,13 +8,13 @@ public class Estdelivresous {
     @EmbeddedId
     private EstdelivresousId id;
 
-    @MapsId("codecis")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId("CODECIS")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIS", nullable = false)
     private Medicament codecis;
 
-    @MapsId("prescription")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId("PRESCRIPTION")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "PRESCRIPTION", nullable = false)
     private Conditionsmedicamenteuse prescription;
 
