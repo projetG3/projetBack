@@ -45,7 +45,7 @@ public class Presentation {
     @JoinColumn(name = "CODECIS", nullable = false)
     private Medicament codecis;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", nullable = false)
     private List<Tauxderemboursement> tauxderemboursements = new ArrayList<>();
 
