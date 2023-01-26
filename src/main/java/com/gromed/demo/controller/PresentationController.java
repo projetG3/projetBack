@@ -17,11 +17,12 @@ public class PresentationController {
     @Autowired
     private PresentationService presentationService;
 
+    /*
     @GetMapping("/list")
     @CrossOrigin()
     public List<Presentation> getAllPresentation() {
         return presentationService.getAllPresentation();
-    }
+    }*/
 
     /*
     @GetMapping("/resultat")

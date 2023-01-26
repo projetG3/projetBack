@@ -24,8 +24,13 @@ public class MedicamentController {
 
     @GetMapping("/list")
     @CrossOrigin()
-    public List<Medicament> getAllMedicament() {
-        return medicamentService.getAllMedicament();
+    public Medicament getAllMedicament() {
+        Optional <Medicament> medoc = medicamentService.getMedicament(Long.valueOf(66005293));
+        if(medoc.isPresent()){
+            Medicament monMedicamentReel = medoc.get();
+            return monMedicamentReel;
+        }
+        return null;
     }
 
     /*
