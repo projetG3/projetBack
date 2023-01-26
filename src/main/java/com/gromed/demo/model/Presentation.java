@@ -34,7 +34,7 @@ public class Presentation {
     @Column(name = "PRIX", precision = 5, scale = 2)
     private Long prix;
 
-    @Column(name = "INDICATIONS", length = 50)
+    @Column(name = "INDICATIONS", length = 1000)
     private String indications;
 
     @Column(name = "QUANTITEDISPO")

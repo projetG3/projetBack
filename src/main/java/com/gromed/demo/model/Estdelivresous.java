@@ -9,7 +9,6 @@ public class Estdelivresous {
     private EstdelivresousId id;
 
     @MapsId("CODECIS")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIS", nullable = false)
     private Medicament codecis;
 

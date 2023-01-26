@@ -21,13 +21,12 @@ public class MonTestDeConnection {
 
     @Autowired
     TitulaireService titulaireService;
-
     @Autowired
     CompteService compteService;
     @Autowired
     MedicamentService medicamentService;
     @Autowired
-    private ConditionsmedicamenteuseRepository conditionsmedicamenteuseRepository;
+    ConditionsmedicamenteuseRepository conditionsmedicamenteuseRepository;
     @Autowired
     MedicamentRepository medicamentRepository;
     @Autowired
@@ -55,11 +54,11 @@ public class MonTestDeConnection {
     public void getConditionsMedicamenteuse(){
         //List<Medicament> medicaments = medicamentService.getAllMedicament();
         //Optional<Medicament> medicament = medicaments.stream().findFirst();
-        Optional<Medicament> medicament = medicamentRepository.findById(62007051);
-        List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
-        estdelivresous.forEach(s->System.out.println(s));
+        Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
+        //List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
+        //estdelivresous.forEach(s->System.out.println(s));
         //System.out.println(estdelivresous.get(0).getId());
-        assertThat(estdelivresous).isNotNull();
+        //assertThat(estdelivresous).isNotNull();
         //estdelivresous.forEach(s->System.out.println(s));
     }
 

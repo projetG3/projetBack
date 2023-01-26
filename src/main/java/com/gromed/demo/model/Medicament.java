@@ -28,19 +28,19 @@ public class Medicament {
     private TypeProcedure typeprocedure;
 
     @ManyToOne
-    @JoinColumn(name = "ETATCOMMERCIALISATION")
+    @JoinColumn(name = "etatcommercialisation")
     private EtatCommercialisation etatcommercialisation;
 
-    @Column(name = "DATEAMM", nullable = false)
+    @Column(name = "dateamm", nullable = false)
     private LocalDate dateamm;
 
-    @Column(name = "STATUSBDM", length = 150)
+    @Column(name = "statusbdm", length = 150)
     private String statusbdm;
 
-    @Column(name = "NUMEROAUTORISATIONEUROPEENNE", length = 150)
+    @Column(name = "numeroautorisationeuropeenne", length = 150)
     private String numeroautorisationeuropeenne;
 
-    @Column(name = "SURVEILLANCERENFORCEE", nullable = false)
+    @Column(name = "surveillancerenforcee", nullable = false)
     private String surveillancerenforcee;
 
     @ManyToMany(fetch = FetchType.LAZY)

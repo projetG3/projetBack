@@ -9,16 +9,16 @@ public class Apourgenerique {
     private ApourgeneriqueId id;
 
     @MapsId("codecis")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIS", nullable = false)
     private Medicament medicament;
 
     @MapsId("idgenerique")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "IDGENERIQUE", nullable = false)
     private Generique generique;
 
-    @Column(name = "\"TYPE\"", nullable = false)
+    @Column(name = "TYPE", nullable = false)
     private Integer type;
 
     @Column(name = "TRIE", nullable = false)

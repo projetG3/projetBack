@@ -31,7 +31,7 @@ public class Administrepar {
     }
 
     public void setMedicament(Medicament medicament) {
-        medicament = medicament;
+        this.medicament = medicament;
     }
 
     public VoieAdministration getVoieadministration() {
