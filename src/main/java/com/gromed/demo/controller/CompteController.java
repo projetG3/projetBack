@@ -27,7 +27,7 @@ public class CompteController {
         }
         Optional<Compte> compte = compteService.getCompte(user.getId());
         if(!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Cette ID n'existe pas");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cette ID n'existe pas");
         }
         if(!compte.get().getMotDePasse().equals(user.getPassword())){
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mot de passe incorrect");

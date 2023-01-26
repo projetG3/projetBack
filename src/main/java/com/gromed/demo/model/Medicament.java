@@ -16,19 +16,19 @@ public class Medicament {
     @Column(name = "NOM", nullable = false, length = 150)
     private String nom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "formepharmaceutique")
     private FormePharmaceutique formepharmaceutique;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "statutadministratif")
     private StatutAdministratif statutadministratif;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "typeprocedure")
     private TypeProcedure typeprocedure;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "etatcommercialisation")
     private EtatCommercialisation etatcommercialisation;
 

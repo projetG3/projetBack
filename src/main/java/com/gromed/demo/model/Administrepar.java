@@ -9,7 +9,7 @@ public class Administrepar {
     private AdministreparId id;
 
     @MapsId("voieadministration")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "TYPEDEVOIE", nullable = false)
     private VoieAdministration voieadministration;
 
