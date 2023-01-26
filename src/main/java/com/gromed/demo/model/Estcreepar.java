@@ -8,11 +8,6 @@ public class Estcreepar {
     @EmbeddedId
     private EstcreeparId id;
 
-    @MapsId("codecis")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CODECIS", nullable = false)
-    private Medicament codecis;
-
     @MapsId("nom")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "NOM", nullable = false)
@@ -24,14 +19,6 @@ public class Estcreepar {
 
     public void setId(EstcreeparId id) {
         this.id = id;
-    }
-
-    public Medicament getCodecis() {
-        return codecis;
-    }
-
-    public void setCodecis(Medicament codecis) {
-        this.codecis = codecis;
     }
 
     public Titulaire getNom() {

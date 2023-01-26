@@ -14,7 +14,7 @@ public class CategorieetablissementService {
     @Autowired
     private CategorieetablissementRepository categorieetablissementRepository;
 
-    public Optional<Categorieetablissement> getCategorieEtablissement(Integer id) {
+    public Optional<Categorieetablissement> getCategorieEtablissement(Long id) {
         return categorieetablissementRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class CategorieetablissementService {
         return categorieetablissementRepository.findAll();
     }
 
-    public void deleteCategorieEtablissement(Integer id) {
+    public void deleteCategorieEtablissement(Long id) {
         categorieetablissementRepository.deleteById(id);
     }
 

@@ -10,16 +10,16 @@ import jakarta.persistence.Table;
 public class Generique {
     @Id
     @Column(name = "IDGENERIQUE", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "LIBELLE", length = 200)
     private String libelle;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

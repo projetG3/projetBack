@@ -49,48 +49,13 @@ public class Medicament {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Estcreepar> estcreepars;
 
+    /*
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Estdelivresous> estdelivresous;
-
+*/
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "codecis", cascade = CascadeType.ALL)
     private List<Informe> informes;
-/*
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private List<Composition> compositions;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-    private List<Avis> avis;
-
-
-    public List<Avis> getAvis() {
-        return avis;
-    }
-
-    public void setAvis(List<Avis> avis) {
-        this.avis= avis;
-    }
-
-    public void addAvis(Avis avis){this.avis.add(avis);}
-
-    public void removeAvis(Avis avis){this.avis.remove(avis);}
-
-
-
-    public List<Composition> getCompositions() {
-        return compositions;
-    }
-
-    public void setCompositions(List<Composition> compositions) {
-        this.compositions= compositions;
-    }
-
-
-    public void addComposition(Composition composition){compositions.add(composition);}
-
-    public void removeComposition(Composition composition){compositions.remove(composition);}
- */
     public List<Informe> getInforme() {
         return informes;
     }
@@ -102,7 +67,7 @@ public class Medicament {
     public void addInforme(Informe informe){informes.add(informe);}
 
     public void removeInforme(Informe informe){informes.remove(informe);}
-
+/*
     public List<Estdelivresous> getEstdelivresous() {
         return estdelivresous;
     }
@@ -114,7 +79,7 @@ public class Medicament {
     public void addEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.add(estdelivresous);}
 
     public void removeEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.remove(estdelivresous);}
-
+*/
     public List<Estcreepar> getEstcreepar() {
         return estcreepars;
     }

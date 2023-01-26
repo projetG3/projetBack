@@ -11,24 +11,24 @@ import java.util.Objects;
 public class ApourgeneriqueId implements Serializable {
     private static final Long serialVersionUID = -6634534253477997448L;
     @Column(name = "CODECIS", nullable = false)
-    private Integer codecis;
+    private Long codecis;
 
     @Column(name = "IDGENERIQUE", nullable = false)
-    private Integer idgenerique;
+    private Long idgenerique;
 
-    public Integer getCodecis() {
+    public Long getCodecis() {
         return codecis;
     }
 
-    public void setCodecis(Integer codecis) {
+    public void setCodecis(Long codecis) {
         this.codecis = codecis;
     }
 
-    public Integer getIdgenerique() {
+    public Long getIdgenerique() {
         return idgenerique;
     }
 
-    public void setIdgenerique(Integer idgenerique) {
+    public void setIdgenerique(Long idgenerique) {
         this.idgenerique = idgenerique;
     }
 

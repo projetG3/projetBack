@@ -11,7 +11,7 @@ import java.util.List;
 public class Presentation {
     @Id
     @Column(name = "CODECIP7", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "LIBELLE", nullable = false, length = 50)
     private String libelle;
@@ -26,7 +26,7 @@ public class Presentation {
     private LocalDate datecommercialisation;
 
     @Column(name = "CODECIP13")
-    private Integer codecip13;
+    private Long codecip13;
 
     @Column(name = "AGREMENT", nullable = false, length = 15)
     private String agrement;
@@ -60,11 +60,11 @@ public class Presentation {
 
     public void removeTauxderemboursement(Tauxderemboursement tauxderemboursement){tauxderemboursements.remove(tauxderemboursement);}
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,11 +100,11 @@ public class Presentation {
         this.datecommercialisation = datecommercialisation;
     }
 
-    public Integer getCodecip13() {
+    public Long getCodecip13() {
         return codecip13;
     }
 
-    public void setCodecip13(Integer codecip13) {
+    public void setCodecip13(Long codecip13) {
         this.codecip13 = codecip13;
     }
 

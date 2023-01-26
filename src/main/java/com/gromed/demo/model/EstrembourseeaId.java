@@ -11,24 +11,24 @@ import java.util.Objects;
 public class EstrembourseeaId implements Serializable {
     private static final Long serialVersionUID = 8749687658988860075L;
     @Column(name = "CODECIP7", nullable = false)
-    private Integer codecip7;
+    private Long codecip7;
 
     @Column(name = "TAUX", nullable = false)
-    private Integer taux;
+    private Long taux;
 
-    public Integer getCodecip7() {
+    public Long getCodecip7() {
         return codecip7;
     }
 
-    public void setCodecip7(Integer codecip7) {
+    public void setCodecip7(Long codecip7) {
         this.codecip7 = codecip7;
     }
 
-    public Integer getTaux() {
+    public Long getTaux() {
         return taux;
     }
 
-    public void setTaux(Integer taux) {
+    public void setTaux(Long taux) {
         this.taux = taux;
     }
 

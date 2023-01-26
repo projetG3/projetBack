@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ModedefixationdestarifRepository extends JpaRepository<Modedefixationdestarif, Integer> {
+public interface ModedefixationdestarifRepository extends JpaRepository<Modedefixationdestarif, Long> {
 }

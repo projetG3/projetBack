@@ -43,7 +43,7 @@ public class MonTestDeConnection {
 
     @Test
     public void getFirstCompte() throws SQLException{
-        Optional <Compte> compte = compteService.getCompte(1);
+        Optional <Compte> compte = compteService.getCompte(Long.valueOf(1));
         if(compte.isPresent()){
             System.out.println(compte.get().getPrenom());
         }

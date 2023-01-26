@@ -10,16 +10,16 @@ import jakarta.persistence.Table;
 public class Modedefixationdestarif {
     @Id
     @Column(name = "CODEMFT", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "LIBELLE", length = 100)
     private String libelle;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

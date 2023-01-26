@@ -11,24 +11,24 @@ import java.util.Objects;
 public class EstlivreeId implements Serializable {
     private static final Long serialVersionUID = -1538844310627841663L;
     @Column(name = "IDCOMMANDE", nullable = false)
-    private Integer idcommande;
+    private Long idcommande;
 
     @Column(name = "CODECIP7", nullable = false)
-    private Integer codecip7;
+    private Long codecip7;
 
-    public Integer getIdcommande() {
+    public Long getIdcommande() {
         return idcommande;
     }
 
-    public void setIdcommande(Integer idcommande) {
+    public void setIdcommande(Long idcommande) {
         this.idcommande = idcommande;
     }
 
-    public Integer getCodecip7() {
+    public Long getCodecip7() {
         return codecip7;
     }
 
-    public void setCodecip7(Integer codecip7) {
+    public void setCodecip7(Long codecip7) {
         this.codecip7 = codecip7;
     }
 

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class InformeId implements Serializable {
     private static final Long serialVersionUID = -5454294255022796044L;
     @Column(name = "CODECIS", nullable = false)
-    private Integer codecis;
+    private Long codecis;
 
     @Column(name = "DATEDEBUTINFO", nullable = false)
     private LocalDate datedebutinfo;
@@ -23,11 +23,11 @@ public class InformeId implements Serializable {
     @Column(name = "INFORMATION", nullable = false, length = 500)
     private String information;
 
-    public Integer getCodecis() {
+    public Long getCodecis() {
         return codecis;
     }
 
-    public void setCodecis(Integer codecis) {
+    public void setCodecis(Long codecis) {
         this.codecis = codecis;
     }
 
