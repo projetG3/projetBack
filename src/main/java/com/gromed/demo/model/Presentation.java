@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,7 +47,7 @@ public class Presentation {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
-    private List<Tauxderemboursement> tauxderemboursements;
+    private List<Tauxderemboursement> tauxderemboursements = new ArrayList<>();
 
     public List<Tauxderemboursement> getTauxderemboursements() {
         return tauxderemboursements;

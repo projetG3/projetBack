@@ -55,8 +55,8 @@ public class MonTestDeConnection {
         //List<Medicament> medicaments = medicamentService.getAllMedicament();
         //Optional<Medicament> medicament = medicaments.stream().findFirst();
         Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
-        //List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
-        //estdelivresous.forEach(s->System.out.println(s));
+        List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
+        estdelivresous.forEach(s->System.out.println(s));
         //System.out.println(estdelivresous.get(0).getId());
         //assertThat(estdelivresous).isNotNull();
         //estdelivresous.forEach(s->System.out.println(s));
