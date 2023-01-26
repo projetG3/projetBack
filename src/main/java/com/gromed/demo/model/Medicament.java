@@ -4,32 +4,33 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Stack;
 
 @Entity
 @Table(name = "MEDICAMENT")
 public class Medicament {
     @Id
     @Column(name = "CODECIS", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "NOM", nullable = false, length = 50)
     private String nom;
 
     @ManyToOne
     @JoinColumn(name = "formepharmaceutique")
-    private String formepharmaceutique;
+    private FormePharmaceutique formepharmaceutique;
 
     @ManyToOne
     @JoinColumn(name = "statutadministratif")
-    private String statutadministratif;
+    private StatutAdministratif statutadministratif;
 
     @ManyToOne
     @JoinColumn(name = "typeprocedure")
-    private String typeprocedure;
+    private TypeProcedure typeprocedure;
 
     @ManyToOne
     @JoinColumn(name = "ETATCOMMERCIALISATION")
-    private String etatcommercialisation;
+    private EtatCommercialisation etatcommercialisation;
 
     @Column(name = "DATEAMM", nullable = false)
     private LocalDate dateamm;
@@ -42,7 +43,7 @@ public class Medicament {
     private String numeroautorisationeuropeenne;
 
     @Column(name = "SURVEILLANCERENFORCEE", nullable = false)
-    private Boolean surveillancerenforcee = false;
+    private String surveillancerenforcee;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeDeVoie")
@@ -52,9 +53,9 @@ public class Medicament {
     @JoinColumn(name = "id")
     private List<Titulaire> titulaires;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private List<Conditionsmedicamenteuse> conditionsmedicamenteuses;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prescription")
+    private List<Estdelivresous> estdelivresous;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
@@ -110,17 +111,17 @@ public class Medicament {
 
     public void removeInformationsimportante(Informationsimportante informationsimportante){informationsimportantes.remove(informationsimportantes);}
 
-    public List<Conditionsmedicamenteuse> getConditionsmedicamenteuses() {
-        return conditionsmedicamenteuses;
+    public List<Estdelivresous> getEstdelivresous() {
+        return estdelivresous;
     }
 
-    public void setConditionsmedicamenteuses(List<Conditionsmedicamenteuse> conditionsmedicamenteuses) {
-        this.conditionsmedicamenteuses= conditionsmedicamenteuses;
+    public void setEstdelivresous(List<Estdelivresous> estdelivresous) {
+        this.estdelivresous= estdelivresous;
     }
 
-    public void addConditionsmedicamenteuse(Conditionsmedicamenteuse conditionsmedicamenteuse){conditionsmedicamenteuses.add(conditionsmedicamenteuse);}
+    public void addEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.add(estdelivresous);}
 
-    public void removeConditionsmedicamenteuse(Conditionsmedicamenteuse conditionsmedicamenteuse){conditionsmedicamenteuses.remove(conditionsmedicamenteuse);}
+    public void removeEstdelivresous(Estdelivresous estdelivresous){this.estdelivresous.remove(estdelivresous);}
 
     public List<Titulaire> getTitulaires() {
         return titulaires;
@@ -144,11 +145,11 @@ public class Medicament {
 
     public void removeVoieadministration(VoieAdministration voieadministration){voieadministrations.remove(voieadministration);}
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -160,34 +161,34 @@ public class Medicament {
         this.nom = nom;
     }
 
-    public String getFormepharmaceutique() {
+    public FormePharmaceutique getFormepharmaceutique() {
         return formepharmaceutique;
     }
 
-    public void setFormepharmaceutique(String formepharmaceutique) {
+    public void setFormepharmaceutique(FormePharmaceutique formepharmaceutique) {
         this.formepharmaceutique= formepharmaceutique;
     }
-    public String getStatutadministratif() {
+    public StatutAdministratif getStatutadministratif() {
         return statutadministratif;
     }
 
-    public void setStatutadministratif(String statutadministratif) {
+    public void setStatutadministratif(StatutAdministratif statutadministratif) {
         this.statutadministratif = statutadministratif;
     }
 
-    public String getTypeprocedure() {
+    public TypeProcedure getTypeprocedure() {
         return typeprocedure;
     }
 
-    public void setTypeprocedure(String typeprocedure) {
+    public void setTypeprocedure(TypeProcedure typeprocedure) {
         this.typeprocedure = typeprocedure;
     }
 
-    public String getEtatcommercialisation() {
+    public EtatCommercialisation getEtatcommercialisation() {
         return etatcommercialisation;
     }
 
-    public void setEtatcommercialisation(String etatcommercialisation) {
+    public void setEtatcommercialisation(EtatCommercialisation etatcommercialisation) {
         this.etatcommercialisation = etatcommercialisation;
     }
 
@@ -215,11 +216,11 @@ public class Medicament {
         this.numeroautorisationeuropeenne = numeroautorisationeuropeenne;
     }
 
-    public Boolean getSurveillancerenforcee() {
+    public String getSurveillancerenforcee() {
         return surveillancerenforcee;
     }
 
-    public void setSurveillancerenforcee(Boolean surveillancerenforcee) {
+    public void setSurveillancerenforcee(String surveillancerenforcee) {
         this.surveillancerenforcee = surveillancerenforcee;
     }
 

@@ -16,7 +16,7 @@ public class Compte {
     @Column(name = "PRENOM", nullable = false, length = 50)
     private String prenom;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "FINESSET", nullable = false)
     private Etablissement etablissement;
 
@@ -47,7 +47,7 @@ public class Compte {
         this.prenom = prenom;
     }
 
-    public Etablissement getEetablissement() {
+    public Etablissement getEtablissement() {
         return etablissement;
     }
 

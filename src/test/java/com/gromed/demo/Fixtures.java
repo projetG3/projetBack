@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Fixtures {
-/*
-    public static Commande createCommande(Compte compte) {
+
+    /*public static Commande createCommande(Compte compte) {
         Commande commande = new Commande();
         commande.setId(12);
         commande.setDateheurecommande(LocalDateTime.now());
@@ -120,20 +120,20 @@ public class Fixtures {
 
     public static Medicament createMedicament(List<Informationsimportante> informationsimportantes, List<Conditionsmedicamenteuse> conditionsmedicamenteuses, List<Titulaire> titulaires, List<VoieAdministration> voieAdministrations,  StatutAdministratif statutAdministratif, TypeProcedure typeProcedure, EtatCommercialisation etatCommercialisation,FormePharmaceutique formePharmaceutique) {
         Medicament medicament = new Medicament();
-        medicament.setId(14);
+        medicament.setId(64130871L);
         medicament.setInformationsimportantes(informationsimportantes);
         medicament.setConditionsmedicamenteuses(conditionsmedicamenteuses);
         medicament.setTitulaire(titulaires);
         medicament.setVoieadministrations(voieAdministrations);
-        medicament.setNom("bonjour");
-        medicament.setFormepharmaceutique(formePharmaceutique.getId());
-        medicament.setStatutadministratif(statutAdministratif.getId());
-        medicament.setTypeprocedure(typeProcedure.getId());
-        medicament.setEtatcommercialisation(etatCommercialisation.getId());
-        medicament.setDateamm(LocalDate.now());
-        medicament.setStatusbdm("bonjour");
-        medicament.setNumeroautorisationeuropeenne("13.3");
-        medicament.setSurveillancerenforcee(true);
+        medicament.setNom("ACECLOFENAC BIOGARAN 100 mg, comprimé pelliculé");
+        medicament.setFormepharmaceutique(formePharmaceutique);
+        medicament.setStatutadministratif(statutAdministratif);
+        medicament.setTypeprocedure(typeProcedure);
+        medicament.setEtatcommercialisation(etatCommercialisation);
+        medicament.setDateamm(LocalDate.ofEpochDay(2015-10-28));
+        medicament.setStatusbdm("null");
+        medicament.setNumeroautorisationeuropeenne("null");
+        medicament.setSurveillancerenforcee("non");
         return medicament;
     }
 
@@ -170,7 +170,7 @@ public class Fixtures {
 
     public static Conditionsmedicamenteuse createConditionsmedicamenteuses() {
         Conditionsmedicamenteuse conditionsmedicamenteuse = new Conditionsmedicamenteuse();
-        conditionsmedicamenteuse.setId("13");
+        conditionsmedicamenteuse.setId("liste II");
         return conditionsmedicamenteuse;
     }
 
@@ -203,25 +203,25 @@ public class Fixtures {
 
     public static StatutAdministratif createStatusadministratif() {
         StatutAdministratif statutAdministratif = new StatutAdministratif();
-        statutAdministratif.setId("hej");
+        statutAdministratif.setId("Autorisation active");
         return statutAdministratif;
     }
 
     public static TypeProcedure createTypeprocedure() {
         TypeProcedure typeProcedure = new TypeProcedure();
-        typeProcedure.setId("hej");
+        typeProcedure.setId("Procédure décentralisée");
         return typeProcedure;
     }
 
     public static EtatCommercialisation createEtatcommercialisation() {
         EtatCommercialisation etatCommercialisation = new EtatCommercialisation();
-        etatCommercialisation.setId("hej");
+        etatCommercialisation.setId("Commercialisé");
         return etatCommercialisation;
     }
 
     public static FormePharmaceutique createFormepharmaceutique() {
         FormePharmaceutique formePharmaceutique = new FormePharmaceutique();
-        formePharmaceutique.setId("hej");
+        formePharmaceutique.setId("comprimé pelliculé");
         return formePharmaceutique;
     }*/
 }

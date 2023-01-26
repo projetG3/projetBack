@@ -65,6 +65,8 @@ public class EstconstitueedeTest {
     FormePharmaceutiqueRepository formePharmaceutiqueRepository;
     @Autowired
     EtatCommercialisationService etatCommercialisationService;
+    @Autowired
+    ConditionsmedicamenteuseService conditionsmedicamenteuseService;
 
 
     public EstconstitueedeTest() {
@@ -81,11 +83,20 @@ public class EstconstitueedeTest {
 
     @Test
     public void testEtatCommercialisation(){
-        EtatCommercialisation etatCommercialisation = Fixtures.createEtatcommercialisation();
-        etatCommercialisationRepository.save(etatCommercialisation);
+        EtatCommercialisation etatCommercialisation = new EtatCommercialisation();
+        etatCommercialisation.setId("rhyjudfr");
         EtatCommercialisation e = etatCommercialisationService.saveEtatcommercial(etatCommercialisation);
         assertThat(e).isNotNull();
     }
+
+    @Test
+    public void testConditionsmedicamenteuse(){
+        Conditionsmedicamenteuse conditionsmedicamenteuse = new Conditionsmedicamenteuse();
+        conditionsmedicamenteuse.setId("liste II");
+        Conditionsmedicamenteuse c = conditionsmedicamenteuseService.saveConditionsmedicamenteuse(conditionsmedicamenteuse);
+        assertThat(c).isNotNull();
+    }
+
     @Test
     public void testAvis(){
         InformationsimportanteId informationsimportanteId = Fixtures.createInformationsimportantesid();
@@ -101,6 +112,15 @@ public class EstconstitueedeTest {
         titulaires.add(titulaire);
         List<VoieAdministration> voieAdministrations = new ArrayList<>();
         voieAdministrations.add(voieAdministration);
+        StatutAdministratif statutAdministratif = Fixtures.createStatusadministratif();
+        TypeProcedure typeProcedure = Fixtures.createTypeprocedure();
+        EtatCommercialisation etatCommercialisation = Fixtures.createEtatcommercialisation();
+        FormePharmaceutique formePharmaceutique = Fixtures.createFormepharmaceutique();
+        Medicament medicament = Fixtures.createMedicament(informationsimportantes, conditionsmedicamenteuses, titulaires, voieAdministrations, statutAdministratif, typeProcedure, etatCommercialisation, formePharmaceutique);
+        statutAdministratifRepository.save(statutAdministratif);
+        typeProcedureRepository.save(typeProcedure);
+        etatCommercialisationRepository.save(etatCommercialisation);
+        formePharmaceutiqueRepository.save(formePharmaceutique);
         for (Informationsimportante i: informationsimportantes) {
             informationsimportanteRepository.save(i);
         }
@@ -111,15 +131,6 @@ public class EstconstitueedeTest {
             titulaireRepository.save(t);
         }
         voieAdministrationRepository.save(voieAdministration);
-        StatutAdministratif statutAdministratif = Fixtures.createStatusadministratif();
-        TypeProcedure typeProcedure = Fixtures.createTypeprocedure();
-        EtatCommercialisation etatCommercialisation = Fixtures.createEtatcommercialisation();
-        FormePharmaceutique formePharmaceutique = Fixtures.createFormepharmaceutique();
-        statutAdministratifRepository.save(statutAdministratif);
-        typeProcedureRepository.save(typeProcedure);
-        etatCommercialisationRepository.save(etatCommercialisation);
-        formePharmaceutiqueRepository.save(formePharmaceutique);
-        Medicament medicament = Fixtures.createMedicament(informationsimportantes, conditionsmedicamenteuses, titulaires, voieAdministrations, statutAdministratif, typeProcedure, etatCommercialisation, formePharmaceutique);
         medicamentService.saveMedicament(medicament);
         Avis avis = new Avis();
         avis.setId(1456890);

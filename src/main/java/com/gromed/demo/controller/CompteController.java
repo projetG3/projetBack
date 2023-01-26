@@ -19,17 +19,20 @@ public class CompteController {
     @Autowired
     private CompteService compteService;
 
-    @GetMapping("/auth")
+    @PostMapping("/auth")
+    @CrossOrigin()
     public Compte checkUser(@RequestBody Utilisateur user){
+        if(user == null || user.getId() == null || user.getPassword() == null) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
+        }
         Optional<Compte> compte = compteService.getCompte(user.getId());
         if(!compte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Cette ID n'existe pas");
         }
-        Compte compt = compte.get();
-        if(compt.getId() != user.getId()){
+        if(!compte.get().getMotDePasse().equals(user.getPassword())){
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mot de passe incorrect");
         }
-        return compt;
+        return compte.get();
     }
 
 

@@ -11,16 +11,16 @@ import java.util.List;
 public class Etablissement {
     @Id
     @Column(name = "FINESSET", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "FINESSEJ", nullable = false)
-    private Integer finessej;
+    private Long finessej;
 
     @Column(name = "LIGNEACHEMINEMENT", length = 33)
     private String ligneacheminement;
 
     @Column(name = "SIRET")
-    private Integer siret;
+    private Long siret;
 
     @Column(name = "DATEOUVERTURE")
     private LocalDate dateouverture;
@@ -46,8 +46,8 @@ public class Etablissement {
     @Column(name = "RAISONSOCIALE", nullable = false, length = 38)
     private String raisonsociale;
 
-    @Column(name = "RAISONSOCIALEIntegerUE", length = 100)
-    private String raisonsocialeIntegerue;
+    @Column(name = "RAISONSOCIALELONGUE", length = 100)
+    private String raisonsocialelongue;
 
     @Column(name = "COMPLEMENTRAISONSOCIALE", length = 32)
     private String complementraisonsociale;
@@ -85,35 +85,35 @@ public class Etablissement {
     @Column(name = "NOMDEPARTEMENT", length = 24)
     private String nomdepartement;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODESPH")
     private Servicepublichospitalier codesph;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODEMFT", nullable = false)
     private Modedefixationdestarif codemft;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODEAPE", nullable = false)
     private Codeape codeape;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CATEGORIE", nullable = false)
     private Categorieetablissement categorie;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getFinessej() {
+    public Long getFinessej() {
         return finessej;
     }
 
-    public void setFinessej(Integer finessej) {
+    public void setFinessej(Long finessej) {
         this.finessej = finessej;
     }
 
@@ -125,11 +125,11 @@ public class Etablissement {
         this.ligneacheminement = ligneacheminement;
     }
 
-    public Integer getSiret() {
+    public Long getSiret() {
         return siret;
     }
 
-    public void setSiret(Integer siret) {
+    public void setSiret(Long siret) {
         this.siret = siret;
     }
 
@@ -197,12 +197,12 @@ public class Etablissement {
         this.raisonsociale = raisonsociale;
     }
 
-    public String getRaisonsocialeIntegerue() {
-        return raisonsocialeIntegerue;
+    public String getRaisonsocialelongue() {
+        return raisonsocialelongue;
     }
 
-    public void setRaisonsocialeIntegerue(String raisonsocialeIntegerue) {
-        this.raisonsocialeIntegerue = raisonsocialeIntegerue;
+    public void setRaisonsocialelongue(String raisonsocialelongue) {
+        this.raisonsocialelongue = raisonsocialelongue;
     }
 
     public String getComplementraisonsociale() {
