@@ -9,9 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 @Configuration
 public class DbConnection {
 
+    private static HikariDataSource ds;
     @Bean
     public DataSource myDataSource(
             @Value("${spring.datasource.url}") String url,
@@ -22,8 +26,12 @@ public class DbConnection {
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
+        ds = new HikariDataSource(config);
+        return ds;
+    }
 
-        return new HikariDataSource(config);
+    public static Connection getConnection() throws SQLException{
+        return ds.getConnection();
     }
 
 }
