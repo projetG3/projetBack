@@ -3,10 +3,12 @@ package com.gromed.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@SequenceGenerator(name="ESTCONSTITUEEDE_SEQ",sequenceName="estconstitueede_SEQ", initialValue=1, allocationSize = 1)
 @Table(name = "ESTCONSTITUEEDE")
 public class Estconstitueede {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ESTCONSTITUEEDE_SEQ")
     @Column(name="id")
     private Integer id;
 

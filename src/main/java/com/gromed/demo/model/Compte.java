@@ -79,7 +79,7 @@ public class Compte {
         this.motDePasse = motDePasse;}
 }
 
-        /*CREATE SEQUENCE compteSEQ
+        /*CREATE SEQUENCE estconstitueede_SEQ
         MINVALUE 1
         START WITH 1
         INCREMENT BY 1
