@@ -5,17 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ESTCONSTITUEEDE")
 public class Estconstitueede {
-    @EmbeddedId
-    private EstconstitueedeId id;
 
-    @MapsId("idcommande")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDCOMMANDE", nullable = false)
-    private Commande commande;
+    @Id
+    @Column(name="id")
+    private Integer id;
 
-
-    @MapsId("codecip7")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIP7", nullable = false)
     private Presentation presentation;
 
@@ -33,20 +28,16 @@ public class Estconstitueede {
         this.terminer = terminer;
     }
 
-    public EstconstitueedeId getId() {
-        return id;
+    public Integer getQuantite() {
+        return quantite;
     }
 
-    public void setId(EstconstitueedeId id) {
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Commande getCommande() {
-        return commande;
-    }
-
-    public void setCommande(Commande commande) {
-        this.commande = commande;
     }
 
     public Presentation getPresentation() {
@@ -56,13 +47,4 @@ public class Estconstitueede {
     public void setPresentation(Presentation presentation) {
         this.presentation = presentation;
     }
-
-    public Integer getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
-    }
-
 }

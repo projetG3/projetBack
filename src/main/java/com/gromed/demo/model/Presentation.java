@@ -31,7 +31,7 @@ public class Presentation {
     @Column(name = "AGREMENT", nullable = false, length = 15)
     private String agrement;
 
-    @Column(name = "PRIX", precision = 5, scale = 2)
+    @Column(name = "PRIX", precision = 5, scale = 2, nullable = false)
     private Long prix;
 
     @Column(name = "INDICATIONS", length = 1000)

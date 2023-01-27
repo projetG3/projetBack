@@ -3,6 +3,7 @@ package com.gromed.demo.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @SequenceGenerator(name="COMMANDE_SEQ",sequenceName="commandeSEQ", initialValue=1, allocationSize = 1)
@@ -31,9 +32,17 @@ public class Commande {
     @Column(name = "NOM", length = 50)
     private String nom;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDCOMPTE", nullable = false)
-    private Compte compte;
+    public List<Estconstitueede> getEstconstitueedes() {
+        return estconstitueedes;
+    }
+
+    public void setEstconstitueedes(List<Estconstitueede> estconstitueedes) {
+        this.estconstitueedes = estconstitueedes;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private List<Estconstitueede> estconstitueedes;
 
     public Long getId() {
         return id;
@@ -90,15 +99,4 @@ public class Commande {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
-        this.compte = compte;
-    }
-
-
-
 }

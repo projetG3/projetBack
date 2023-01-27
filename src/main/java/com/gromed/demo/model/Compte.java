@@ -2,6 +2,7 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 
 
 @Entity
@@ -25,6 +26,18 @@ public class Compte {
 
     @Column(name = "MOTDEPASSE", nullable = false, length = 50)
     private String motDePasse;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idcommande")
+    private List<Commande> commandes;
+
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
 
     public Long getId() {
         return id;
