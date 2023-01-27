@@ -1,5 +1,7 @@
 package com.gromed.demo.controller;
 
+import com.gromed.demo.model.Informationsimportante;
+import com.gromed.demo.model.Informe;
 import com.gromed.demo.model.Medicament;
 import com.gromed.demo.model.Presentation;
 import com.gromed.demo.service.PresentationService;
