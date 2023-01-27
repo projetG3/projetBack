@@ -39,6 +39,9 @@ public class Compte {
         this.commandes = commandes;
     }
 
+    public void addCommande(Commande commande){
+        this.commandes.add(commande);
+    }
     public Long getId() {
         return id;
     }

@@ -24,8 +24,8 @@ class CompteServiceTest {
     @Test
     void addCompte() throws SQLException {
         Compte test = new Compte();
-        test.setNom("fred");
-        test.setPrenom("kader");
+        test.setNom("toto");
+        test.setPrenom("toto");
         Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(80010184));
         test.setEtablissement(etablissement.get());
         test.setMotDePasse("1234");

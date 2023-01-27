@@ -3,6 +3,7 @@ package com.gromed.demo.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,13 +37,17 @@ public class Commande {
         return estconstitueedes;
     }
 
-    public void setEstconstitueedes(List<Estconstitueede> estconstitueedes) {
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private List<Estconstitueede> estconstitueedes = new ArrayList<>();
+
+    public void setEstconstitueede(List<Estconstitueede> estconstitueedes) {
         this.estconstitueedes = estconstitueedes;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    private List<Estconstitueede> estconstitueedes;
+    public void addEstConstitueeDe(Estconstitueede estconstitueede){
+        this.estconstitueedes.add(estconstitueede);
+    }
 
     public Long getId() {
         return id;

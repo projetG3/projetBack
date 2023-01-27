@@ -40,7 +40,8 @@ public class EstconstitueedeController {
         return estconstitueedeService.getAllEstconstitueedes();
     }
 
-   /*@GetMapping("/{idcompte}")
+    /*
+   @GetMapping("/{idcompte}")
     public Estconstitueede getEstconstitueede(@PathVariable(value="idcompte") Long idcompte){
         Optional<Compte> compte = compteService.getCompte(idcompte);
         List<Commande> commandes = compte.get().getCommandes();
@@ -55,45 +56,8 @@ public class EstconstitueedeController {
         Presentation reelPresentation = optionalPresentation.get();
         return reelPresentation;
     }
-
-
-    @PostMapping("/create")
-    public Estconstitueede createCommande(@RequestBody AchatPresentation achatPresentation) {
-        if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
-        }
-
-        //////////////////////////////////////
-        Commande newCommande = new Commande();
-        Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
-        if (!optionalCompte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
-        }
-        Compte reelCompte = optionalCompte.get();
-        newCommande.setCompte(reelCompte);
-        newCommande = commandeService.saveCommande(newCommande);
-        ///////////////////////////////////
-        Estconstitueede newEstConstitueede = new Estconstitueede();
-        newEstConstitueede.setCommande(newCommande);
-
-        newEstConstitueede.setQuantite(achatPresentation.getQuantiteCommande());
-
-        EstconstitueedeId newEstConsitueeDeId = new EstconstitueedeId();
-        newEstConsitueeDeId.setIdcommande(newCommande.getId());
-        newEstConsitueeDeId.setCodecip7(achatPresentation.getProduit());
-        newEstConstitueede.setId(newEstConsitueeDeId);
-
-        Optional <Presentation> optionalPresentation = presentationService.getPresentation(achatPresentation.getProduit());
-        if(!optionalPresentation.isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé");
-        }
-        Presentation reelPresentation = optionalPresentation.get();
-        newEstConstitueede.setPresentation(reelPresentation);
-        newEstConstitueede.setTerminer(false);
-
-        newEstConstitueede = estconstitueedeService.saveEstconstitueede(newEstConstitueede);
-        return newEstConstitueede;
-    }
 */
+
+
 
 }

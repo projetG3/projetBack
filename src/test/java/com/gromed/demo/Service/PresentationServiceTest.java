@@ -24,8 +24,8 @@ class PresentationServiceTest {
     void getCommande() {
         List<Commande> commandes = new ArrayList<>();
         List<Estconstitueede> estconstitueedes = estconstitueedeService.getAllEstconstitueedes();
-        System.out.println("bb" + estconstitueedes.get(0).getCommande());
-        estconstitueedes.forEach(s -> commandes.add(s.getCommande()));
+        //System.out.println("bb" + estconstitueedes.get(0).getCommande());
+        //estconstitueedes.forEach(s -> commandes.add(s.getCommande()));
     }
 
     @Test
