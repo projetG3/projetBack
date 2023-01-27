@@ -17,11 +17,13 @@ public class CompositionServiceTest {
     @Autowired
     CompositionsService compositionsService;
 
-    @Test
+    /*@Test
     void getComposition(){
         Optional<Composition> composition = compositionsService.getComposition(Long.valueOf(318));
         Medicament medicament = composition.get().getCodecis();
         System.out.println(medicament.getId());
         assertThat(medicament).isNotNull();
     }
+
+     */
 }

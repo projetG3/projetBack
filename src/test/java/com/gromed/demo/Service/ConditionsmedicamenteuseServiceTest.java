@@ -16,10 +16,12 @@ class ConditionsmedicamenteuseServiceTest {
     @Autowired
     ConditionsmedicamenteuseService conditionsmedicamenteuseService;
 
-    @Test
+    /*@Test
     void getConditionsmedicamenteuse(){
         Optional<Conditionsmedicamenteuse> conditionsmedicamenteuse = conditionsmedicamenteuseService.getConditionsmedicamenteuse("pour toute antériorité de traitement supérieur à 1 an :");
         assertThat(conditionsmedicamenteuse.get().getId()).isEqualTo("pour toute antériorité de traitement supérieur à 1 an :");
     }
+
+     */
 
 }

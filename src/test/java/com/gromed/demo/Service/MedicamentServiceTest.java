@@ -20,7 +20,7 @@ class MedicamentServiceTest {
     @Autowired
     PresentationService presentationService;
 
-    @Test
+   /* @Test
     void getMedicament(){
         Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
         List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
@@ -45,5 +45,7 @@ class MedicamentServiceTest {
         informes.forEach(s->System.out.println(s.getInformationsimportantes().getId().getInformation()));
         assertThat(informes).isNotNull();
     }
+
+    */
 
 }

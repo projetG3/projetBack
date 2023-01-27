@@ -2,6 +2,7 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,7 +30,7 @@ public class Compte {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "idcommande")
-    private List<Commande> commandes;
+    private List<Commande> commandes = new ArrayList<>();
 
     public List<Commande> getCommandes() {
         return commandes;

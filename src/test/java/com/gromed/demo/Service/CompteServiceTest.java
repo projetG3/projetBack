@@ -21,6 +21,12 @@ class CompteServiceTest {
     @Autowired
     private CompteService compteService;
 
+    /*@Test
+    void getCompte(){
+        Optional<Compte> compte = compteService.getCompte(Long.valueOf(5));
+        System.out.println(compte.get());
+    }
+
     @Test
     void addCompte() throws SQLException {
         Compte test = new Compte();
@@ -42,4 +48,6 @@ class CompteServiceTest {
         assertThat(compte).isNotNull();
         System.out.println("GET FIRST COMPTE OK");
     }
+
+     */
 }

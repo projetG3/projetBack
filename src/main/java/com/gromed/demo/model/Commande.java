@@ -1,5 +1,6 @@
 package com.gromed.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +38,12 @@ public class Commande {
         return estconstitueedes;
     }
 
+    public void setEstconstitueedes(List<Estconstitueede> estconstitueedes) {
+        this.estconstitueedes = estconstitueedes;
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "id")
     private List<Estconstitueede> estconstitueedes = new ArrayList<>();
 

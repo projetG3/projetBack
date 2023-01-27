@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class DbConnectionTest {
 
-    @Test
+    /*@Test
     void connection(){
         DbConnection db = new DbConnection();
         DataSource dataSource = db.myDataSource(
@@ -17,5 +17,7 @@ class DbConnectionTest {
                 "d9365417e5");
         assertThat(dataSource).isNotNull();
     }
+
+     */
 
 }

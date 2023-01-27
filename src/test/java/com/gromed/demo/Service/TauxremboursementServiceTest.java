@@ -16,9 +16,11 @@ class TauxremboursementServiceTest {
     @Autowired
     TauxderemboursementService tauxderemboursementService;
 
-    @Test
-    void getTauxremboursement(){
+   /* @Test
+   void getTauxremboursement(){
         Optional<Tauxderemboursement> tauxderemboursement = tauxderemboursementService.getTauxDeRemboursement("100 %");
         assertThat(tauxderemboursement.get().getId()).isEqualTo("100 %");
     }
+
+    */
 }

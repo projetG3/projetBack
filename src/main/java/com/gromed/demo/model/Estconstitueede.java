@@ -1,5 +1,6 @@
 package com.gromed.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,23 @@ public class Estconstitueede {
 
     @Column(name = "terminer")
     private Boolean terminer;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinColumn(name="idcommande")
+    private Commande idcommande;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Commande getIdcommande() {
+        return idcommande;
+    }
+
+    public void setIdcommande(Commande idcommande) {
+        this.idcommande = idcommande;
+    }
 
     public Boolean getTerminer() {
         return terminer;

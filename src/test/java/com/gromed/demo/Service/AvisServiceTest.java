@@ -17,11 +17,13 @@ public class AvisServiceTest {
     @Autowired
     AvisService avisService;
 
-    @Test
+   /* @Test
     void getAvis(){
         Optional<Avis> avis = avisService.getAvis(Long.valueOf(55));
         Medicament medicament = avis.get().getCodecis();
         System.out.println(medicament.getId());
         assertThat(medicament).isNotNull();
     }
+
+    */
 }

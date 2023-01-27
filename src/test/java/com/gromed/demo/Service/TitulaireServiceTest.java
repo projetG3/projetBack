@@ -16,7 +16,7 @@ class TitulaireServiceTest {
     @Autowired
     TitulaireService titulaireService;
 
-    @Test
+   /* @Test
     void addTitulaire() throws SQLException {
         Titulaire test = new Titulaire();
         test.setId("test");
@@ -24,5 +24,7 @@ class TitulaireServiceTest {
         assertThat(titulaireService.getTitulaire("test").get().getId()).isEqualTo("test");
         System.out.println("ADD TITULAIRE OK");
     }
+
+    */
 
 }

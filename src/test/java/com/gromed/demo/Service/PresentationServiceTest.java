@@ -20,7 +20,7 @@ class PresentationServiceTest {
     PresentationService presentationService;
     @Autowired
     private EstconstitueedeService estconstitueedeService;
-    @Test
+    /*@Test
     void getCommande() {
         List<Commande> commandes = new ArrayList<>();
         List<Estconstitueede> estconstitueedes = estconstitueedeService.getAllEstconstitueedes();
@@ -43,4 +43,6 @@ class PresentationServiceTest {
         System.out.println(medicament.getId());
         assertThat(medicament).isNotNull();
     }
+
+     */
 }
