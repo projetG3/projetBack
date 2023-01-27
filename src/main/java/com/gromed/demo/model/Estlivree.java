@@ -7,8 +7,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ESTLIVREE")
 public class Estlivree {
-    @EmbeddedId
-    private EstlivreeId id;
+    @Id
+    @Column(name="id")
+    private Long id;
 
     @MapsId("idcommande")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -29,11 +30,33 @@ public class Estlivree {
     @Column(name = "QUANTITE", nullable = false)
     private Long quantite;
 
-    public EstlivreeId getId() {
+    @Column(name = "IDCOMMANDE", nullable = false)
+    private Long idcommande;
+
+    @Column(name = "CODECIP7", nullable = false)
+    private Long codecip7;
+
+    public Long getIdcommande() {
+        return idcommande;
+    }
+
+    public void setIdcommande(Long idcommande) {
+        this.idcommande = idcommande;
+    }
+
+    public Long getCodecip7() {
+        return codecip7;
+    }
+
+    public void setCodecip7(Long codecip7) {
+        this.codecip7 = codecip7;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(EstlivreeId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

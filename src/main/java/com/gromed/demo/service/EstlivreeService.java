@@ -1,7 +1,6 @@
 package com.gromed.demo.service;
 
 import com.gromed.demo.model.Estlivree;
-import com.gromed.demo.model.EstlivreeId;
 import com.gromed.demo.repository.EstlivreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ public class EstlivreeService {
     @Autowired
     private EstlivreeRepository estlivreeRepository;
 
-    public Optional<Estlivree> getEstlivree(EstlivreeId id) {
+    public Optional<Estlivree> getEstlivree(Long id) {
         return estlivreeRepository.findById(id);
     }
 
@@ -23,7 +22,7 @@ public class EstlivreeService {
         return estlivreeRepository.findAll();
     }
 
-    public void deleteEstlivree(EstlivreeId id) {
+    public void deleteEstlivree(Long id) {
         estlivreeRepository.deleteById(id);
     }
 
