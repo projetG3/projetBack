@@ -2,11 +2,14 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 
+
+
 @Entity
+@SequenceGenerator(name="COMPTE_SEQ",sequenceName="compteSEQ", initialValue=1, allocationSize = 1)
 @Table(name = "COMPTE")
 public class Compte {
     @Id
-    //@GeneratedValue(Strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="COMPTE_SEQ")
     @Column(name="IDCOMPTE", nullable = false)
     private Long id;
 
@@ -62,3 +65,9 @@ public class Compte {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;}
 }
+
+        /*CREATE SEQUENCE compteSEQ
+        MINVALUE 1
+        START WITH 1
+        INCREMENT BY 1
+        CACHE 2;*/

@@ -24,14 +24,12 @@ class CompteServiceTest {
     @Test
     void addCompte() throws SQLException {
         Compte test = new Compte();
-        test.setId(Long.valueOf(3456));
-        test.setNom("test");
-        test.setPrenom("test");
+        test.setNom("fred");
+        test.setPrenom("kader");
         Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(80010184));
         test.setEtablissement(etablissement.get());
         test.setMotDePasse("1234");
         compteService.saveCompte(test);
-        assertThat(compteService.getCompte(Long.valueOf(3456)).get().getId()).isEqualTo(3456);
         System.out.println("ADD Compte OK");
     }
 

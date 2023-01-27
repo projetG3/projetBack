@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@SequenceGenerator(name="COMMANDE_SEQ",sequenceName="commandeSEQ", initialValue=1, allocationSize = 1)
 @Table(name = "COMMANDE")
 public class Commande {
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="COMMANDE_SEQ")
     @Column(name = "IDCOMMANDE", nullable = false)
     private Long id;
 
