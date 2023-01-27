@@ -22,6 +22,17 @@ public class Estconstitueede {
     @Column(name = "QUANTITE", nullable = false)
     private Integer quantite;
 
+    @Column(name = "terminer")
+    private Boolean terminer;
+
+    public Boolean getTerminer() {
+        return terminer;
+    }
+
+    public void setTerminer(Boolean terminer) {
+        this.terminer = terminer;
+    }
+
     public EstconstitueedeId getId() {
         return id;
     }
