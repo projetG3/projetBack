@@ -21,22 +21,19 @@ public class MedicamentController {
     private MedicamentService medicamentService;
 
 
-    /*
-    @PostMapping("/recherche")
+
+    @GetMapping("/{codecis}")
     @CrossOrigin()
-    public Compte getMedicamentByRecherche(@RequestBody Utilisateur user){
-        if(user == null || user.getId() == null || user.getPassword() == null) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
+    public Medicament getMedicament(@PathVariable(value="codecis") Long codecis){
+        if(codecis == null) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué le code du médicament");
         }
-        Optional<Compte> compte = compteService.getCompte(user.getId());
-        if(!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Cette ID n'existe pas");
+        Optional<Medicament> optionalMedicament = medicamentService.getMedicament(codecis);
+        if(!optionalMedicament.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ce medicament n'existe pas");
         }
-        if(!compte.get().getMotDePasse().equals(user.getPassword())){
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mot de passe incorrect");
-        }
-        return compte.get();
+        return optionalMedicament.get();
     }
-    */
+
 
 }

@@ -10,7 +10,7 @@ public class Informe {
 
 
     @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumns({
             @JoinColumn(name = "DATEDEBUTINFO", referencedColumnName = "DATEDEBUTINFO", nullable = false),
             @JoinColumn(name = "DATEFININFO", referencedColumnName = "DATEFININFO", nullable = false),
