@@ -21,24 +21,24 @@ class CompteServiceTest {
     @Autowired
     private CompteService compteService;
 
-    /*@Test
+    @Test
     void getCompte(){
         Optional<Compte> compte = compteService.getCompte(Long.valueOf(5));
         System.out.println(compte.get());
     }
 
-    @Test
+    /*@Test
     void addCompte() throws SQLException {
         Compte test = new Compte();
-        test.setNom("toto");
-        test.setPrenom("toto");
+        test.setNom("tata");
+        test.setPrenom("tata");
         Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(80010184));
         test.setEtablissement(etablissement.get());
         test.setMotDePasse("1234");
         compteService.saveCompte(test);
         System.out.println("ADD Compte OK");
     }
-
+    */
     @Test
     void getFirstCompte() throws SQLException{
         Optional <Compte> compte = compteService.getCompte(Long.valueOf(1));
@@ -48,6 +48,4 @@ class CompteServiceTest {
         assertThat(compte).isNotNull();
         System.out.println("GET FIRST COMPTE OK");
     }
-
-     */
 }

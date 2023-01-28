@@ -36,6 +36,7 @@ public class Commande {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "idcompte")
+    @JsonIgnore
     private Compte compte;
 
     @OneToMany(fetch = FetchType.EAGER)

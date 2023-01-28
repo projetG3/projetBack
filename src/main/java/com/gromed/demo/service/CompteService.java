@@ -3,6 +3,8 @@ package com.gromed.demo.service;
 import com.gromed.demo.DbConnection;
 import com.gromed.demo.model.Commande;
 import com.gromed.demo.model.Compte;
+import com.gromed.demo.model.Estconstitueede;
+import com.gromed.demo.model.Presentation;
 import com.gromed.demo.repository.CommandeRepository;
 import com.gromed.demo.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CompteService {
 
     @Autowired
     private CommandeService commandeService;
+
+    @Autowired
+    private EstconstitueedeService estconstitueedeService;
 
     public Optional<Compte> getCompte(Long id) {
         return compteRepository.findById(id);
@@ -56,5 +61,26 @@ public class CompteService {
             resultCommande = optionalCommande.get();
         }
         return resultCommande;
+    }
+
+    public Commande createCommande(Compte compte) {
+        Commande newCommande = new Commande();
+        newCommande.setStatus("en cours");
+        //ajouter le compte qui fait la commande
+        newCommande.setCompte(compte);
+        newCommande = commandeService.saveCommande(newCommande);
+        //compte.addCommande(newCommande); //IL EST POSSIBLE QUE JE DOIVE ENLEVER CA
+        return newCommande;
+    }
+
+    public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite) {
+        Estconstitueede estconstitueede = new Estconstitueede();
+        estconstitueede.setTerminer(false);
+        estconstitueede.setQuantite(quantite);
+        estconstitueede.setPresentation(presentation);
+        estconstitueede.setIdcommande(commandeEnCours);
+        estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
+        commandeEnCours.addEstConstitueeDe(estconstitueede);
+        return  commandeEnCours;
     }
 }

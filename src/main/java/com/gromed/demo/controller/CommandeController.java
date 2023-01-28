@@ -38,38 +38,34 @@ public class CommandeController {
         return commandeService.getAllCommande();
     }
 
-    @PostMapping("/create")
-    public void createCommande(@RequestBody AchatPresentation achatPresentation) throws SQLException {
+    @PostMapping("/addProduct")
+    public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
+        //si l'objet n'est pas complet alors on emet une erreur
         if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
         }
 
-        Commande newCommande = new Commande();
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on emet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
         }
         Compte reelCompte = optionalCompte.get();
-        Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
-        System.out.println("///////////////////////////////////////////////////////");
-        System.out.println(commandeEnCours.getId());
-        if(commandeEnCours.getId() != null){
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il n'est pas possible de créer un panier car vous avez déjà un panier en cours");
-        }
-        commandeEnCours.setStatus("en cours");
-        Estconstitueede estconstitueede = new Estconstitueede();
-        estconstitueede.setTerminer(false);
-        estconstitueede.setQuantite(achatPresentation.getQuantiteCommande());
+
+        //on emet une erreur si on ne trouve pas la présentation coorespondante
         Optional<Presentation> optionalPresentation = presentationService.getPresentation(achatPresentation.getProduit());
         if(!optionalPresentation.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La référence au produit n'est pas trouvée");
         }
-        estconstitueede.setPresentation(optionalPresentation.get());
-        commandeEnCours.addEstConstitueeDe(estconstitueede);
 
-        commandeEnCours = commandeService.saveCommande(commandeEnCours);
-        //commandeEnCours.set
-        reelCompte.addCommande(commandeEnCours);
-
+        //on veut savoir s'il y a une commande en cours
+        Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
+        //si il n'y a pas de commande en cours alors :
+        if(commandeEnCours.getId() == null){
+            //on créer la commande
+            commandeEnCours = compteService.createCommande(reelCompte);
+        }
+        return compteService.addProduct(commandeEnCours, optionalPresentation.get(), achatPresentation.getQuantiteCommande());
     }
+
 }

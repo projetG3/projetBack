@@ -1,5 +1,6 @@
 package com.gromed.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Compte {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "idcommande")
+    @JsonIgnore
     private List<Commande> commandes = new ArrayList<>();
 
     public List<Commande> getCommandes() {
