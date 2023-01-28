@@ -34,6 +34,23 @@ public class Commande {
     @Column(name = "NOM", length = 50)
     private String nom;
 
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "idcompte")
+    private Compte compte;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinColumn(name = "id")
+    private List<Estconstitueede> estconstitueedes = new ArrayList<>();
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
     public List<Estconstitueede> getEstconstitueedes() {
         return estconstitueedes;
     }
@@ -41,11 +58,6 @@ public class Commande {
     public void setEstconstitueedes(List<Estconstitueede> estconstitueedes) {
         this.estconstitueedes = estconstitueedes;
     }
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
-    @JoinColumn(name = "id")
-    private List<Estconstitueede> estconstitueedes = new ArrayList<>();
 
     public void setEstconstitueede(List<Estconstitueede> estconstitueedes) {
         this.estconstitueedes = estconstitueedes;
