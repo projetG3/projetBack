@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@SequenceGenerator(name="ESTLIVREE_SEQ",sequenceName="estLivree_SEQ", initialValue=1, allocationSize = 1)
 @Table(name = "ESTLIVREE")
 public class Estlivree {
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ESTLIVREE_SEQ")
     @Column(name="id")
     private Long id;
 
