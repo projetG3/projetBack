@@ -43,7 +43,7 @@ public class PresentationController {
 
 
     @PostMapping("/resultat")
-    public List<Presentation> getPrescriptionsBySearchResult(@RequestBody CritereRecherche critereRecherche) throws SQLException {
+    public List<ResultatRecherche> getPrescriptionsBySearchResult(@RequestBody CritereRecherche critereRecherche) throws SQLException {
         return presentationService.getPresentationsByCriteria(critereRecherche);
     }
 

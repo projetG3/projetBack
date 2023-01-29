@@ -38,88 +38,69 @@ public class PresentationService {
         return presentationRepository.save(presentation);
     }
 
-    public List<Presentation> getPresentationsByCriteria(CritereRecherche critereRecherche) throws SQLException {
-        System.out.println("MES CRITERES RECU : ");
-        System.out.println("- "+critereRecherche.getNom());
-        System.out.println("- "+critereRecherche.getLibelle());
-        System.out.println("- "+critereRecherche.getVoieAdministrations());
-        System.out.println("- "+critereRecherche.getGenerique());
+    public List<ResultatRecherche> getPresentationsByCriteria(CritereRecherche critereRecherche) throws SQLException {
         String nom = critereRecherche.getNom();
         String libelle = critereRecherche.getLibelle();
         String generique = critereRecherche.getGenerique();
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
-
-        String myQuery = "SELECT P.* FROM PRESENTATION P " +
+        List<String> params = new ArrayList<String>() ;
+        String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE  FROM PRESENTATION P " +
                 "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " +
                 "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
                 "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " +
                 "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
-                "WHERE (P.ETATCOMMERCIALISATION='Déclaration de commercialisation' " +
-                "OR P.ETATCOMMERCIALISATION='D��claration de commercialisation') ";
+                "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
 
         if (nom != null) {
-            myQuery+="AND (UPPER(M.NOM) LIKE '%"+nom.toUpperCase()+"%') ";
+            myQuery+="AND (UPPER(M.NOM) LIKE ?) ";
+            params.add("%"+nom.toUpperCase()+"%");
+
         }
         if (libelle != null && generique != null) {
-            myQuery+="AND (UPPER(P.LIBELLE) LIKE '%"+libelle.toUpperCase()+"%' ";
-            myQuery+="OR UPPER(G.LIBELLE) LIKE '%"+generique.toUpperCase()+"%') ";
+            myQuery+="AND (UPPER(P.LIBELLE) LIKE ? OR UPPER(G.LIBELLE) LIKE ?) ";
+            params.add("%"+libelle.toUpperCase()+"%");
+            params.add("%"+generique.toUpperCase()+"%");
         } else if (libelle != null && generique == null) {
-            myQuery+="AND (UPPER(P.LIBELLE) LIKE '%"+libelle.toUpperCase()+"%') ";
+            myQuery+="AND (UPPER(P.LIBELLE) LIKE ?) ";
+            params.add("%"+libelle.toUpperCase()+"%");
         } else if (libelle == null && generique != null) {
-            myQuery+="OR UPPER(G.LIBELLE) LIKE '%"+generique.toUpperCase()+"%') ";
+            myQuery+="OR UPPER(G.LIBELLE) LIKE ?) ";
+            params.add("%"+generique.toUpperCase()+"%");
         }
         if(voieAdministrations.size()!=0){
-            System.out.println("JE PASSE Là");
             for (int i = 0; i < voieAdministrations.size(); i++) {
                 if(i==0){
-                    myQuery+="AND (UPPER(A2.TYPEDEVOIE) LIKE '%"+voieAdministrations.get(i).toUpperCase()+"%' ";
+                    myQuery+="AND (UPPER(A2.TYPEDEVOIE) LIKE ? ";
                 }else{
-                    myQuery+="OR UPPER(A2.TYPEDEVOIE) LIKE '%"+voieAdministrations.get(i).toUpperCase()+"%' ";
+                    myQuery+="OR UPPER(A2.TYPEDEVOIE) LIKE ? ";
                 }
+                params.add("%"+voieAdministrations.get(i).toUpperCase()+"%");
                 myQuery+=")";
 
             }
 
         }
 
-        System.out.println("REQUETE :"+myQuery);
         Connection con = DbConnection.getConnection();
         PreparedStatement pst = con.prepareStatement(myQuery);
-/*
-        if(nom != null){
-            nom=nom.toUpperCase();
-            pst.setString(1, nom);
+        System.out.println(myQuery);
+        for(int i = 0; i < params.size(); i++){
+            pst.setString(i+1, params.get(i));
         }
-        if(libelle != null){
-            libelle=libelle.toUpperCase();
-            pst.setString(2, libelle);
-        }
-        if(generique != null){
-            generique=generique.toUpperCase();
-            pst.setString(3, generique);
-
-        }
-        if(voieAdministrations.size()!=0){
-            for (int i = 0; i < voieAdministrations.size(); i++) {
-                pst.setString(4+i, voieAdministrations.get(i).toUpperCase());
-            }
-        }
-*/
         ResultSet rs = pst.executeQuery();
-        List<Presentation> presentations = new ArrayList<>();
-        Optional<Presentation> presentation;
-        Presentation resultatPresentation;
-        boolean fini = false;
-        while(rs.next() && !fini){
-            fini = true;
-            presentation = this.getPresentation(rs.getLong("CODECIP7"));
-            resultatPresentation = presentation.get();
-            presentations.add(resultatPresentation);
-            System.out.println(rs.getLong("CODECIP7"));
+        List<ResultatRecherche> resultat = new ArrayList<>();
+        ResultatRecherche resultatRecherche;
+        while(rs.next()){
+            resultatRecherche = new ResultatRecherche();
+            resultatRecherche.setLibellePresentation(rs.getString("libelle"));
+            resultatRecherche.setNomMedicament(rs.getString("nom"));
+            resultatRecherche.setQuantite(rs.getInt("quantitedispo"));
+            resultatRecherche.setTypedevoie(rs.getString("typedevoie"));
+            resultatRecherche.setCodeCIP7(rs.getLong("codecip7"));
+            resultat.add(resultatRecherche);
         }
-        return presentations;
+        return resultat;
     }
-
 
 }
 
