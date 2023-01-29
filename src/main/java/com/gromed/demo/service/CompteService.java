@@ -73,7 +73,21 @@ public class CompteService {
         return newCommande;
     }
 
-    public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite) {
+    public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite) throws SQLException {
+
+        //il faut vérifier si le produit a déjà été ajouter au panier pour modifier la quantité
+        System.out.println(estconstitueedeService.getAllEstconstitueedes().size());
+        int i = 0;
+        while(i < commandeEnCours.getEstconstitueedes().size()){
+            Estconstitueede estconstitueedeCourant = commandeEnCours.getEstconstitueedes().get(i);
+            if(estconstitueedeCourant.getPresentation().getId() == presentation.getId()){
+                estconstitueedeCourant.setQuantite(estconstitueedeCourant.getQuantite() + quantite);
+                estconstitueedeService.saveEstconstitueede(estconstitueedeCourant);
+                return commandeEnCours;
+            }
+            i++;
+        }
+
         Estconstitueede estconstitueede = new Estconstitueede();
         estconstitueede.setTerminer(false);
         estconstitueede.setQuantite(quantite);
