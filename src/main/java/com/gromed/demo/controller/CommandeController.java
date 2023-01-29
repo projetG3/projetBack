@@ -60,6 +60,7 @@ public class CommandeController {
 
         //on veut savoir s'il y a une commande en cours
         Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
+
         //si il n'y a pas de commande en cours alors :
         if(commandeEnCours.getId() == null){
             //on créer la commande

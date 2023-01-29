@@ -36,12 +36,12 @@ public class Commande {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "idcompte")
-    @JsonIgnore
+    //@JsonIgnore
     private Compte compte;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
-    @JoinColumn(name = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "idcommande")
+    //@JoinColumn(name = "ID")
+    //@JsonIgnore
     private List<Estconstitueede> estconstitueedes = new ArrayList<>();
 
     public Compte getCompte() {

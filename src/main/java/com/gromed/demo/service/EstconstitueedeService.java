@@ -14,7 +14,7 @@ public class EstconstitueedeService {
     @Autowired
     private EstconstitueedeRepository estconstitueedeRepository;
 
-    public Optional<Estconstitueede> getEstconstitueede(Integer id) {
+    public Optional<Estconstitueede> getEstconstitueede(Long id) {
         return estconstitueedeRepository.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class EstconstitueedeService {
         return estconstitueedeRepository.findAll();
     }
 
-    public void deleteEstconstitueede(Integer id) {
+    public void deleteEstconstitueede(Long id) {
         estconstitueedeRepository.deleteById(id);
     }
 

@@ -11,7 +11,7 @@ public class Estconstitueede {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ESTCONSTITUEEDE_SEQ")
     @Column(name="id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIP7", nullable = false)
@@ -24,11 +24,11 @@ public class Estconstitueede {
     private Boolean terminer;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="IDCOMMANDE")
     @JsonIgnore
-    @JoinColumn(name="idcommande")
     private Commande idcommande;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -54,10 +54,6 @@ public class Estconstitueede {
 
     public void setQuantite(Integer quantite) {
         this.quantite = quantite;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Presentation getPresentation() {

@@ -31,7 +31,7 @@ public class Compte {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "idcommande")
-    @JsonIgnore
+    //@JsonIgnore
     private List<Commande> commandes = new ArrayList<>();
 
     public List<Commande> getCommandes() {
