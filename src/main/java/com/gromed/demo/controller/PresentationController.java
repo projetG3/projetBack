@@ -41,6 +41,15 @@ public class PresentationController {
         return reelPresentation;
     }
 
+    @GetMapping("stock/{codeCIP7}")
+    public Integer getStock(@PathVariable(value = "codeCIP7") Long codeCIP7){
+        Optional <Presentation> presentation = presentationService.getPresentation(codeCIP7);
+        if(!presentation.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune présentation n'existe avec ce code");
+        }
+        return presentation.get().getQuantitedispo();
+    }
+
 
     @PostMapping("/resultat")
     public List<ResultatRecherche> getPrescriptionsBySearchResult(@RequestBody CritereRecherche critereRecherche) throws SQLException {

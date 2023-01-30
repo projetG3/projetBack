@@ -38,19 +38,19 @@ public class CommandeController {
     @PostMapping("/addProduct")
     public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
 
-        //si l'objet n'est pas complet alors on emet une erreur
+        //si l'objet n'est pas complet alors on émet une erreur
         if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
         }
 
-        //Si on ne trouve pas d'utilisateur avec cet ID alors on emet une erreur
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
         }
         Compte reelCompte = optionalCompte.get();
 
-        //on emet une erreur si on ne trouve pas la présentation coorespondante
+        //on émet une erreur si on ne trouve pas la présentation correspondante
         Optional<Presentation> optionalPresentation = presentationService.getPresentation(achatPresentation.getProduit());
         if(!optionalPresentation.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La référence au produit n'est pas trouvée");
@@ -61,7 +61,7 @@ public class CommandeController {
 
         //si il n'y a pas de commande en cours alors :
         if(commandeEnCours.getId() == null){
-            //on créer la commande
+            //on crée la commande
             commandeEnCours = compteService.createCommande(reelCompte);
         }
         return compteService.addProduct(commandeEnCours, optionalPresentation.get(), achatPresentation.getQuantiteCommande());
@@ -69,19 +69,19 @@ public class CommandeController {
 
     @PostMapping("/updateQuantite")
     public Commande updateQuantiteProduit(@RequestBody AchatPresentation achatPresentation) throws SQLException {
-        //si l'objet n'est pas complet alors on emet une erreur
+        //si l'objet n'est pas complet alors on émet une erreur
         if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
         }
 
-        //Si on ne trouve pas d'utilisateur avec cet ID alors on emet une erreur
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
         }
         Compte reelCompte = optionalCompte.get();
 
-        //on emet une erreur si on ne trouve pas la présentation coorespondante
+        //on émet une erreur si on ne trouve pas la présentation correspondante
         Optional<Presentation> optionalPresentation = presentationService.getPresentation(achatPresentation.getProduit());
         if(!optionalPresentation.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La référence au produit n'est pas trouvée");
@@ -90,11 +90,11 @@ public class CommandeController {
         //on veut savoir s'il y a une commande en cours
         Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
 
-        //si il y a un commande en cours alors :
+        //s'il y a une commande en cours alors :
         if(commandeEnCours.getId() != null){
-            //on récupère la liste des produits qui sont dans la panier
+            //on récupère la liste des produits qui sont dans le panier
             List<Estconstitueede> estconstitueedeList = commandeEnCours.getEstconstitueedes();
-            //puis on parcours cette liste
+            //puis on parcourt cette liste
             for(int i = 0; i < estconstitueedeList.size(); i++){
                 //si le produit courant est le même que le produit dont l'utilisateur souhaite modifier la quantité alors
                 if(estconstitueedeList.get(i).getPresentation().getId() == achatPresentation.getProduit()){
@@ -112,13 +112,13 @@ public class CommandeController {
                 }
             }
         }
-        //dans le cas ou nous n'avons pas trouvé le produit en question dans le panier alors on emet une erreur http
+        //dans le cas où nous n'avons pas trouvé le produit en question dans le panier alors on émet une erreur http
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nous n'avons pas pû trouver votre commande ou ce produit n'est pas dans votre commande");
     }
 
     @PostMapping("/getCommandeType")
     public List<Commande> getCommandeType(@RequestBody IdCompte idCompte) throws SQLException {
-        //Si on ne trouve pas d'utilisateur avec cet ID alors on emet une erreur
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(idCompte.getIdCompte());
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
@@ -128,4 +128,22 @@ public class CommandeController {
         return compteService.getCommandeType(reelCompte);
     }
 
+
+    @GetMapping("/valider/{idcompte}/{idcommande}")
+    public List<Estconstitueede> getValider(@PathVariable(value = "idcompte") Long idcompte,
+                                            @PathVariable(value = "idcommande") Long idcommande){
+        Optional<Commande> commande = commandeService.getCommande(idcommande);
+        Optional<Compte> compte = compteService.getCompte(idcompte);
+        if (!commande.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de commande avec ce code");
+        }
+        if (!compte.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de compte avec ce code");
+        }
+        if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
+        }
+
+        return commandeService.getStock(commande);
+    }
 }

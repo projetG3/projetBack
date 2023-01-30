@@ -1,6 +1,9 @@
 package com.gromed.demo.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "PRESENTATION")
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
 public class Presentation {
     @Id
     @Column(name = "CODECIP7", nullable = false)
@@ -47,6 +52,11 @@ public class Presentation {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODECIP7")
     private List<Estrembourseea> estrembourseeas = new ArrayList<>();
+
+    /*@Version
+    private Long version;
+
+     */
 
     public List<Estrembourseea> getEstremboursea() {
         return estrembourseeas;
