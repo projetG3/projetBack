@@ -36,7 +36,7 @@ public class Commande {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "idcompte")
-    //@JsonIgnore
+    @JsonIgnore
     private Compte compte;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idcommande")

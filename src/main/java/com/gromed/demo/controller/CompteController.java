@@ -1,5 +1,6 @@
 package com.gromed.demo.controller;
 
+import com.gromed.demo.model.Commande;
 import com.gromed.demo.model.Compte;
 import com.gromed.demo.model.Utilisateur;
 import com.gromed.demo.service.CompteService;
@@ -9,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Validated
@@ -26,16 +28,20 @@ public class CompteController {
         System.out.println("METHODE CHECKUSER");
 
         if(user == null || user.getId() == null || user.getPassword() == null) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
         }
-        Optional<Compte> compte = compteService.getCompte(user.getId());
-        if(!compte.isPresent()) {
+
+        Optional<Compte> optionalCompte = compteService.getCompte(user.getId());
+        if(!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cette ID n'existe pas");
         }
-        if(!compte.get().getMotDePasse().equals(user.getPassword())){
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mot de passe incorrect");
+
+        if(!optionalCompte.get().getMotDePasse().equals(user.getPassword())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Mot de passe incorrect");
         }
-        return compte.get();
+
+        Compte compte = optionalCompte.get();
+        return compte;
     }
 
 

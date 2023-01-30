@@ -67,20 +67,53 @@ public class CommandeController {
         return compteService.addProduct(commandeEnCours, optionalPresentation.get(), achatPresentation.getQuantiteCommande());
     }
 
+    @PostMapping("/updateQuantite")
+    public Commande updateQuantiteProduit(@RequestBody AchatPresentation achatPresentation) throws SQLException {
+        //si l'objet n'est pas complet alors on émet une erreur
+        if (achatPresentation == null || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
+        }
 
-    @PostMapping("/commandecourante")
-    public Commande getCommandeCourante(@RequestBody Long idUser) throws SQLException {
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
-        Optional<Compte> optionalCompte = compteService.getCompte(idUser);
+        Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
         }
         Compte reelCompte = optionalCompte.get();
 
+        //on émet une erreur si on ne trouve pas la présentation correspondante
+        Optional<Presentation> optionalPresentation = presentationService.getPresentation(achatPresentation.getProduit());
+        if(!optionalPresentation.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La référence au produit n'est pas trouvée");
+        }
+
         //on veut savoir s'il y a une commande en cours
         Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
 
-        return commandeEnCours;
+        //s'il y a une commande en cours alors :
+        if(commandeEnCours.getId() != null){
+            //on récupère la liste des produits qui sont dans le panier
+            List<Estconstitueede> estconstitueedeList = commandeEnCours.getEstconstitueedes();
+            //puis on parcourt cette liste
+            for(int i = 0; i < estconstitueedeList.size(); i++){
+                //si le produit courant est le même que le produit dont l'utilisateur souhaite modifier la quantité alors
+                if(estconstitueedeList.get(i).getPresentation().getId() == achatPresentation.getProduit()){
+                    //si l'utilisateur ne veut plus le produit alors
+                    if(achatPresentation.getQuantiteCommande() == 0){
+                        estconstitueedeService.deleteEstconstitueede(estconstitueedeList.get(i).getId());
+                    }
+                    else{ //sinon l'utilisateur change simplement la quantité souhaitée
+                        //alors on modifie la quantité
+                        estconstitueedeList.get(i).setQuantite(achatPresentation.getQuantiteCommande());
+                        //puis on enregistre la modification
+                        estconstitueedeService.saveEstconstitueede(estconstitueedeList.get(i));
+                    }
+                    return commandeEnCours;
+                }
+            }
+        }
+        //dans le cas où nous n'avons pas trouvé le produit en question dans le panier alors on émet une erreur http
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nous n'avons pas pû trouver votre commande ou ce produit n'est pas dans votre commande");
     }
 
     @PostMapping("/getCommandeType")
@@ -111,7 +144,37 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
         List<Estconstitueede> estconstitueedes = commandeService.getStock(commande);
-
+        System.out.println("dans le controler avant return");
         return estconstitueedes;
+    }
+
+    @PostMapping("/createCommandeType")
+    public String createCommandeType(@RequestBody CommandeType nomCommandeType){
+        //si l'objet n'est pas complet alors on émet une erreur
+        if (nomCommandeType == null || nomCommandeType.getCommande() == null || nomCommandeType.getCompte() == null || nomCommandeType.getNom() == null) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le nom souhaité pour la commande type ou l'identifiant du compte ou l'identifiant de la commande");
+        }
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
+        Optional<Compte> optionalCompte = compteService.getCompte(nomCommandeType.getCompte());
+        if (!optionalCompte.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+        }
+        Compte compte = optionalCompte.get();
+
+        Optional<Commande> optionalCommande = commandeService.getCommande(nomCommandeType.getCommande());
+        if(!optionalCommande.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune commande avec cet identifiant");
+        }
+
+        Commande commande = optionalCommande.get();
+        if (commande.getCompte() != compte){
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant renseigné ne correspond pas à l'identifiant qui a créé la commande");
+        }
+        System.out.println(commande.getStatus());
+        if(!(commande.getStatus().equals("terminer") || commande.getStatus().equals("envoyer"))){
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "La commande n'est pas une commande termineée ou envoyée");
+        }
+        commande.setNom(nomCommandeType.getNom());
+        return commandeService.saveCommande(commande).getNom();
     }
 }
