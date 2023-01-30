@@ -1,11 +1,12 @@
 package com.gromed.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
-@SequenceGenerator(name="ESTLIVREE_SEQ",sequenceName="estLivree_SEQ", initialValue=1, allocationSize = 1)
+@SequenceGenerator(name="ESTLIVREE_SEQ",sequenceName="estlivree_SEQ", initialValue=1, allocationSize = 1)
 @Table(name = "ESTLIVREE")
 public class Estlivree {
     @Id
@@ -13,13 +14,12 @@ public class Estlivree {
     @Column(name="id")
     private Long id;
 
-    @MapsId("idcommande")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDCOMMANDE", nullable = false)
-    private Commande commande;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="IDCOMMANDE")
+    @JsonIgnore
+    private Commande idcommande;
 
-    @MapsId("codecip7")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CODECIP7", nullable = false)
     private Presentation presentation;
 
@@ -30,29 +30,7 @@ public class Estlivree {
     private LocalDate dateenvoi;
 
     @Column(name = "QUANTITE", nullable = false)
-    private Long quantite;
-
-    @Column(name = "IDCOMMANDE", nullable = false)
-    private Long idcommande;
-
-    @Column(name = "CODECIP7", nullable = false)
-    private Long codecip7;
-
-    public Long getIdcommande() {
-        return idcommande;
-    }
-
-    public void setIdcommande(Long idcommande) {
-        this.idcommande = idcommande;
-    }
-
-    public Long getCodecip7() {
-        return codecip7;
-    }
-
-    public void setCodecip7(Long codecip7) {
-        this.codecip7 = codecip7;
-    }
+    private Integer quantite;
 
     public Long getId() {
         return id;
@@ -60,14 +38,6 @@ public class Estlivree {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Commande getCommande() {
-        return commande;
-    }
-
-    public void setCommande(Commande commande) {
-        this.commande = commande;
     }
 
     public Presentation getPresentation() {
@@ -94,12 +64,19 @@ public class Estlivree {
         this.dateenvoi = dateenvoi;
     }
 
-    public Long getQuantite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(Long quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
     }
 
+    public Commande getIdcommande() {
+        return idcommande;
+    }
+
+    public void setIdcommande(Commande idcommande) {
+        this.idcommande = idcommande;
+    }
 }
