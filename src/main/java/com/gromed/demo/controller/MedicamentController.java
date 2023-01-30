@@ -25,6 +25,9 @@ public class MedicamentController {
     @GetMapping("/{codecis}")
     @CrossOrigin()
     public Medicament getMedicament(@PathVariable(value="codecis") Long codecis){
+
+        System.out.println("METHODE GETMEDICAMENT");
+
         if(codecis == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué le code du médicament");
         }

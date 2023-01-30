@@ -42,7 +42,10 @@ public class EstconstitueedeController {
 
    @GetMapping("/{idcompte}")
     public List<Estconstitueede> getEstconstitueede(@PathVariable(value="idcompte") Long idcompte) throws SQLException {
-        Commande commande = compteService.getCommandeEnCours(idcompte);
+
+       System.out.println("METHODE GETESTCONSTITUEEDE");
+
+       Commande commande = compteService.getCommandeEnCours(idcompte);
        if(commande.getId() == null){
            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune commande en cours n'existe avec cet idcompte");
        }

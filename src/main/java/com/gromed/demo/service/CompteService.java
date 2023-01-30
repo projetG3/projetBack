@@ -61,7 +61,6 @@ public class CompteService {
             Optional<Commande> optionalCommande = commandeService.getCommande(rs.getLong("IDCOMMANDE"));
             resultCommande = optionalCommande.get();
         }
-        pst.close();
         return resultCommande;
     }
 
@@ -111,7 +110,6 @@ public class CompteService {
             Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).get();
             commandeTypeList.add(commande);
         }
-        prepare.close();
         return commandeTypeList;
     }
 }

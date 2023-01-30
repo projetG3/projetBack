@@ -22,6 +22,9 @@ public class CompteController {
     @PostMapping("/auth")
     @CrossOrigin()
     public Compte checkUser(@RequestBody Utilisateur user){
+
+        System.out.println("METHODE CHECKUSER");
+
         if(user == null || user.getId() == null || user.getPassword() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué votre mot de passe ou identifiant");
         }

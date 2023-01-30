@@ -21,6 +21,9 @@ public class VoieAdministrationController {
     @CrossOrigin()
     @GetMapping("/list")
     public List<VoieAdministration> getAllVoieAdministration(){
+
+        System.out.println("METHODE GETALLVOIEADMINISTRATION");
+
         return voieadministrationService.getAllVoieAdministration();
     }
 

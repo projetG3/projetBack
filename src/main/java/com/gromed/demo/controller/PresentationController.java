@@ -33,6 +33,9 @@ public class PresentationController {
 
     @GetMapping("/{codeCIP7}")
     public Presentation getPresentation(@PathVariable(value="codeCIP7") Long codeCIP7){
+
+        System.out.println("METHODE GETPRESENTATION");
+
         Optional <Presentation> optionalPresentation = presentationService.getPresentation(codeCIP7);
         if(!optionalPresentation.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune présentation n'existe avec ce code");
@@ -53,6 +56,9 @@ public class PresentationController {
 
     @PostMapping("/resultat")
     public List<ResultatRecherche> getPrescriptionsBySearchResult(@RequestBody CritereRecherche critereRecherche) throws SQLException {
+
+        System.out.println("METHODE GETPRESCRIPTIONBYSEARCHRESULT");
+
         return presentationService.getPresentationsByCriteria(critereRecherche);
     }
 
