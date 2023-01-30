@@ -27,18 +27,18 @@ class CompteServiceTest {
         System.out.println(compte.get());
     }
 
-    /*@Test
+    @Test
     void addCompte() throws SQLException {
         Compte test = new Compte();
-        test.setNom("tata");
-        test.setPrenom("tata");
-        Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(80010184));
+        test.setNom("dupont");
+        test.setPrenom("dupond");
+        Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(640007761));
         test.setEtablissement(etablissement.get());
         test.setMotDePasse("1234");
         compteService.saveCompte(test);
         System.out.println("ADD Compte OK");
     }
-    */
+
     @Test
     void getFirstCompte() throws SQLException{
         Optional <Compte> compte = compteService.getCompte(Long.valueOf(1));

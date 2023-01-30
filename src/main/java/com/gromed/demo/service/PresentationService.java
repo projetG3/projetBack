@@ -99,6 +99,7 @@ public class PresentationService {
             resultatRecherche.setCodeCIP7(rs.getLong("codecip7"));
             resultat.add(resultatRecherche);
         }
+        pst.close();
         return resultat;
     }
 
