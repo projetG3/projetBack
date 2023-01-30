@@ -110,7 +110,8 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
+        List<Estconstitueede> estconstitueedes = commandeService.getStock(commande);
 
-        return commandeService.getStock(commande);
+        return estconstitueedes;
     }
 }
