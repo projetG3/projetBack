@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,7 @@ public class CompteService {
             Optional<Commande> optionalCommande = commandeService.getCommande(rs.getLong("IDCOMMANDE"));
             resultCommande = optionalCommande.get();
         }
+        pst.close();
         return resultCommande;
     }
 
@@ -96,5 +98,20 @@ public class CompteService {
         estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
         commandeEnCours.addEstConstitueeDe(estconstitueede);
         return  commandeEnCours;
+    }
+
+    public List<Commande> getCommandeType(Compte compte) throws SQLException {
+        String requete = "select commande.IDCOMMANDE from commande, compte where commande.nom != '' and commande.idcompte = compte.idcompte and compte.finesset = ?" ;
+        Connection con = DbConnection.getConnection();
+        PreparedStatement prepare = con.prepareStatement(requete);
+        prepare.setLong(1, compte.getEtablissement().getId());
+        ResultSet result = prepare.executeQuery();
+        List<Commande> commandeTypeList = new ArrayList<>();
+        while (result.next()){
+            Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).get();
+            commandeTypeList.add(commande);
+        }
+        prepare.close();
+        return commandeTypeList;
     }
 }
