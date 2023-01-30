@@ -46,23 +46,13 @@ public class CompteService {
         return compteRepository.save(id);
     }
 
-    //RETURN un compte. Pour vérifier si il y a bien une commande en cours, il faut vérifier si l'id est null ou pas
     public Commande getCommandeEnCours(Long idCompte) throws SQLException {
-        String myQuery = "select IDCOMMANDE from commande where idcompte =? and status = 'en cours'";
-        Connection con = DbConnection.getConnection();
-        PreparedStatement pst = con.prepareStatement(myQuery);
-        pst.setLong(1, idCompte);
-        ResultSet rs = pst.executeQuery();
-        Commande commande = new Commande();
-        boolean fini = false;
-        Commande resultCommande = new Commande();
-        while(rs.next() && !fini){
-            fini = true;
+        ResultSet rs = SqlService.getCommandeEnCours(idCompte);
+        while(rs.next()){
             Optional<Commande> optionalCommande = commandeService.getCommande(rs.getLong("IDCOMMANDE"));
-            resultCommande = optionalCommande.get();
+            return optionalCommande.get();
         }
-        pst.close();
-        return resultCommande;
+        return null;
     }
 
     public Commande createCommande(Compte compte) {
@@ -78,7 +68,6 @@ public class CompteService {
     public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite) throws SQLException {
 
         //il faut vérifier si le produit a déjà été ajouter au panier pour modifier la quantité
-        System.out.println(estconstitueedeService.getAllEstconstitueedes().size());
         int i = 0;
         while(i < commandeEnCours.getEstconstitueedes().size()){
             Estconstitueede estconstitueedeCourant = commandeEnCours.getEstconstitueedes().get(i);
@@ -101,17 +90,12 @@ public class CompteService {
     }
 
     public List<Commande> getCommandeType(Compte compte) throws SQLException {
-        String requete = "select commande.IDCOMMANDE from commande, compte where commande.nom != '' and commande.idcompte = compte.idcompte and compte.finesset = ?" ;
-        Connection con = DbConnection.getConnection();
-        PreparedStatement prepare = con.prepareStatement(requete);
-        prepare.setLong(1, compte.getEtablissement().getId());
-        ResultSet result = prepare.executeQuery();
+        ResultSet result = SqlService.getCommandeType(compte.getEtablissement().getId());
         List<Commande> commandeTypeList = new ArrayList<>();
         while (result.next()){
             Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).get();
             commandeTypeList.add(commande);
         }
-        prepare.close();
         return commandeTypeList;
     }
 }

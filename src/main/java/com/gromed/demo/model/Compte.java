@@ -29,10 +29,9 @@ public class Compte {
     @Column(name = "MOTDEPASSE", nullable = false, length = 50)
     private String motDePasse;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idcommande")
-    //@JsonIgnore
-    private List<Commande> commandes = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "compte")
+    //@JoinColumn(name = "idcommande")
+    private List<Commande> commandes;
 
     public List<Commande> getCommandes() {
         return commandes;

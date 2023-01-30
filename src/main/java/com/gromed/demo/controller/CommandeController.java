@@ -70,7 +70,7 @@ public class CommandeController {
     @PostMapping("/updateQuantite")
     public Commande updateQuantiteProduit(@RequestBody AchatPresentation achatPresentation) throws SQLException {
         //si l'objet n'est pas complet alors on émet une erreur
-        if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
+        if (achatPresentation == null || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
         }
 
@@ -144,7 +144,37 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
         List<Estconstitueede> estconstitueedes = commandeService.getStock(commande);
-
+        System.out.println("dans le controler avant return");
         return estconstitueedes;
+    }
+
+    @PostMapping("/createCommandeType")
+    public String createCommandeType(@RequestBody CommandeType nomCommandeType){
+        //si l'objet n'est pas complet alors on émet une erreur
+        if (nomCommandeType == null || nomCommandeType.getCommande() == null || nomCommandeType.getCompte() == null || nomCommandeType.getNom() == null) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le nom souhaité pour la commande type ou l'identifiant du compte ou l'identifiant de la commande");
+        }
+        //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
+        Optional<Compte> optionalCompte = compteService.getCompte(nomCommandeType.getCompte());
+        if (!optionalCompte.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+        }
+        Compte compte = optionalCompte.get();
+
+        Optional<Commande> optionalCommande = commandeService.getCommande(nomCommandeType.getCommande());
+        if(!optionalCommande.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune commande avec cet identifiant");
+        }
+
+        Commande commande = optionalCommande.get();
+        if (commande.getCompte() != compte){
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant renseigné ne correspond pas à l'identifiant qui a créé la commande");
+        }
+        System.out.println(commande.getStatus());
+        if(!(commande.getStatus().equals("terminer") || commande.getStatus().equals("envoyer"))){
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "La commande n'est pas une commande termineée ou envoyée");
+        }
+        commande.setNom(nomCommandeType.getNom());
+        return commandeService.saveCommande(commande).getNom();
     }
 }
