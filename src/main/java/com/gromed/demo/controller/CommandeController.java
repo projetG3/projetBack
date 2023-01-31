@@ -160,8 +160,8 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
-        Long test = commande.get().getId();
-        commandeService.getStockForce(test);
+        Long commandeid = commande.get().getId();
+        commandeService.getStockForce(commandeid);
         return true;
     }
 
@@ -193,5 +193,26 @@ public class CommandeController {
         }
         commande.setNom(nomCommandeType.getNom());
         return commandeService.saveCommande(commande).getNom();
+    }
+
+    @GetMapping("/ajoutercommandetype/{idcompte}/{idcommande}")
+    public Commande ajouterCommandeType(@PathVariable(value = "idcompte") Long idcompte,
+                                   @PathVariable(value = "idcommande") Long idcommande) throws SQLException {
+        Optional<Commande> commande = commandeService.getCommande(idcommande);
+        Optional<Compte> compte = compteService.getCompte(idcompte);
+        if (!commande.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de commande avec ce code");
+        }
+        if (!compte.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de compte avec ce code");
+        }
+        if (!commande.get().getCompte().getEtablissement().getId().equals(compte.get().getEtablissement().getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
+        }
+
+        Commande commandeEnCours = compteService.getCommandeEnCours(idcompte);
+        Commande returnCommande = compteService.ajoutercommandeType(commandeEnCours, commande.get());
+
+        return returnCommande;
     }
 }

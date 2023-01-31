@@ -9,12 +9,13 @@ import com.gromed.demo.repository.EstconstitueedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,6 @@ public class CommandeService {
     private EstlivreeService estlivreeService;
     @Autowired
     private PresentationService presentationService;
-    @Autowired
-    private EstconstitueedeRepository estconstitueedeRepository;
 
     public Optional<Commande> getCommande(Long id) {
         return commandeRepository.findById(id);
@@ -149,4 +148,6 @@ public class CommandeService {
 
         return presentations;
     }
+
+
 }
