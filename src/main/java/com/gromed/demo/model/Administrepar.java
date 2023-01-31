@@ -22,11 +22,6 @@ public class Administrepar {
     }
 
     public VoieAdministration getVoieadministration() {
-        return voieadministration;
+        return this.voieadministration;
     }
-
-    public void setVoieadministration(VoieAdministration voieadministration) {
-        this.voieadministration = voieadministration;
-    }
-
 }

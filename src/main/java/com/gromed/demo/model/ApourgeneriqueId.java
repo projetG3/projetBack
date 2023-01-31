@@ -24,14 +24,6 @@ public class ApourgeneriqueId implements Serializable {
         this.codecis = codecis;
     }
 
-    public Long getIdgenerique() {
-        return idgenerique;
-    }
-
-    public void setIdgenerique(Long idgenerique) {
-        this.idgenerique = idgenerique;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,4 +38,7 @@ public class ApourgeneriqueId implements Serializable {
         return Objects.hash(idgenerique, codecis);
     }
 
+    public void setIdgenerique(Long id) {
+        this.idgenerique = id;
+    }
 }

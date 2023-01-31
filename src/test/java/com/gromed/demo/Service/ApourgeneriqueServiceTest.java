@@ -13,21 +13,20 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class ApourgeneriqueServiceTest {
+class ApourgeneriqueServiceTest {
 
     @Autowired
     ApourgeneriqueService apourgeneriqueService;
 
-   /* @Test
+   @Test
     void getApourgenerique(){
         ApourgeneriqueId apourgeneriqueId = new ApourgeneriqueId();
-        apourgeneriqueId.setCodecis(Long.valueOf(61945162));
-        apourgeneriqueId.setIdgenerique(Long.valueOf(79));
+        apourgeneriqueId.setCodecis(61945162L);
+        apourgeneriqueId.setIdgenerique(79L);
         Optional<Apourgenerique> apourgenerique = apourgeneriqueService.getGenerique(apourgeneriqueId);
         Generique generique = apourgenerique.get().getGenerique();
         System.out.println(generique.getLibelle());
         assertThat(generique).isNotNull();
     }
 
-    */
 }

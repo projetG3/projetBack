@@ -21,13 +21,4 @@ public class Estdelivresous {
         this.id = id;
     }
 
-
-    public Conditionsmedicamenteuse getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(Conditionsmedicamenteuse prescription) {
-        this.prescription = prescription;
-    }
-
 }

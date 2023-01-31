@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
 
 @SpringBootTest
 class TitulaireServiceTest {
@@ -21,8 +20,8 @@ class TitulaireServiceTest {
     @Autowired
     TitulaireService titulaireService;
 
-   /* @Test
-    void addTitulaire() throws SQLException {
+    @Test
+    void addTitulaire() {
         Titulaire test = new Titulaire();
         test.setId("test");
         titulaireService.saveTitulaire(test);
@@ -30,10 +29,8 @@ class TitulaireServiceTest {
         System.out.println("ADD TITULAIRE OK");
     }
 
-    */
-
-    @Test
-    public void addTitulaire() throws SQLException {
+    /*@Test
+    void updateTitulaire() throws SQLException {
         Connection con = DbConnection.getConnection();
         con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
@@ -49,5 +46,5 @@ class TitulaireServiceTest {
         Optional<Titulaire> t = titulaireService.getTitulaire("bob");
         System.out.println(t.get().getId());
     }
-
+     */
 }

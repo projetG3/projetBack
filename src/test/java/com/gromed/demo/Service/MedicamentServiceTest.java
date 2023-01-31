@@ -20,32 +20,29 @@ class MedicamentServiceTest {
     @Autowired
     PresentationService presentationService;
 
-   /* @Test
+   @Test
     void getMedicament(){
-        Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
-        List<Estdelivresous> estdelivresous = medicament.get().getEstdelivresous();
+        Medicament medicament = medicamentService.getMedicament(62007051L).orElseThrow();
+        List<Estdelivresous> estdelivresous = medicament.getEstdelivresous();
         estdelivresous.forEach(s->System.out.println(s.getId()));
         assertThat(estdelivresous).isNotNull();
     }
 
     @Test
     void getMedicamentAdministrepar(){
-        Optional<Medicament> medicament = medicamentService.getMedicament(Long.valueOf(62007051));
-        List<Administrepar> administrepars = medicament.get().getAdministrepars();
+        Medicament medicament = medicamentService.getMedicament(62007051L).orElseThrow();
+        List<Administrepar> administrepars = medicament.getAdministrepars();
         administrepars.forEach(s->System.out.println(s.getVoieadministration().getId()));
         assertThat(administrepars).isNotNull();
     }
 
     @Test
     void getMedicamentInforme(){
-        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(3939752));
-        Medicament medicament = presentation.get().getCodecis();
+        Presentation presentation = presentationService.getPresentation(3939752L).orElseThrow();
+        Medicament medicament = presentation.getCodecis();
         System.out.println(medicament.getId());
         List<Informe> informes = medicament.getInformes();
         informes.forEach(s->System.out.println(s.getInformationsimportantes().getId().getInformation()));
         assertThat(informes).isNotNull();
     }
-
-    */
-
 }

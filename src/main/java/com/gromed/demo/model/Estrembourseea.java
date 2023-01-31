@@ -21,12 +21,4 @@ public class Estrembourseea {
         this.id = id;
     }
 
-    public Tauxderemboursement getTaux() {
-        return taux;
-    }
-
-    public void setTaux(Tauxderemboursement taux) {
-        this.taux = taux;
-    }
-
 }

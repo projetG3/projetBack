@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,29 +19,27 @@ class PresentationServiceTest {
     PresentationService presentationService;
     @Autowired
     private EstconstitueedeService estconstitueedeService;
-    /*@Test
+
+    @Test
     void getCommande() {
         List<Commande> commandes = new ArrayList<>();
         List<Estconstitueede> estconstitueedes = estconstitueedeService.getAllEstconstitueedes();
-        //System.out.println("bb" + estconstitueedes.get(0).getCommande());
-        //estconstitueedes.forEach(s -> commandes.add(s.getCommande()));
+        assertThat(estconstitueedes).isNotNull();
     }
 
     @Test
     void getPresentation(){
-        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(2663360));
-        List<Estrembourseea> estrembourseeas = presentation.get().getEstremboursea();
+        Presentation presentation = presentationService.getPresentation(2663360L).orElseThrow();
+        List<Estrembourseea> estrembourseeas = presentation.getEstremboursea();
         estrembourseeas.forEach(s->System.out.println(s.getId()));
         assertThat(estrembourseeas).isNotNull();
     }
 
     @Test
     void getPresentationMedicament(){
-        Optional<Presentation> presentation = presentationService.getPresentation(Long.valueOf(2663360));
-        Medicament medicament = presentation.get().getCodecis();
+        Presentation presentation = presentationService.getPresentation(2663360L).orElseThrow();
+        Medicament medicament = presentation.getCodecis();
         System.out.println(medicament.getId());
         assertThat(medicament).isNotNull();
     }
-
-     */
 }

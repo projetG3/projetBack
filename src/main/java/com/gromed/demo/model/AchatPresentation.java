@@ -6,7 +6,7 @@ public class AchatPresentation {
 
     private int quantiteCommande;
 
-    public Long idCompte;
+    public static final Long idCompte = 0L;
 
     public Long getProduit(){
         return produit;

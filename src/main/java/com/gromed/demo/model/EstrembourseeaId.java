@@ -16,22 +16,6 @@ public class EstrembourseeaId implements Serializable {
     @Column(name = "TAUX", nullable = false)
     private String taux;
 
-    public Long getCodecip7() {
-        return codecip7;
-    }
-
-    public void setCodecip7(Long codecip7) {
-        this.codecip7 = codecip7;
-    }
-
-    public String getTaux() {
-        return taux;
-    }
-
-    public void setTaux(String taux) {
-        this.taux = taux;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

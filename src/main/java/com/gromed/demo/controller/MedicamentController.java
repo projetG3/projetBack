@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
-import java.util.List;
 import java.util.Optional;
 
 @Validated
@@ -20,14 +19,9 @@ public class MedicamentController {
     @Autowired
     private MedicamentService medicamentService;
 
-
-
     @GetMapping("/{codecis}")
     @CrossOrigin()
     public Medicament getMedicament(@PathVariable(value="codecis") Long codecis){
-
-        System.out.println("METHODE GETMEDICAMENT");
-
         if(codecis == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Vous n'avez pas indiqué le code du médicament");
         }
@@ -37,6 +31,4 @@ public class MedicamentController {
         }
         return optionalMedicament.get();
     }
-
-
 }

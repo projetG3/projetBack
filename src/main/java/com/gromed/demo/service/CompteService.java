@@ -5,7 +5,6 @@ import com.gromed.demo.model.Compte;
 import com.gromed.demo.model.Estconstitueede;
 import com.gromed.demo.model.Presentation;
 import com.gromed.demo.repository.CompteRepository;
-import com.gromed.demo.repository.EstconstitueedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +20,10 @@ public class CompteService {
 
     @Autowired
     private CompteRepository compteRepository;
-
     @Autowired
     private CommandeService commandeService;
-
     @Autowired
     private EstconstitueedeService estconstitueedeService;
-    @Autowired
-    private EstconstitueedeRepository estconstitueedeRepository;
 
     public Optional<Compte> getCompte(Long id) {
         return compteRepository.findById(id);
@@ -48,11 +43,11 @@ public class CompteService {
 
     public Commande getCommandeEnCours(Long idCompte) throws SQLException {
         ResultSet rs = SqlService.getCommandeEnCours(idCompte);
+        Commande commmande = null;
         while(rs.next()){
-            Optional<Commande> optionalCommande = commandeService.getCommande(rs.getLong("IDCOMMANDE"));
-            return optionalCommande.orElseThrow();
+            commmande = commandeService.getCommande(rs.getLong("IDCOMMANDE")).orElseThrow();
         }
-        return null;
+        return commmande;
     }
 
     public Commande createCommande(Compte compte) {
@@ -65,7 +60,7 @@ public class CompteService {
         return newCommande;
     }
 
-    public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite) throws SQLException {
+    public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite){
 
         //il faut vérifier si le produit a déjà été ajouté au panier pour modifier la quantité
         int i = 0;
@@ -100,14 +95,12 @@ public class CompteService {
     }
 
     public Commande ajoutercommandeType(Commande commandeEnCours, Commande commandeType){
-        System.out.println(commandeEnCours.getId() + " "+commandeType.getId());
         List<Estconstitueede> estconstitueedesType = commandeType.getEstconstitueedes();
         List<Estconstitueede> estconstitueedesCommande = commandeEnCours.getEstconstitueedes();
         HashMap<Long, Estconstitueede> dictionnaireCode = new HashMap<>();
 
         for (Estconstitueede estconstitueede: estconstitueedesCommande) {
             Presentation presentation = estconstitueede.getPresentation();
-            System.out.println(estconstitueede.getId());
             dictionnaireCode.put(presentation.getId(), estconstitueede);
         }
 
@@ -125,8 +118,6 @@ public class CompteService {
             }
             else {
                 Estconstitueede e = dictionnaireCode.get(presentation.getId());
-                System.out.println(e.getId());
-
                 e.setQuantite(e.getQuantite()+estconstitueede.getQuantite());
                 estconstitueedeService.saveEstconstitueede(e);
             }

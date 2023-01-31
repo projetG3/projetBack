@@ -1,14 +1,14 @@
 package com.gromed.demo.model;
 
 public class IdCompte {
-    private Long idCompte;
+    private Long compteId;
 
     public Long getIdCompte() {
-        return idCompte;
+        return compteId;
     }
 
-    public void setIdCompte(Long idCompte) {
-        this.idCompte = idCompte;
+    public void setIdCompte(Long compteId) {
+        this.compteId = compteId;
     }
 }
 

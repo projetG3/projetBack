@@ -1,11 +1,8 @@
 package com.gromed.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @SequenceGenerator(name="COMPTE_SEQ",sequenceName="compteSEQ", initialValue=1, allocationSize = 1)
@@ -30,7 +27,6 @@ public class Compte {
     private String motDePasse;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "compte")
-    //@JoinColumn(name = "idcommande")
     private List<Commande> commandes;
 
     public List<Commande> getCommandes() {
@@ -83,9 +79,3 @@ public class Compte {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;}
 }
-
-        /*CREATE SEQUENCE estLivree_SEQ
-        MINVALUE 1
-        START WITH 1
-        INCREMENT BY 1
-        CACHE 2;*/

@@ -1,6 +1,7 @@
 package com.gromed.demo.Service;
 
 import com.gromed.demo.model.Estlivree;
+import com.gromed.demo.repository.EstlivreeRepository;
 import com.gromed.demo.service.CommandeService;
 import com.gromed.demo.service.CompteService;
 import com.gromed.demo.service.EstlivreeService;
@@ -27,13 +28,14 @@ class EstlivreeServiceTest {
     private PresentationService presentationService;
 
     @Test
-    public void createEstlivree(){
+    void createEstlivree(){
         Estlivree estlivree = new Estlivree();
-        estlivree.setIdcommande(commandeService.getCommande(Long.valueOf(18)).get());
-        estlivree.setPresentation(presentationService.getPresentation(Long.valueOf(3016430)).get());
+        estlivree.setIdcommande(commandeService.getCommande(18L).orElseThrow());
+        estlivree.setPresentation(presentationService.getPresentation(3016430L).orElseThrow());
         estlivree.setStatus("envoyer");
         estlivree.setDateenvoi(LocalDate.now());
         estlivree.setQuantite(1);
         estlivreeService.saveEstlivree(estlivree);
+        assertThat(estlivree).isNotNull();
     }
 }

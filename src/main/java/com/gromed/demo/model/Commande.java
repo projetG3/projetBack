@@ -40,8 +40,6 @@ public class Commande {
     private Compte compte;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "idcommande")
-    //@JoinColumn(name = "ID")
-    //@JsonIgnore
     private List<Estconstitueede> estconstitueedes = new ArrayList<>();
 
     public Compte getCompte() {
@@ -54,10 +52,6 @@ public class Commande {
 
     public List<Estconstitueede> getEstconstitueedes() {
         return estconstitueedes;
-    }
-
-    public void setEstconstitueedes(List<Estconstitueede> estconstitueedes) {
-        this.estconstitueedes = estconstitueedes;
     }
 
     public void setEstconstitueede(List<Estconstitueede> estconstitueedes) {

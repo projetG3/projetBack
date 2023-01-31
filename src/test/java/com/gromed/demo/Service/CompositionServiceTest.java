@@ -12,18 +12,16 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class CompositionServiceTest {
+class CompositionServiceTest {
 
     @Autowired
     CompositionsService compositionsService;
 
-    /*@Test
+    @Test
     void getComposition(){
-        Optional<Composition> composition = compositionsService.getComposition(Long.valueOf(318));
+        Optional<Composition> composition = compositionsService.getComposition(318L);
         Medicament medicament = composition.get().getCodecis();
         System.out.println(medicament.getId());
         assertThat(medicament).isNotNull();
     }
-
-     */
 }

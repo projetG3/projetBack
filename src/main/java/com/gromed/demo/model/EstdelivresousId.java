@@ -24,14 +24,6 @@ public class EstdelivresousId implements Serializable {
         this.codecis = codecis;
     }
 
-    public String getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(String prescription) {
-        this.prescription = prescription;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,5 +37,4 @@ public class EstdelivresousId implements Serializable {
     public int hashCode() {
         return Objects.hash(codecis, prescription);
     }
-
 }

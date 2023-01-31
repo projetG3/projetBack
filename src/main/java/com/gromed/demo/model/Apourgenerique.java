@@ -41,27 +41,6 @@ public class Apourgenerique {
     }
 
     public Generique getGenerique() {
-        return generique;
+        return this.generique;
     }
-
-    public void setGenerique(Generique idgenerique) {
-        this.generique = idgenerique;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getTrie() {
-        return trie;
-    }
-
-    public void setTrie(Integer trie) {
-        this.trie = trie;
-    }
-
 }

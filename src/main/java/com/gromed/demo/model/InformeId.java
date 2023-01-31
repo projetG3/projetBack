@@ -31,30 +31,6 @@ public class InformeId implements Serializable {
         this.codecis = codecis;
     }
 
-    public LocalDate getDatedebutinfo() {
-        return datedebutinfo;
-    }
-
-    public void setDatedebutinfo(LocalDate datedebutinfo) {
-        this.datedebutinfo = datedebutinfo;
-    }
-
-    public LocalDate getDatefininfo() {
-        return datefininfo;
-    }
-
-    public void setDatefininfo(LocalDate datefininfo) {
-        this.datefininfo = datefininfo;
-    }
-
-    public String getInformation() {
-        return information;
-    }
-
-    public void setInformation(String information) {
-        this.information = information;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

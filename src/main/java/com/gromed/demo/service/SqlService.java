@@ -15,23 +15,29 @@ public class SqlService {
     Connection con = DbConnection.getConnection();
 
     public SqlService() throws SQLException {
+        //do nothing
     }
 
     public static ResultSet getCommandeEnCours(Long idCompte) throws SQLException {
         Connection con = DbConnection.getConnection();
         String myQuery = "select IDCOMMANDE from commande where idcompte =? and status = 'en cours'";
-        PreparedStatement pst = con.prepareStatement(myQuery);
-        pst.setLong(1, idCompte);
-        ResultSet rs = pst.executeQuery();
-        return rs;
+        try(PreparedStatement pst = con.prepareStatement(myQuery)){
+            pst.setLong(1, idCompte);
+            return pst.executeQuery();
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     public static ResultSet getCommandeType(Long finesset) throws SQLException {
         Connection con = DbConnection.getConnection();
         String requete = "select commande.IDCOMMANDE from commande, compte where commande.nom is not null and commande.idcompte = compte.idcompte and compte.finesset = ?" ;
-        PreparedStatement prepare = con.prepareStatement(requete);
-        prepare.setLong(1, finesset);
-        return prepare.executeQuery();
+        try (PreparedStatement prepare = con.prepareStatement(requete)){
+            prepare.setLong(1, finesset);
+            return prepare.executeQuery();
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     public static ResultSet getPresentationByCritere(CritereRecherche critereRecherche) throws SQLException {
@@ -43,10 +49,8 @@ public class SqlService {
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
         List<String> params = new ArrayList<>() ;
         String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE  FROM PRESENTATION P " +
-                "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " +
-                "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
-                "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " +
-                "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
+                "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " + "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
+                "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " + "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
                 "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
 
         if (critereRecherche.getLibellePresentation() != null) {
@@ -58,10 +62,10 @@ public class SqlService {
             myQuery+="AND (UPPER(P.LIBELLE) LIKE ? OR UPPER(G.LIBELLE) LIKE ?) ";
             params.add("%"+libelle.toUpperCase()+"%");
             params.add("%"+generique.toUpperCase()+"%");
-        } else if (libelle != null && generique == null) {
+        } else if (libelle != null) {
             myQuery+="AND (UPPER(P.LIBELLE) LIKE ?) ";
             params.add("%"+libelle.toUpperCase()+"%");
-        } else if (libelle == null && generique != null) {
+        } else if (generique != null) {
             myQuery+="OR UPPER(G.LIBELLE) LIKE ?) ";
             params.add("%"+generique.toUpperCase()+"%");
         }
@@ -74,16 +78,15 @@ public class SqlService {
                 }
                 params.add("%"+voieAdministrations.get(i).toUpperCase()+"%");
                 myQuery+=")";
-
             }
-
         }
-
-        PreparedStatement pst = con.prepareStatement(myQuery);
-        System.out.println(myQuery);
-        for(int i = 0; i < params.size(); i++){
-            pst.setString(i+1, params.get(i));
+        try(PreparedStatement pst = con.prepareStatement(myQuery)){
+            for(int i = 0; i < params.size(); i++){
+                pst.setString(i+1, params.get(i));
+            }
+            return pst.executeQuery();
+        }catch (Exception e){
+            throw e;
         }
-        return pst.executeQuery();
     }
 }

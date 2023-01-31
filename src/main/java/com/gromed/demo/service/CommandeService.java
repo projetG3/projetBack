@@ -5,17 +5,14 @@ import com.gromed.demo.model.Estconstitueede;
 import com.gromed.demo.model.Estlivree;
 import com.gromed.demo.model.Presentation;
 import com.gromed.demo.repository.CommandeRepository;
-import com.gromed.demo.repository.EstconstitueedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,7 +87,6 @@ public class CommandeService {
         }
 
         if (estconstitueedesNoStocks.size() != 0) {
-            System.out.println(estconstitueedesNoStocks.isEmpty() + " "+estconstitueedesNoStocks.size());
             commande.setStatus("terminer");
             commande.setDateheurecommande(LocalDateTime.now());
             commande.setMontanttotal(montantTotal+"€");
@@ -148,6 +144,4 @@ public class CommandeService {
 
         return presentations;
     }
-
-
 }

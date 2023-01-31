@@ -35,6 +35,10 @@ public class CommandeController {
         return commandeService.getAllCommande();
     }
 
+    private static String idcompteIncorrect = "L'identifiant de l'utilisateur n'est pas incorrect";
+    private static String idcommandeIncorrect = "il n'y a pas de commande avec ce code";
+    private static String compteCommandeIncorrect = "le compte ne correspond pas a la commande";
+
     @PostMapping("/addProduct")
     public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
 
@@ -46,7 +50,7 @@ public class CommandeController {
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte reelCompte = optionalCompte.get();
 
@@ -77,7 +81,7 @@ public class CommandeController {
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(achatPresentation.getIdCompte());
         if (!optionalCompte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte reelCompte = optionalCompte.get();
 
@@ -121,7 +125,7 @@ public class CommandeController {
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(idCompte.getIdCompte());
         if (!optionalCompte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte reelCompte = optionalCompte.get();
 
@@ -134,16 +138,15 @@ public class CommandeController {
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
         if (!commande.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de commande avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de compte avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
-        List<Presentation> presentations = commandeService.getStock(commande.get());
-        return presentations;
+        return commandeService.getStock(commande.get());
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
@@ -152,13 +155,13 @@ public class CommandeController {
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
         if (!commande.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de commande avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de compte avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
         Long commandeid = commande.get().getId();
         commandeService.getStockForce(commandeid);
@@ -174,20 +177,19 @@ public class CommandeController {
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(nomCommandeType.getCompte());
         if (!optionalCompte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant de l'utilisateur est incorrect");
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte compte = optionalCompte.get();
 
         Optional<Commande> optionalCommande = commandeService.getCommande(nomCommandeType.getCommande());
         if(!optionalCommande.isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune commande avec cet identifiant");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
 
         Commande commande = optionalCommande.get();
         if (commande.getCompte() != compte){
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "L'identifiant renseigné ne correspond pas à l'identifiant qui a créé la commande");
         }
-        System.out.println(commande.getStatus());
         if(!(commande.getStatus().equals("terminer") || commande.getStatus().equals("envoyer"))){
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "La commande n'est pas une commande termineée ou envoyée");
         }
@@ -201,18 +203,16 @@ public class CommandeController {
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
         if (!commande.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de commande avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "il n'y a pas de compte avec ce code");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!commande.get().getCompte().getEtablissement().getId().equals(compte.get().getEtablissement().getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
 
         Commande commandeEnCours = compteService.getCommandeEnCours(idcompte);
-        Commande returnCommande = compteService.ajoutercommandeType(commandeEnCours, commande.get());
-
-        return returnCommande;
+        return compteService.ajoutercommandeType(commandeEnCours, commande.get());
     }
 }

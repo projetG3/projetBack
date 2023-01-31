@@ -24,14 +24,6 @@ public class AdministreparId implements Serializable {
         this.codecis = codecis;
     }
 
-    public String getTypedevoie() {
-        return typedevoie;
-    }
-
-    public void setTypedevoie(String typedevoie) {
-        this.typedevoie = typedevoie;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

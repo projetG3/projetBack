@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,23 +24,25 @@ class CompteServiceTest {
     void getCompte(){
         Optional<Compte> compte = compteService.getCompte(Long.valueOf(5));
         System.out.println(compte.get());
+        assertThat(compte).isNotNull();
     }
 
     @Test
-    void addCompte() throws SQLException {
+    void addCompte() {
         Compte test = new Compte();
         test.setNom("dupont");
         test.setPrenom("dupond");
-        Optional<Etablissement> etablissement = etablissementService.getEtablissement(Long.valueOf(640007761));
-        test.setEtablissement(etablissement.get());
+        Etablissement etablissement = etablissementService.getEtablissement(640007761L).orElseThrow();
+        test.setEtablissement(etablissement);
         test.setMotDePasse("1234");
         compteService.saveCompte(test);
         System.out.println("ADD Compte OK");
+        assertThat(test).isNotNull();
     }
 
     @Test
-    void getFirstCompte() throws SQLException{
-        Optional <Compte> compte = compteService.getCompte(Long.valueOf(1));
+    void getFirstCompte(){
+        Optional <Compte> compte = compteService.getCompte(1L);
         if(compte.isPresent()){
             System.out.println(compte.get().getPrenom());
         }

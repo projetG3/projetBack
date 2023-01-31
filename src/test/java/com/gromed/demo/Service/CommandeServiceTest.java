@@ -9,28 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class CommandeServiceTest {
+class CommandeServiceTest {
 
     @Autowired
     CommandeService commandeService;
 
     @Test
     void getCompte(){
-        Optional<Commande> commande = commandeService.getCommande(Long.valueOf(3));
-        Compte compte = commande.get().getCompte();
+        Commande commande = commandeService.getCommande(19L).orElseThrow();
+        Compte compte = commande.getCompte();
         System.out.println(compte.getId());
-        assertThat(compte.getId()).isEqualTo(5);
+        assertThat(compte.getId()).isEqualTo(10);
     }
 
     @Test
     void getEstconstitueede(){
-        Optional<Commande> commande = commandeService.getCommande(18L);
-        List<Estconstitueede> estconstitueedes = commande.get().getEstconstitueedes();
+        Commande commande = commandeService.getCommande(18L).orElseThrow();
+        List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
         for (Estconstitueede e: estconstitueedes) {
             System.out.println(e.getId());
         }

@@ -2,7 +2,6 @@ package com.gromed.demo.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import java.time.LocalDate;
@@ -17,15 +16,6 @@ public class Presentation {
     @Id
     @Column(name = "CODECIP7", nullable = false)
     private Long id;
-
-   /* @Version
-    private Long revision = 1L;
-    public Long getRevision() {
-        return revision;
-    }
-    public void setRevision(Long revision) {
-        this.revision = revision;
-    }*/
 
     @Column(name = "LIBELLE", nullable = false, length = 150)
     private String libelle;
