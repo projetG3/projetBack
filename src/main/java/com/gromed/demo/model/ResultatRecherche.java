@@ -14,7 +14,7 @@ public class ResultatRecherche {
 
     private double prix;
 
-    private String[] typeDeVoie;
+    private String typeDeVoie;
 
     public Long getId() {
         return id;
@@ -64,11 +64,11 @@ public class ResultatRecherche {
         this.prix = prix;
     }
 
-    public String[] getTypeDeVoie() {
+    public String getTypeDeVoie() {
         return typeDeVoie;
     }
 
-    public void setTypeDeVoie(String[] typeDeVoie) {
+    public void setTypeDeVoie(String typeDeVoie) {
         this.typeDeVoie = typeDeVoie;
     }
 }

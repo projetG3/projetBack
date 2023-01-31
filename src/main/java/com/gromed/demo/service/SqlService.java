@@ -42,7 +42,7 @@ public class SqlService {
         String generique = critereRecherche.getGenerique();
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
         List<String> params = new ArrayList<>() ;
-        String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE  FROM PRESENTATION P " +
+        String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE, G.LIBELLE as generique, P.PRIX  FROM PRESENTATION P " +
                 "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " +
                 "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
                 "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " +

@@ -40,10 +40,12 @@ public class PresentationService {
         while(rs.next()){
             resultatRecherche = new ResultatRecherche();
             resultatRecherche.setLibellePresentation(rs.getString("libelle"));
-            resultatRecherche.setNomMedicament(rs.getString("nom"));
+            resultatRecherche.setLibelleMedicament(rs.getString("nom"));
             resultatRecherche.setQuantite(rs.getInt("quantitedispo"));
-            resultatRecherche.setTypedevoie(rs.getString("typedevoie"));
-            resultatRecherche.setCodeCIP7(rs.getLong("codecip7"));
+            resultatRecherche.setTypeDeVoie(rs.getString("typedevoie"));
+            resultatRecherche.setId(rs.getLong("codecip7"));
+            resultatRecherche.setGenerique(rs.getString("generique"));
+            resultatRecherche.setPrix(rs.getDouble("prix"));
             resultat.add(resultatRecherche);
         }
         return resultat;
