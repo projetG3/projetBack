@@ -18,14 +18,14 @@ public class Presentation {
     @Column(name = "CODECIP7", nullable = false)
     private Long id;
 
-    @Version
+   /* @Version
     private Long revision = 1L;
     public Long getRevision() {
         return revision;
     }
     public void setRevision(Long revision) {
         this.revision = revision;
-    }
+    }*/
 
     @Column(name = "LIBELLE", nullable = false, length = 150)
     private String libelle;

@@ -142,15 +142,12 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
-        System.out.println("avant");
         List<Presentation> presentations = commandeService.getStock(commande.get());
-        System.out.println("après");
-        System.out.println("dans le controler avant return");
         return presentations;
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
-    public Boolean getValiderFrorce(@PathVariable(value = "idcompte") Long idcompte,
+    public Boolean getValiderForce(@PathVariable(value = "idcompte") Long idcompte,
                                             @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -163,12 +160,9 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le compte ne correspond pas a la commande");
         }
-        if(commandeService.getStockForce(commande.get().getId())){
-            return true;
-        }
-        else{
-            return false;
-        }
+        Long test = commande.get().getId();
+        commandeService.getStockForce(test);
+        return true;
     }
 
     @PostMapping("/createCommandeType")
