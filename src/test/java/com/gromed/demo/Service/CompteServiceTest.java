@@ -1,13 +1,13 @@
 package com.gromed.demo.Service;
 
-import com.gromed.demo.model.Compte;
-import com.gromed.demo.model.Etablissement;
-import com.gromed.demo.service.CompteService;
-import com.gromed.demo.service.EtablissementService;
+import com.gromed.demo.model.*;
+import com.gromed.demo.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,11 +19,17 @@ class CompteServiceTest {
     private EtablissementService etablissementService;
     @Autowired
     private CompteService compteService;
+    @Autowired
+    private CommandeService commandeService;
+    @Autowired
+    private PresentationService presentationService;
+    @Autowired
+    private EstconstitueedeService estconstitueedeService;
 
     @Test
     void getCompte(){
-        Optional<Compte> compte = compteService.getCompte(Long.valueOf(5));
-        System.out.println(compte.get());
+        Compte compte = compteService.getCompte(5L).orElseThrow();
+        System.out.println(compte);
         assertThat(compte).isNotNull();
     }
 
@@ -48,5 +54,45 @@ class CompteServiceTest {
         }
         assertThat(compte).isNotNull();
         System.out.println("GET FIRST COMPTE OK");
+    }
+
+    @Test
+    void createCommande(){
+        Compte compte = compteService.getCompte(5L).orElseThrow();
+        Commande commande = new Commande();
+        commande.setStatus("en cours");
+        commande.setCompte(compte);
+        commande = commandeService.saveCommande(commande);
+        Commande newCommande = compteService.createCommande(compte);
+        assertThat(newCommande).isNotNull();
+        assertThat(commande).isNotNull();
+        assertThat(commande.getCompte()).isEqualTo(newCommande.getCompte());
+    }
+
+    @Test
+    void getCommandeType() throws SQLException {
+        Compte compte = compteService.getCompte(5L).orElseThrow();
+        Commande commande = compteService.createCommande(compte);
+        commande.setNom("Restock");
+        commandeService.saveCommande(commande);
+        List<Commande> commandeType = compteService.getCommandeType(compte);
+        assertThat(commandeType.contains(commande)).isNotNull();
+    }
+
+    @Test
+    void addProduct() throws SQLException {
+        Presentation presentation = presentationService.getAllPresentation().get(0);
+        Compte compte = compteService.getCompte(5L).orElseThrow();
+        List<Commande> commandesEnCours = compteService.getCommandeType(compte);
+        Commande commandeEnCours = commandesEnCours.get(0);
+        Estconstitueede estconstitueede = new Estconstitueede();
+        estconstitueede.setTerminer(false);
+        estconstitueede.setQuantite(1);
+        estconstitueede.setPresentation(presentation);
+        estconstitueede.setIdcommande(commandeEnCours);
+        estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
+        commandeEnCours.addEstConstitueeDe(estconstitueede);
+        Commande commandeProduct = compteService.addProduct(commandeEnCours, presentation, 1);
+        assertThat(commandeProduct.getEstconstitueedes().contains(estconstitueede)).isNotNull();
     }
 }

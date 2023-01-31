@@ -56,12 +56,10 @@ public class CompteService {
         //ajouter le compte qui fait la commande
         newCommande.setCompte(compte);
         newCommande = commandeService.saveCommande(newCommande);
-        //compte.addCommande(newCommande); //IL EST POSSIBLE QUE JE DOIVE ENLEVER CA
         return newCommande;
     }
 
     public Commande addProduct(Commande commandeEnCours, Presentation presentation, int quantite){
-
         //il faut vérifier si le produit a déjà été ajouté au panier pour modifier la quantité
         int i = 0;
         while(i < commandeEnCours.getEstconstitueedes().size()){
@@ -81,6 +79,7 @@ public class CompteService {
         estconstitueede.setIdcommande(commandeEnCours);
         estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
         commandeEnCours.addEstConstitueeDe(estconstitueede);
+
         return  commandeEnCours;
     }
 
