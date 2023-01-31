@@ -11,12 +11,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "PRESENTATION")
-@OptimisticLocking(type = OptimisticLockType.ALL)
+@OptimisticLocking
 @DynamicUpdate
 public class Presentation {
     @Id
     @Column(name = "CODECIP7", nullable = false)
     private Long id;
+
+   /* @Version
+    private Long revision = 1L;
+    public Long getRevision() {
+        return revision;
+    }
+    public void setRevision(Long revision) {
+        this.revision = revision;
+    }*/
 
     @Column(name = "LIBELLE", nullable = false, length = 150)
     private String libelle;
@@ -52,11 +61,6 @@ public class Presentation {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODECIP7")
     private List<Estrembourseea> estrembourseeas = new ArrayList<>();
-
-    /*@Version
-    private Long version;
-
-     */
 
     public List<Estrembourseea> getEstremboursea() {
         return estrembourseeas;

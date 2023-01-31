@@ -5,6 +5,7 @@ import com.gromed.demo.model.Estconstitueede;
 import com.gromed.demo.model.Estlivree;
 import com.gromed.demo.model.Presentation;
 import com.gromed.demo.repository.CommandeRepository;
+import com.gromed.demo.repository.EstconstitueedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,92 +47,107 @@ public class CommandeService {
         return commandeRepository.save(id);
     }
 
-    @Transactional()
-    public List<Estconstitueede> getStock(Optional<Commande> commande){
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public void getStockForce(Long id){
         List<Estconstitueede> estconstitueedesNoStocks = new ArrayList<>();
-        List<Estconstitueede> estconstitueedes = commande.get().getEstconstitueedes();
+        Commande commande = getCommande(id).orElseThrow();
+        List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
 
-        Long montantTotal = Long.valueOf(0);
+        Long montantTotal = 0L;
 
         for (Estconstitueede estconstitueede : estconstitueedes) {
             Presentation presentation = estconstitueede.getPresentation();
-            if (estconstitueede.getQuantite() > presentation.getQuantitedispo()) {
+            Estlivree estlivree = new Estlivree();
+            estlivree.setIdcommande(commande);
+            estlivree.setPresentation(estconstitueede.getPresentation());
+            estlivree.setStatus("envoyer");
+            estlivree.setDateenvoi(LocalDate.now());
+
+            if(presentation.getQuantitedispo() == 0){
+                estconstitueedesNoStocks.add(estconstitueede);
+            }
+            else if (estconstitueede.getQuantite() > presentation.getQuantitedispo() && presentation.getQuantitedispo() > 0) {
                 estconstitueedesNoStocks.add(estconstitueede);
 
-                Estlivree estlivree = new Estlivree();
-                estlivree.setIdcommande(commande.get());
-                estlivree.setPresentation(estconstitueede.getPresentation());
-                estlivree.setStatus("envoyer");
-                estlivree.setDateenvoi(LocalDate.now());
                 estlivree.setQuantite(presentation.getQuantitedispo());
-                try{
-                    System.out.println("try est livree");
-                    estlivreeService.saveEstlivree(estlivree);
-                }catch (Exception e){
-                    System.out.println("catch est livree");
-                    throw e;
-                }
+                estlivreeService.saveEstlivree(estlivree);
 
                 presentation.setQuantitedispo(0);
-                try{
-                    System.out.println("try presentation");
-                    presentationService.savePresentation(presentation);
-                }catch (Exception e){
-                    System.out.println("catch presentation");
-                    throw e;
-                }
+            }
+            else if (presentation.getQuantitedispo() >= estconstitueede.getQuantite()){
+                estlivree.setQuantite(estconstitueede.getQuantite());
+                estlivreeService.saveEstlivree(estlivree);
 
-            } else {
+                int quantite = presentation.getQuantitedispo()-estconstitueede.getQuantite();
+                presentation.setQuantitedispo(quantite);
+
+                estconstitueede.setTerminer(true);
+                estconstitueedeService.saveEstconstitueede(estconstitueede);
+            }
+            presentationService.savePresentation(presentation);
+
+            montantTotal+=presentation.getPrix();
+        }
+
+        if (estconstitueedesNoStocks.size() != 0) {
+            System.out.println(estconstitueedesNoStocks.isEmpty() + " "+estconstitueedesNoStocks.size());
+            commande.setStatus("terminer");
+            commande.setDateheurecommande(LocalDateTime.now());
+            commande.setMontanttotal(montantTotal+"€");
+            commande.setDatefacture(LocalDate.now());
+            commande.setStatusfacture(true);
+            saveCommande(commande);
+        }
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public List<Presentation> getStock(Commande commande) {
+        List<Presentation> presentations = new ArrayList<>();
+        List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
+        List<Estconstitueede> estconstitueedesNoStock = new ArrayList<>();
+        Long montantTotal = 0L;
+
+        for (Estconstitueede estconstitueede : estconstitueedes) {
+            Presentation presentation = estconstitueede.getPresentation();
+            if (estconstitueede.getQuantite() < presentation.getQuantitedispo()) {
+               estconstitueedesNoStock.add(estconstitueede);
+            }
+            else{
+                presentations.add(presentation);
+            }
+            montantTotal += presentation.getPrix();
+        }
+
+        if(presentations.size() == 0){
+            for(Estconstitueede estconstitueede : estconstitueedesNoStock){
+                Presentation presentation = estconstitueede.getPresentation();
+
                 Estlivree estlivree = new Estlivree();
-                estlivree.setIdcommande(commande.get());
+                estlivree.setIdcommande(commande);
                 estlivree.setPresentation(estconstitueede.getPresentation());
                 estlivree.setStatus("envoyer");
                 estlivree.setDateenvoi(LocalDate.now());
                 estlivree.setQuantite(estconstitueede.getQuantite());
-                try{
-                    System.out.println("try est livree");
-                    estlivreeService.saveEstlivree(estlivree);
-                }catch (Exception e){
-                    System.out.println("catch est livree");
-                    throw e;
-                }
+                estlivreeService.saveEstlivree(estlivree);
 
-                presentation.setQuantitedispo(presentation.getQuantitedispo()-estconstitueede.getQuantite());
-                try {
-                    System.out.println("try presentation");
-                    presentationService.savePresentation(presentation);
-                }catch (Exception e){
-                    System.out.println("catch presentation");
-                    throw e;
-                }
+                int quantite = presentation.getQuantitedispo() - estconstitueede.getQuantite();
+                presentation.setQuantitedispo(quantite);
+                presentationService.savePresentation(presentation);
 
                 estconstitueede.setTerminer(true);
-                try {
-                    System.out.println("try estconstituteede");
-                    estconstitueedeService.saveEstconstitueede(estconstitueede);
-                }catch (Exception e){
-                    System.out.println("catch estconstituteede");
-                    throw e;
-                }
+                estconstitueedeService.saveEstconstitueede(estconstitueede);
             }
-            montantTotal+=presentation.getPrix();
+
+            commande.setStatus("terminer");
+            commande.setDateheurecommande(LocalDateTime.now());
+            commande.setMontanttotal(montantTotal+"€");
+            commande.setDatefacture(LocalDate.now());
+            commande.setStatusfacture(true);
+            saveCommande(commande);
         }
 
-        if (estconstitueedesNoStocks.isEmpty()) {
-            commande.get().setStatus("terminer");
-            commande.get().setDateheurecommande(LocalDateTime.now());
-            commande.get().setMontanttotal(montantTotal+"€");
-            commande.get().setDatefacture(LocalDate.now());
-            commande.get().setStatusfacture(true);
-            try {
-                System.out.println("try commande");
-                saveCommande(commande.get());
-            }catch (Exception e){
-                System.out.println("catch commande");
-                throw e;
-            }
-        }
-        estconstitueedesNoStocks.forEach(s->System.out.println(s.getId()));
-        return estconstitueedesNoStocks;
+        return presentations;
     }
+
+
 }

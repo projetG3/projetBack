@@ -29,7 +29,7 @@ public class CommandeServiceTest {
 
     @Test
     void getEstconstitueede(){
-        Optional<Commande> commande = commandeService.getCommande(Long.valueOf(13));
+        Optional<Commande> commande = commandeService.getCommande(18L);
         List<Estconstitueede> estconstitueedes = commande.get().getEstconstitueedes();
         for (Estconstitueede e: estconstitueedes) {
             System.out.println(e.getId());
