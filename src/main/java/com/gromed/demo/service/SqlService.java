@@ -21,23 +21,17 @@ public class SqlService {
     public static ResultSet getCommandeEnCours(Long idCompte) throws SQLException {
         Connection con = DbConnection.getConnection();
         String myQuery = "select IDCOMMANDE from commande where idcompte =? and status = 'en cours'";
-        try(PreparedStatement pst = con.prepareStatement(myQuery)){
-            pst.setLong(1, idCompte);
-            return pst.executeQuery();
-        }catch (Exception e){
-            throw e;
-        }
+        PreparedStatement pst = con.prepareStatement(myQuery);
+        pst.setLong(1, idCompte);
+        return pst.executeQuery();
     }
 
     public static ResultSet getCommandeType(Long finesset) throws SQLException {
         Connection con = DbConnection.getConnection();
         String requete = "select commande.IDCOMMANDE from commande, compte where commande.nom is not null and commande.idcompte = compte.idcompte and compte.finesset = ?" ;
-        try (PreparedStatement prepare = con.prepareStatement(requete)){
-            prepare.setLong(1, finesset);
-            return prepare.executeQuery();
-        }catch (Exception e){
-            throw e;
-        }
+        PreparedStatement prepare = con.prepareStatement(requete);
+        prepare.setLong(1, finesset);
+        return prepare.executeQuery();
     }
 
     public static ResultSet getPresentationByCritere(CritereRecherche critereRecherche) throws SQLException {
@@ -64,10 +58,10 @@ public class SqlService {
             myQuery+="AND (UPPER(P.LIBELLE) LIKE ? OR UPPER(G.LIBELLE) LIKE ?) ";
             params.add("%"+libelle.toUpperCase()+"%");
             params.add("%"+generique.toUpperCase()+"%");
-        } else if (libelle != null) {
+        } else if (libelle != null && generique == null) {
             myQuery+="AND (UPPER(P.LIBELLE) LIKE ?) ";
             params.add("%"+libelle.toUpperCase()+"%");
-        } else if (generique != null) {
+        } else if (libelle == null && generique != null) {
             myQuery+="OR UPPER(G.LIBELLE) LIKE ?) ";
             params.add("%"+generique.toUpperCase()+"%");
         }
@@ -82,13 +76,10 @@ public class SqlService {
                 myQuery+=")";
             }
         }
-        try(PreparedStatement pst = con.prepareStatement(myQuery)){
-            for(int i = 0; i < params.size(); i++){
-                pst.setString(i+1, params.get(i));
-            }
-            return pst.executeQuery();
-        }catch (Exception e){
-            throw e;
+        PreparedStatement pst = con.prepareStatement(myQuery);
+        for(int i = 0; i < params.size(); i++){
+            pst.setString(i+1, params.get(i));
         }
+        return pst.executeQuery();
     }
 }
