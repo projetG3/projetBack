@@ -46,7 +46,7 @@ public class Presentation {
     private String agrement;
 
     @Column(name = "PRIX", precision = 5, scale = 2, nullable = false)
-    private Long prix;
+    private Double prix;
 
     @Column(name = "INDICATIONS", length = 1000)
     private String indications;
@@ -130,11 +130,11 @@ public class Presentation {
         this.agrement = agrement;
     }
 
-    public Long getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public void setPrix(Long prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
 

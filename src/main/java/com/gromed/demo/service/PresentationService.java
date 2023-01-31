@@ -1,15 +1,10 @@
 package com.gromed.demo.service;
 
-import com.gromed.demo.DbConnection;
 import com.gromed.demo.model.*;
 import com.gromed.demo.repository.PresentationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

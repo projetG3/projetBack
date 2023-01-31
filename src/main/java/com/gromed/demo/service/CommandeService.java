@@ -53,7 +53,7 @@ public class CommandeService {
         Commande commande = getCommande(id).orElseThrow();
         List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
 
-        Long montantTotal = 0L;
+        Double montantTotal = 0D;
 
         for (Estconstitueede estconstitueede : estconstitueedes) {
             Presentation presentation = estconstitueede.getPresentation();
@@ -105,7 +105,7 @@ public class CommandeService {
         List<Presentation> presentations = new ArrayList<>();
         List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
         List<Estconstitueede> estconstitueedesNoStock = new ArrayList<>();
-        Long montantTotal = 0L;
+        Double montantTotal = 0D;
 
         for (Estconstitueede estconstitueede : estconstitueedes) {
             Presentation presentation = estconstitueede.getPresentation();

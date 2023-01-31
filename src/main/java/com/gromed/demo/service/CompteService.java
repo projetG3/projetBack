@@ -50,7 +50,7 @@ public class CompteService {
         ResultSet rs = SqlService.getCommandeEnCours(idCompte);
         while(rs.next()){
             Optional<Commande> optionalCommande = commandeService.getCommande(rs.getLong("IDCOMMANDE"));
-            return optionalCommande.get();
+            return optionalCommande.orElseThrow();
         }
         return null;
     }
@@ -71,7 +71,7 @@ public class CompteService {
         int i = 0;
         while(i < commandeEnCours.getEstconstitueedes().size()){
             Estconstitueede estconstitueedeCourant = commandeEnCours.getEstconstitueedes().get(i);
-            if(estconstitueedeCourant.getPresentation().getId() == presentation.getId()){
+            if(estconstitueedeCourant.getPresentation().getId().equals(presentation.getId())){
                 estconstitueedeCourant.setQuantite(estconstitueedeCourant.getQuantite() + quantite);
                 estconstitueedeService.saveEstconstitueede(estconstitueedeCourant);
                 return commandeEnCours;
@@ -93,7 +93,7 @@ public class CompteService {
         ResultSet result = SqlService.getCommandeType(compte.getEtablissement().getId());
         List<Commande> commandeTypeList = new ArrayList<>();
         while (result.next()){
-            Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).get();
+            Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).orElseThrow();
             commandeTypeList.add(commande);
         }
         return commandeTypeList;

@@ -97,7 +97,7 @@ public class CommandeController {
             //puis on parcourt cette liste
             for(int i = 0; i < estconstitueedeList.size(); i++){
                 //si le produit courant est le même que le produit dont l'utilisateur souhaite modifier la quantité alors
-                if(estconstitueedeList.get(i).getPresentation().getId() == achatPresentation.getProduit()){
+                if(estconstitueedeList.get(i).getPresentation().getId().equals(achatPresentation.getProduit())){
                     //si l'utilisateur ne veut plus le produit alors
                     if(achatPresentation.getQuantiteCommande() == 0){
                         estconstitueedeService.deleteEstconstitueede(estconstitueedeList.get(i).getId());
