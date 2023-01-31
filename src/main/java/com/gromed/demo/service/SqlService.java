@@ -37,8 +37,8 @@ public class SqlService {
     public static ResultSet getPresentationByCritere(CritereRecherche critereRecherche) throws SQLException {
         Connection con = DbConnection.getConnection();
 
-        String nom = critereRecherche.getNom();
-        String libelle = critereRecherche.getLibelle();
+        String nom = critereRecherche.getLibellePresentation();
+        String libelle = critereRecherche.getLibelleMedicament();
         String generique = critereRecherche.getGenerique();
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
         List<String> params = new ArrayList<>() ;
@@ -49,7 +49,7 @@ public class SqlService {
                 "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
                 "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
 
-        if (critereRecherche.getNom() != null) {
+        if (critereRecherche.getLibellePresentation() != null) {
             myQuery+="AND (UPPER(M.NOM) LIKE ?) ";
             params.add("%"+nom.toUpperCase()+"%");
 

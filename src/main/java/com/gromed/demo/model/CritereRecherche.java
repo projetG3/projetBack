@@ -4,41 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CritereRecherche {
-    private String nom;
-    private String libelle;
-    private List<String> voieAdministrations = new ArrayList<>();
+    private String libellePresentation;
+
+    private String libelleMedicament;
     private String generique;
+    private List<String> voieAdministrations = new ArrayList<>();
 
-    public String getNom() {
-        return nom;
+    public String getLibellePresentation() {
+        return libellePresentation;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public void setLibellePresentation(String libellePresentation) {
+        this.libellePresentation = libellePresentation;
     }
 
-    public List<String> getVoieAdministrations() {
-        return voieAdministrations;
+    public String getLibelleMedicament() {
+        return libelleMedicament;
+    }
+
+    public void setLibelleMedicament(String libelleMedicament) {
+        this.libelleMedicament = libelleMedicament;
     }
 
     public String getGenerique() {
         return generique;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setGenerique(String generique) {
+        this.generique = generique;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public List<String> getVoieAdministrations() {
+        return voieAdministrations;
     }
-
     public void setVoieAdministrations(List<String> voieAdministrations) {
         this.voieAdministrations = voieAdministrations;
     }
 
-    public void setGenerique(String generique) {
-        this.generique = generique;
-    }
 }
 
