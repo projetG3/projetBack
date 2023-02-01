@@ -7,6 +7,7 @@ import com.gromed.demo.service.CompteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
@@ -155,7 +156,7 @@ class CommandeControllerTest {
     @Test
     void validerForce(){
         Commande commande = commandeService.getAllCommande().get(0);
-        Boolean valider = commandeController.validerForce(commande.getCompte().getId(), commande.getId());
+        ResponseEntity<Boolean> valider = commandeController.validerForce(commande.getCompte().getId(), commande.getId());
         assertThat(valider).isEqualTo(true);
     }
 
@@ -202,7 +203,7 @@ class CommandeControllerTest {
         }
     }
 
-    /*@Test
+    @Test
     void ajouterCommandeTypeErrorId() throws SQLException {
         try {
             Commande commande = commandeService.getAllCommande().get(0);
@@ -226,7 +227,4 @@ class CommandeControllerTest {
             assertThat("L'identifiant de l'utilisateur n'est pas correct").isEqualTo(ex.getReason());
         }
     }
-
-     */
-
 }
