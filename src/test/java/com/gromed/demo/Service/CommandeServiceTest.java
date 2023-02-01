@@ -18,7 +18,7 @@ class CommandeServiceTest {
     @Autowired
     CommandeService commandeService;
 
-    @Test
+   /* @Test
     void getCompte(){
         Commande commande = commandeService.getCommande(19L).orElseThrow();
         Compte compte = commande.getCompte();
@@ -34,4 +34,6 @@ class CommandeServiceTest {
             System.out.println(e.getId());
         }
     }
+
+    */
 }

@@ -45,7 +45,7 @@ public class CommandeService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void getStockForce(Long id){
+    public void validerForce(Long id){
         List<Estconstitueede> estconstitueedesNoStocks = new ArrayList<>();
         Commande commande = getCommande(id).orElseThrow();
         List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
@@ -97,7 +97,7 @@ public class CommandeService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public List<Presentation> getStock(Commande commande) {
+    public List<Presentation> valider(Commande commande) {
         List<Presentation> presentations = new ArrayList<>();
         List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
         List<Estconstitueede> estconstitueedesNoStock = new ArrayList<>();
