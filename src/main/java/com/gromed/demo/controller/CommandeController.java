@@ -132,7 +132,7 @@ public class CommandeController {
     }
 
     @GetMapping("/valider/{idcompte}/{idcommande}")
-    public List<Presentation> getValider(@PathVariable(value = "idcompte") Long idcompte,
+    public List<Presentation> valider(@PathVariable(value = "idcompte") Long idcompte,
                                             @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -140,16 +140,16 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcompteIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
-        return commandeService.getStock(commande.get());
+        return commandeService.valider(commande.get());
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
-    public Boolean getValiderForce(@PathVariable(value = "idcompte") Long idcompte,
+    public Boolean validerForce(@PathVariable(value = "idcompte") Long idcompte,
                                             @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -157,13 +157,13 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcompteIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
         Long commandeid = commande.get().getId();
-        commandeService.getStockForce(commandeid);
+        commandeService.validerForce(commandeid);
         return true;
     }
 
@@ -205,7 +205,7 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcompteIncorrect);
         }
         if (!commande.get().getCompte().getEtablissement().getId().equals(compte.get().getEtablissement().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
