@@ -4,6 +4,8 @@ import com.gromed.demo.model.*;
 import com.gromed.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,8 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@Validated
-@RestController
+@Controller
 @CrossOrigin
 @RequestMapping("/commande")
 public class CommandeController {
@@ -38,6 +39,12 @@ public class CommandeController {
     private static String idcompteIncorrect = "L'identifiant de l'utilisateur n'est pas correct";
     private static String idcommandeIncorrect = "il n'y a pas de commande avec ce code";
     private static String compteCommandeIncorrect = "le compte ne correspond pas a la commande";
+
+    @GetMapping("/ping")
+    @ResponseBody
+    public String ping(){
+        return "pong";
+    }
 
     @PostMapping("/addProduct")
     public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
@@ -132,8 +139,8 @@ public class CommandeController {
     }
 
     @GetMapping("/valider/{idcompte}/{idcommande}")
-    public List<Presentation> getValider(@PathVariable(value = "idcompte") Long idcompte,
-                                            @PathVariable(value = "idcommande") Long idcommande){
+    public ResponseEntity<List<Presentation>> getValider(@PathVariable(value = "idcompte") Long idcompte,
+                                     @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
         if (!commande.isPresent()) {
@@ -145,11 +152,11 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
-        return commandeService.getStock(commande.get());
+        return new ResponseEntity<>(commandeService.getStock(commande.get()),HttpStatus.OK);
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
-    public Boolean getValiderForce(@PathVariable(value = "idcompte") Long idcompte,
+    public ResponseEntity<Boolean> getValiderForce(@PathVariable(value = "idcompte") Long idcompte,
                                             @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -164,7 +171,7 @@ public class CommandeController {
         }
         Long commandeid = commande.get().getId();
         commandeService.getStockForce(commandeid);
-        return true;
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @PostMapping("/createCommandeType")
@@ -197,7 +204,7 @@ public class CommandeController {
     }
 
     @GetMapping("/ajoutercommandetype/{idcompte}/{idcommande}")
-    public Commande ajouterCommandeType(@PathVariable(value = "idcompte") Long idcompte,
+    public ResponseEntity<Commande> ajouterCommandeType(@PathVariable(value = "idcompte") Long idcompte,
                                    @PathVariable(value = "idcommande") Long idcommande) throws SQLException {
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -212,6 +219,6 @@ public class CommandeController {
         }
 
         Commande commandeEnCours = compteService.getCommandeEnCours(idcompte);
-        return compteService.ajoutercommandeType(commandeEnCours, commande.get());
+        return new ResponseEntity<>(compteService.ajoutercommandeType(commandeEnCours, commande.get()), HttpStatus.OK);
     }
 }

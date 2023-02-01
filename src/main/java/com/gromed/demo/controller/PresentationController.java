@@ -4,6 +4,7 @@ import com.gromed.demo.model.*;
 import com.gromed.demo.service.PresentationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,12 +23,12 @@ public class PresentationController {
     private PresentationService presentationService;
 
     @GetMapping("/{codeCIP7}")
-    public Presentation getPresentation(@PathVariable(value="codeCIP7") Long codeCIP7){
+    public ResponseEntity<Presentation> getPresentation(@PathVariable(value="codeCIP7") Long codeCIP7){
         Optional <Presentation> optionalPresentation = presentationService.getPresentation(codeCIP7);
         if(!optionalPresentation.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune présentation n'existe avec ce code");
         }
-        return optionalPresentation.get();
+        return new ResponseEntity<>(optionalPresentation.get(), HttpStatus.OK);
      }
 
     @GetMapping("stock/{codeCIP7}")
