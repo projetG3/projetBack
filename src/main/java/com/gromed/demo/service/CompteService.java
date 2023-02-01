@@ -79,7 +79,6 @@ public class CompteService {
         estconstitueede.setIdcommande(commandeEnCours);
         estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
         commandeEnCours.addEstConstitueeDe(estconstitueede);
-
         return  commandeEnCours;
     }
 

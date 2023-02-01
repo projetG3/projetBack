@@ -35,13 +35,12 @@ public class CommandeController {
         return commandeService.getAllCommande();
     }
 
-    private static String idcompteIncorrect = "L'identifiant de l'utilisateur n'est pas incorrect";
+    private static String idcompteIncorrect = "L'identifiant de l'utilisateur n'est pas correct";
     private static String idcommandeIncorrect = "il n'y a pas de commande avec ce code";
     private static String compteCommandeIncorrect = "le compte ne correspond pas a la commande";
 
     @PostMapping("/addProduct")
     public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
-
         //si l'objet n'est pas complet alors on émet une erreur
         if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
@@ -64,7 +63,7 @@ public class CommandeController {
         Commande commandeEnCours = compteService.getCommandeEnCours(reelCompte.getId());
 
         //si il n'y a pas de commande en cours alors :
-        if(commandeEnCours.getId() == null){
+        if(commandeEnCours == null || commandeEnCours.getId() == null){
             //on crée la commande
             commandeEnCours = compteService.createCommande(reelCompte);
         }
