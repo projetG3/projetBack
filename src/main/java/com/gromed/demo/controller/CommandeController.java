@@ -156,7 +156,7 @@ public class CommandeController {
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
-    public ResponseEntity<Boolean> validerForce(@PathVariable(value = "idcompte") Long idcompte,
+    public ResponseEntity<Long> validerForce(@PathVariable(value = "idcompte") Long idcompte,
                                             @PathVariable(value = "idcommande") Long idcommande){
         Optional<Commande> commande = commandeService.getCommande(idcommande);
         Optional<Compte> compte = compteService.getCompte(idcompte);
@@ -171,7 +171,7 @@ public class CommandeController {
         }
         Long commandeid = commande.get().getId();
         commandeService.validerForce(commandeid);
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(commandeid, HttpStatus.OK);
     }
 
     @PostMapping("/createCommandeType")

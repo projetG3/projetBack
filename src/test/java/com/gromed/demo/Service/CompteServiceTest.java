@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.util.AssertionErrors.assertNotEquals;
 
 @SpringBootTest
 class CompteServiceTest {
@@ -76,7 +77,9 @@ class CompteServiceTest {
         commande.setNom("Restock");
         commandeService.saveCommande(commande);
         List<Commande> commandeType = compteService.getCommandeType(compte);
-        assertThat(commandeType.contains(commande)).isNotNull();
+        Boolean res = commandeType.contains(commande);
+        assertNotEquals("0", res, "null");
+
     }
 
     /*@Test
