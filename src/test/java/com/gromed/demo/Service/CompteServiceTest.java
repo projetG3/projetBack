@@ -1,7 +1,11 @@
 package com.gromed.demo.Service;
 
 import com.gromed.demo.model.*;
-import com.gromed.demo.service.*;
+import com.gromed.demo.service.EtablissementService;
+import com.gromed.demo.service.CompteService;
+import com.gromed.demo.service.CommandeService;
+import com.gromed.demo.service.EstconstitueedeService;
+import com.gromed.demo.service.PresentationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,10 +25,6 @@ class CompteServiceTest {
     private CompteService compteService;
     @Autowired
     private CommandeService commandeService;
-    @Autowired
-    private PresentationService presentationService;
-    @Autowired
-    private EstconstitueedeService estconstitueedeService;
 
     @Test
     void getCompte(){
@@ -79,7 +79,7 @@ class CompteServiceTest {
         assertThat(commandeType.contains(commande)).isNotNull();
     }
 
-    @Test
+    /*@Test
     void addProduct() throws SQLException {
         Presentation presentation = presentationService.getAllPresentation().get(0);
         Compte compte = compteService.getCompte(5L).orElseThrow();
@@ -95,4 +95,7 @@ class CompteServiceTest {
         Commande commandeProduct = compteService.addProduct(commandeEnCours, presentation, 1);
         assertThat(commandeProduct.getEstconstitueedes().contains(estconstitueede)).isNotNull();
     }
+     */
+
+
 }

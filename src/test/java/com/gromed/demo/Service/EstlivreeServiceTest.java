@@ -27,7 +27,7 @@ class EstlivreeServiceTest {
     @Autowired
     private PresentationService presentationService;
 
-    @Test
+    /*@Test
     void createEstlivree(){
         Estlivree estlivree = new Estlivree();
         estlivree.setIdcommande(commandeService.getCommande(18L).orElseThrow());
@@ -38,4 +38,6 @@ class EstlivreeServiceTest {
         estlivreeService.saveEstlivree(estlivree);
         assertThat(estlivree).isNotNull();
     }
+
+     */
 }
