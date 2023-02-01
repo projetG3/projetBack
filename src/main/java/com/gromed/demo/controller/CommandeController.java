@@ -152,7 +152,7 @@ public class CommandeController {
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
-        return new ResponseEntity<>(commandeService.getStock(commande.get()),HttpStatus.OK);
+        return new ResponseEntity<>(commandeService.valider(commande.get()),HttpStatus.OK);
     }
 
     @GetMapping("/validerforce/{idcompte}/{idcommande}")
@@ -170,7 +170,7 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);
         }
         Long commandeid = commande.get().getId();
-        commandeService.getStockForce(commandeid);
+        commandeService.validerForce(commandeid);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
