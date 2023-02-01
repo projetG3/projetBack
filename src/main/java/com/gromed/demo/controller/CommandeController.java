@@ -4,6 +4,7 @@ import com.gromed.demo.model.*;
 import com.gromed.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -40,14 +41,8 @@ public class CommandeController {
     private static String idcommandeIncorrect = "il n'y a pas de commande avec ce code";
     private static String compteCommandeIncorrect = "le compte ne correspond pas a la commande";
 
-    @GetMapping("/ping")
-    @ResponseBody
-    public String ping(){
-        return "pong";
-    }
-
     @PostMapping("/addProduct")
-    public Commande addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
+    public ResponseEntity<Commande> addProduct(@RequestBody AchatPresentation achatPresentation) throws SQLException {
         //si l'objet n'est pas complet alors on émet une erreur
         if (achatPresentation == null || achatPresentation.getQuantiteCommande() == 0 || achatPresentation.getProduit() == null || achatPresentation.getIdCompte() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant");
@@ -74,7 +69,7 @@ public class CommandeController {
             //on crée la commande
             commandeEnCours = compteService.createCommande(reelCompte);
         }
-        return compteService.addProduct(commandeEnCours, optionalPresentation.get(), achatPresentation.getQuantiteCommande());
+        return new ResponseEntity<>(compteService.addProduct(commandeEnCours, optionalPresentation.get(), achatPresentation.getQuantiteCommande()), HttpStatus.OK);
     }
 
     @PostMapping("/updateQuantite")
@@ -126,16 +121,17 @@ public class CommandeController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nous n'avons pas pû trouver votre commande ou ce produit n'est pas dans votre commande");
     }
 
-    @PostMapping("/getCommandeType")
-    public List<Commande> getCommandeType(@RequestBody IdCompte idCompte) throws SQLException {
+    @GetMapping("/getCommandeType/{idCompte}")
+    public ResponseEntity<List<Commande>> getCommandeType(@PathVariable(value = "idCompte") Long idcompte) throws SQLException {
+        System.out.println(idcompte);
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
-        Optional<Compte> optionalCompte = compteService.getCompte(idCompte.getIdCompte());
+        Optional<Compte> optionalCompte = compteService.getCompte(idcompte);
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte reelCompte = optionalCompte.get();
-
-        return compteService.getCommandeType(reelCompte);
+        System.out.println("controller");
+        return new ResponseEntity<>(compteService.getCommandeType(reelCompte), HttpStatus.OK);
     }
 
     @GetMapping("/valider/{idcompte}/{idcommande}")
@@ -175,7 +171,7 @@ public class CommandeController {
     }
 
     @PostMapping("/createCommandeType")
-    public String createCommandeType(@RequestBody CommandeType nomCommandeType){
+    public ResponseEntity<String> createCommandeType(@RequestBody CommandeType nomCommandeType){
         //si l'objet n'est pas complet alors on émet une erreur
         if (nomCommandeType == null || nomCommandeType.getCommande() == null || nomCommandeType.getCompte() == null || nomCommandeType.getNom() == null) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Il manque le nom souhaité pour la commande type ou l'identifiant du compte ou l'identifiant de la commande");
@@ -200,7 +196,7 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "La commande n'est pas une commande termineée ou envoyée");
         }
         commande.setNom(nomCommandeType.getNom());
-        return commandeService.saveCommande(commande).getNom();
+        return new ResponseEntity<>(commandeService.saveCommande(commande).getNom(), HttpStatus.OK);
     }
 
     @GetMapping("/ajoutercommandetype/{idcompte}/{idcommande}")

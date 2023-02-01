@@ -83,9 +83,11 @@ public class CompteService {
     }
 
     public List<Commande> getCommandeType(Compte compte) throws SQLException {
+        System.out.println("methode");
         ResultSet result = SqlService.getCommandeType(compte.getEtablissement().getId());
         List<Commande> commandeTypeList = new ArrayList<>();
         while (result.next()){
+            System.out.println("while");
             Commande commande = commandeService.getCommande(result.getLong("IDCOMMANDE")).orElseThrow();
             commandeTypeList.add(commande);
         }

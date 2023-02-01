@@ -83,7 +83,7 @@ public class CommandeService {
             }
             presentationService.savePresentation(presentation);
 
-            montantTotal+=presentation.getPrix();
+            montantTotal+=presentation.getPrix()*estconstitueede.getQuantite();
         }
 
         if (estconstitueedesNoStocks.size() != 0) {
@@ -111,7 +111,7 @@ public class CommandeService {
             else{
                 presentations.add(presentation);
             }
-            montantTotal += presentation.getPrix();
+            montantTotal += presentation.getPrix()*estconstitueede.getQuantite();
         }
 
         if(presentations.size() == 0){
