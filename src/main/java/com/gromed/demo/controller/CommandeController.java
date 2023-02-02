@@ -121,14 +121,12 @@ public class CommandeController {
 
     @GetMapping("/getCommandeType/{idCompte}")
     public ResponseEntity<List<Commande>> getCommandeType(@PathVariable(value = "idCompte") Long idcompte) throws SQLException {
-        System.out.println(idcompte);
         //Si on ne trouve pas d'utilisateur avec cet ID alors on émet une erreur
         Optional<Compte> optionalCompte = compteService.getCompte(idcompte);
         if (!optionalCompte.isPresent()) {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, idcompteIncorrect);
         }
         Compte reelCompte = optionalCompte.get();
-        System.out.println("controller");
         return new ResponseEntity<>(compteService.getCommandeType(reelCompte), HttpStatus.OK);
     }
 
@@ -141,7 +139,7 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcompteIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);

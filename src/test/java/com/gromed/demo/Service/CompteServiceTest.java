@@ -4,8 +4,6 @@ import com.gromed.demo.model.*;
 import com.gromed.demo.service.EtablissementService;
 import com.gromed.demo.service.CompteService;
 import com.gromed.demo.service.CommandeService;
-import com.gromed.demo.service.EstconstitueedeService;
-import com.gromed.demo.service.PresentationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -81,24 +79,4 @@ class CompteServiceTest {
         assertNotEquals("0", res, "null");
 
     }
-
-    /*@Test
-    void addProduct() throws SQLException {
-        Presentation presentation = presentationService.getAllPresentation().get(0);
-        Compte compte = compteService.getCompte(5L).orElseThrow();
-        List<Commande> commandesEnCours = compteService.getCommandeType(compte);
-        Commande commandeEnCours = commandesEnCours.get(0);
-        Estconstitueede estconstitueede = new Estconstitueede();
-        estconstitueede.setTerminer(false);
-        estconstitueede.setQuantite(1);
-        estconstitueede.setPresentation(presentation);
-        estconstitueede.setIdcommande(commandeEnCours);
-        estconstitueede = estconstitueedeService.saveEstconstitueede(estconstitueede);
-        commandeEnCours.addEstConstitueeDe(estconstitueede);
-        Commande commandeProduct = compteService.addProduct(commandeEnCours, presentation, 1);
-        assertThat(commandeProduct.getEstconstitueedes().contains(estconstitueede)).isNotNull();
-    }
-     */
-
-
 }
