@@ -4,8 +4,6 @@ import com.gromed.demo.model.*;
 import com.gromed.demo.service.EtablissementService;
 import com.gromed.demo.service.CompteService;
 import com.gromed.demo.service.CommandeService;
-import com.gromed.demo.service.EstconstitueedeService;
-import com.gromed.demo.service.PresentationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

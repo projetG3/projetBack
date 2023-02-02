@@ -6,6 +6,9 @@ public class AchatPresentation {
 
     private int quantiteCommande;
 
+    public Long idCompte;
+
+
     public void setProduit(Long produit) {
         this.produit = produit;
     }
@@ -17,8 +20,6 @@ public class AchatPresentation {
     public void setIdCompte(Long idCompte) {
         this.idCompte = idCompte;
     }
-
-    public Long idCompte;
 
     public Long getProduit(){
         return produit;

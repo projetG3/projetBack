@@ -1,57 +1,87 @@
 package com.gromed.demo.Controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gromed.demo.controller.CommandeController;
 import com.gromed.demo.controller.CompteController;
-import com.gromed.demo.model.Compte;
-import com.gromed.demo.model.Utilisateur;
+import com.gromed.demo.model.*;
+import com.gromed.demo.service.CommandeService;
 import com.gromed.demo.service.CompteService;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.gromed.demo.service.PresentationService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(CompteController.class)
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
 public class CompteControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
+    @Mock
     private CompteService compteService;
-/*
-    @Test
-    public void testCheckUser() throws Exception {
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setId(Long.valueOf(1));
-        utilisateur.setPassword("password");
-        Compte compte = new Compte();
-        compte.setId(Long.valueOf(1));
-        compte.setMotDePasse("password");
-        when(compteService.getCompte(Long.valueOf(1))).thenReturn(Optional.of(compte));
+    @InjectMocks
+    private CompteController controller;
 
-        mockMvc.perform(post("/compte/auth")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(utilisateur)))
-                .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("$.id").value("id"))
-                .andExpect((ResultMatcher) jsonPath("$.motDePasse").value("password"));
+    @Test
+    public void testCheckUser() {
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setPassword("1234");
+        utilisateur.setId(2L);
+
+        Compte compte = new Compte();
+        compte.setId(2L);
+        compte.setMotDePasse("1234");
+
+        when(compteService.getCompte(2L)).thenReturn(Optional.of(compte));
+
+        Compte response = controller.checkUser(utilisateur);
+        assertEquals(response, compte);
     }
 
- */
+    @Test
+    public void testCheckUserErrorPresentation() throws SQLException {
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setPassword("1234");
+        utilisateur.setId(2L);
+
+        CompteService compteService = mock(CompteService.class);
+
+        try {
+            controller.checkUser(utilisateur);
+            fail("Exception");
+        } catch (ResponseStatusException ex) {
+            assertEquals("Cette ID n'existe pas", ex.getReason());
+        }
+    }
+
+    /*@Test
+    public void testCheckUserErrorCompte() throws SQLException {
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setPassword("1234");
+        utilisateur.setId(2L);
+
+        Compte compte = new Compte();
+        compte.setId(3L);
+        compte.setMotDePasse("1234");
+
+        when(compteService.getCompte(2L)).thenReturn(Optional.of(compte));
+
+        try {
+            controller.checkUser(utilisateur);
+            fail("Exception");
+        } catch (ResponseStatusException ex) {
+            assertEquals("Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant", ex.getReason());
+        }
+    }
+
+     */
 }
+
 

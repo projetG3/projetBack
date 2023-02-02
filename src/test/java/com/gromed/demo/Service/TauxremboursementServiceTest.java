@@ -19,4 +19,5 @@ class TauxremboursementServiceTest {
         Tauxderemboursement tauxderemboursement = tauxderemboursementService.getTauxDeRemboursement("100 %").orElseThrow();
         assertThat(tauxderemboursement.getId()).isEqualTo("100 %");
     }
+
 }

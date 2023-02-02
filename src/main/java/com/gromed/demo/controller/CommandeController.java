@@ -141,7 +141,7 @@ public class CommandeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
         }
         if (!compte.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcommandeIncorrect);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, idcompteIncorrect);
         }
         if (!commande.get().getCompte().getId().equals(compte.get().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, compteCommandeIncorrect);

@@ -4,234 +4,201 @@ import com.gromed.demo.controller.CommandeController;
 import com.gromed.demo.model.*;
 import com.gromed.demo.service.CommandeService;
 import com.gromed.demo.service.CompteService;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.gromed.demo.service.PresentationService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
-import static org.springframework.test.util.AssertionErrors.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-class CommandeControllerTest {
-
-    @Autowired
-    private CommandeController commandeController;
-    @Autowired
-    private CommandeService commandeService;
-    @Autowired
+@RunWith(MockitoJUnitRunner.class)
+public class CommandeControllerTest {
+    @Mock
     private CompteService compteService;
+    @Mock
+    private PresentationService presentationService;
+    @Mock
+    private CommandeService commandeService;
+    @InjectMocks
+    private CommandeController controller;
 
     @Test
-    void addProduct() throws SQLException {
+    public void testAddProduct() throws SQLException {
         AchatPresentation achatPresentation = new AchatPresentation();
-        achatPresentation.setIdCompte(5L);
-        achatPresentation.setQuantiteCommande(1);
-        achatPresentation.setProduit(3729641L);
-        Commande commande = commandeController.addProduct(achatPresentation);
-        List<Estconstitueede> estconstitueedes = commande.getEstconstitueedes();
-        Estconstitueede estconstitueede = new Estconstitueede();
-        for (Estconstitueede e: estconstitueedes) {
-            if(e.getPresentation().getCodecis().equals(achatPresentation.getProduit())){
-                estconstitueede = e;
-            }
-        }
-        Boolean res = estconstitueedes.contains(estconstitueede);
-        assertNotEquals("0", res, "null");
+        achatPresentation.setIdCompte(1L);
+        achatPresentation.setProduit(2L);
+        achatPresentation.setQuantiteCommande(3);
+
+        Compte compte = new Compte();
+        compte.setId(1L);
+
+        when(compteService.getCompte(1L)).thenReturn(Optional.of(compte));
+        when(compteService.getCommandeEnCours(1L)).thenReturn(null);
+        when(compteService.createCommande(compte)).thenReturn(new Commande());
+
+        Presentation presentation = new Presentation();
+        presentation.setId(2L);
+
+        when(presentationService.getPresentation(2L)).thenReturn(Optional.of(presentation));
+
+        ResponseEntity<Commande> response = controller.addProduct(achatPresentation);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void addProductErrorPresentation() throws SQLException {
-        try {
-            AchatPresentation achatPresentation = new AchatPresentation();
-            achatPresentation.setIdCompte(5L);
-            achatPresentation.setQuantiteCommande(1);
-            Commande commande = commandeController.addProduct(achatPresentation);
-        } catch (ResponseStatusException ex) {
-            assertEquals("0","Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant", ex.getReason());
-        }
-    }
+    public void testAddProductErrorPresentation() throws SQLException {
+        AchatPresentation achatPresentation = new AchatPresentation();
+        achatPresentation.setQuantiteCommande(0);
+        achatPresentation.setProduit(null);
+        achatPresentation.setIdCompte(null);
 
-    @Test
-    void addProductErrorCompte() throws SQLException {
         try {
-            AchatPresentation achatPresentation = new AchatPresentation();
-            achatPresentation.setIdCompte(1L);
-            achatPresentation.setProduit(3729641L);
-            achatPresentation.setQuantiteCommande(1);
-            Commande commande = commandeController.addProduct(achatPresentation);
+            controller.addProduct(achatPresentation);
+            fail("Exception");
         } catch (ResponseStatusException ex) {
-            assertEquals("0","L'identifiant de l'utilisateur n'est pas correct",ex.getReason());
+            assertEquals("Il manque le numéro du produit souhaité ou la quantité souhaitée ou votre identifiant", ex.getReason());
         }
     }
 
     @Test
-    void addProductErrorPresentationCompte() throws SQLException {
+    public void testAddProductErrorCompte() throws SQLException {
+        AchatPresentation achatPresentation = new AchatPresentation();
+        achatPresentation.setQuantiteCommande(2);
+        achatPresentation.setProduit(1L);
+        achatPresentation.setIdCompte(1L);
+
+        CompteService compteService = mock(CompteService.class);
         try {
-            AchatPresentation achatPresentation = new AchatPresentation();
-            achatPresentation.setIdCompte(5L);
-            achatPresentation.setProduit(31L);
-            achatPresentation.setQuantiteCommande(1);
-            Commande commande = commandeController.addProduct(achatPresentation);
+            controller.addProduct(achatPresentation);
+            fail("Exception");
         } catch (ResponseStatusException ex) {
-            assertEquals("0","La référence au produit n'est pas trouvée",ex.getReason());
+            assertEquals("L'identifiant de l'utilisateur n'est pas correct", ex.getReason());
+        }
+    }
+    @Test
+    public void getCommandeTypeErrorCompte() throws SQLException {
+        CompteService compteService = mock(CompteService.class);
+        try {
+            controller.getCommandeType(1L);
+            fail("Exception");
+        } catch (ResponseStatusException ex) {
+            assertEquals("L'identifiant de l'utilisateur n'est pas correct", ex.getReason());
         }
     }
 
     @Test
-    void getCommandeTypeErrorCompte() throws SQLException {
+    public void validerErrorPresentation(){
+        Commande commande = new Commande();
+        commande.setNom("commande");
+        commande.setStatusfacture(true);
+        commande.setDatefacture(LocalDate.now());
+        commande.setMontanttotal("12,23€");
+        commande.setStatus("terminer");
+        commande.setId(12L);
+        commande.setDateheurecommande(LocalDateTime.now());
+        commande.setEstconstitueede(new ArrayList<>());
+
+        PresentationService presentationService = mock(PresentationService.class);
         try {
-            IdCompte idCompte = new IdCompte();
-            idCompte.setIdCompte(1L);
-            commandeController.getCommandeType(idCompte);
-        }catch (ResponseStatusException ex){
-            assertEquals("0","L'identifiant de l'utilisateur n'est pas correct", ex.getReason());
+            controller.valider(1L, commande.getId());
+            fail("Exception");
+        } catch (ResponseStatusException ex) {
+            assertEquals("il n'y a pas de commande avec ce code", ex.getReason());
+        }
+    }
+
+
+    @Test
+    public void validerForceErrorPresentation(){
+        Commande commande = new Commande();
+        commande.setNom("commande");
+        commande.setStatusfacture(true);
+        commande.setDatefacture(LocalDate.now());
+        commande.setMontanttotal("12,23€");
+        commande.setStatus("terminer");
+        commande.setId(12L);
+        commande.setDateheurecommande(LocalDateTime.now());
+        commande.setEstconstitueede(new ArrayList<>());
+
+        PresentationService presentationService = mock(PresentationService.class);
+        try {
+            controller.validerForce(1L, commande.getId());
+            fail("Exception");
+        } catch (ResponseStatusException ex) {
+            assertEquals("il n'y a pas de commande avec ce code", ex.getReason());
         }
     }
 
     @Test
-    void validerErrorPresentationCompte(){
+    public void testCreateCommandeTypeErrorCompte(){
+        CommandeType commandeType = new CommandeType();
+        commandeType.setNom("commande");
+        commandeType.setCommande(2L);
+        commandeType.setCompte(3L);
+
+        Compte compte = new Compte();
+        compte.setId(3L);
+
         try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            Compte compte = compteService.getAllComptes().get(0);
-            commandeController.valider(compte.getId(), commande.getId());
+            controller.createCommandeType(commandeType);
+            fail("Exception");
         } catch (ResponseStatusException ex) {
-            assertEquals("0","le compte ne correspond pas a la commande", ex.getReason());
+            assertEquals("L'identifiant de l'utilisateur n'est pas correct", ex.getReason());
         }
     }
 
     @Test
-    void validerErrorPresentation(){
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            commandeController.valider(commande.getCompte().getId(), commande.getId()+1);
-        } catch (ResponseStatusException ex) {
-            assertEquals("0","il n'y a pas de commande avec ce code", ex.getReason());
-        }
-    }
+    public void testCreateCommandeTypeErrorPresentation() throws SQLException {
+        CommandeType commandeType = new CommandeType();
+        commandeType.setNom("commande");
+        commandeType.setCommande(2L);
+        commandeType.setCompte(3L);
 
-    /*@Test
-    void validerErrorCompte() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            commandeController.valider(1L, commande.getId());
-        } catch (ResponseStatusException ex) {
-            assertThat("L'identifiant de l'utilisateur n'est pas correct").isEqualTo(ex.getReason());
-        }
-    }
+        Compte compte = new Compte();
+        compte.setId(3L);
 
-     */
+        when(compteService.getCompte(3L)).thenReturn(Optional.of(compte));
 
-    @Test
-    void validerforceErrorPresentationCompte(){
+        Commande commande = new Commande();
+        commande.setId(1L);
+
         try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            Compte compte = compteService.getAllComptes().get(0);
-            commandeController.validerForce(compte.getId(), commande.getId());
+            controller.createCommandeType(commandeType);
+            fail("Exception");
         } catch (ResponseStatusException ex) {
-            assertEquals("0","le compte ne correspond pas a la commande", ex.getReason());
+            assertEquals("il n'y a pas de commande avec ce code", ex.getReason());
         }
     }
 
     @Test
-    void validerforceErrorPresentation(){
+    public void testAjouterCommandeTypeErrorPresentation() throws SQLException {
+        Commande commande = new Commande();
+        commande.setId(1L);
+        when(commandeService.getCommande(1L)).thenReturn(Optional.of(commande));
+
+        Compte compte = new Compte();
+        compte.setId(1L);
+
         try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            commandeController.validerForce(commande.getCompte().getId(), commande.getId()+1);
+            controller.ajouterCommandeType(compte.getId(),commande.getId());
+            fail("Exception");
         } catch (ResponseStatusException ex) {
-            assertEquals("0","il n'y a pas de commande avec ce code", ex.getReason());
+            assertEquals("il n'y a pas de commande avec ce code", ex.getReason());
         }
     }
-
-    /*@Test
-    void validerforceErrorCompte() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            commandeController.validerForce(1L, commande.getId());
-        } catch (ResponseStatusException ex) {
-            assertThat("L'identifiant de l'utilisateur n'est pas correct").isEqualTo(ex.getReason());
-        }
-    }
-
-    @Test
-    void validerForce(){
-        Commande commande = commandeService.getAllCommande().get(0);
-        ResponseEntity<Boolean> valider = commandeController.validerForce(commande.getCompte().getId(), commande.getId());
-        assertThat(valider).isEqualTo(true);
-    }
-
-     */
-
-    @Test
-    void createCommandeTypeErrorId() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            CommandeType commandeType = new CommandeType();
-            commandeType.setCommande(commande.getId());
-            commandeType.setCompte(commande.getCompte().getId());
-            commandeType.setNom("Retock");
-            commandeController.createCommandeType(commandeType);
-        } catch (ResponseStatusException ex) {
-            assertEquals("0","L'identifiant renseigné ne correspond pas à l'identifiant qui a créé la commande",ex.getReason());
-        }
-    }
-
-    @Test
-    void createCommandeTypeErrorCompte() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            Compte compte = compteService.getAllComptes().get(0);
-            CommandeType commandeType = new CommandeType();
-            commandeType.setCommande(commande.getId());
-            commandeType.setCompte(1L);
-            commandeType.setNom("Retock");
-            commandeController.createCommandeType(commandeType);
-        } catch (ResponseStatusException ex) {
-            assertEquals("0","L'identifiant de l'utilisateur n'est pas correct",ex.getReason());
-        }
-    }
-
-    @Test
-    void createCommandeTypeErrorNom() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            Compte compte = compteService.getAllComptes().get(0);
-            CommandeType commandeType = new CommandeType();
-            commandeType.setCommande(commande.getId());
-            commandeType.setCompte(compte.getId());
-            commandeController.createCommandeType(commandeType);
-        } catch (ResponseStatusException ex) {
-            assertEquals("0","Il manque le nom souhaité pour la commande type ou l'identifiant du compte ou l'identifiant de la commande",ex.getReason());
-        }
-    }
-
-   /* @Test
-    void ajouterCommandeTypeErrorId() throws SQLException {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            commandeController.ajouterCommandeType(1L, commande.getId());
-        } catch (ResponseStatusException ex) {
-            assertThat("il n'y a pas de commande avec ce code").isEqualTo(ex.getReason());
-        }
-    }
-
-    @Test
-    void ajouterCommandeTypeErrorCompte() {
-        try {
-            Commande commande = commandeService.getAllCommande().get(0);
-            Compte compte = compteService.getAllComptes().get(0);
-            CommandeType commandeType = new CommandeType();
-            commandeType.setCommande(commande.getId());
-            commandeType.setCompte(1L);
-            commandeType.setNom("Retock");
-            commandeController.createCommandeType(commandeType);
-        } catch (ResponseStatusException ex) {
-            assertThat("L'identifiant de l'utilisateur n'est pas correct").isEqualTo(ex.getReason());
-        }
-    }
-    */
 }
+
+

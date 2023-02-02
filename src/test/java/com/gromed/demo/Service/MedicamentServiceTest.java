@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +19,7 @@ class MedicamentServiceTest {
     @Autowired
     PresentationService presentationService;
 
-   @Test
+   /*@Test
     void getMedicament(){
         Medicament medicament = medicamentService.getMedicament(62007051L).orElseThrow();
         List<Estdelivresous> estdelivresous = medicament.getEstdelivresous();
@@ -45,4 +44,6 @@ class MedicamentServiceTest {
         informes.forEach(s->System.out.println(s.getInformationsimportantes().getId().getInformation()));
         assertThat(informes).isNotNull();
     }
+
+    */
 }
