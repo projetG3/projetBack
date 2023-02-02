@@ -78,9 +78,9 @@ public class SqlService {
                 myQuery+=")";
             }
         }
-        if (critereRecherche.getDenominationSubstance() != null) {
+        if (critereRecherche.getDenominationSubstance() != null && critereRecherche.getDenominationSubstance() != "") {
             myQuery+="AND (UPPER(C.DENOMINATIONSUBSTANCE) LIKE ?) ";
-            params.add("%"+denominationSubstance.toUpperCase()+"%");
+            params.add(denominationSubstance.toUpperCase());
 
         }
         PreparedStatement pst = con.prepareStatement(myQuery);
