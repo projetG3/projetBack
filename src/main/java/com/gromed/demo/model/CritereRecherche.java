@@ -10,6 +10,16 @@ public class CritereRecherche {
     private String generique;
     private List<String> voieAdministrations = new ArrayList<>();
 
+    private String denominationSubstance;
+
+    public String getDenominationSubstance() {
+        return denominationSubstance;
+    }
+
+    public void setDenominationSubstance(String denominationSubstance) {
+        this.denominationSubstance = denominationSubstance;
+    }
+
     public String getLibellePresentation() {
         return libellePresentation;
     }
