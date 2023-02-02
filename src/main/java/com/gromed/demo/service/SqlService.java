@@ -40,6 +40,7 @@ public class SqlService {
         String nom = critereRecherche.getLibellePresentation();
         String libelle = critereRecherche.getLibelleMedicament();
         String generique = critereRecherche.getGenerique();
+        String denominationSubstance = critereRecherche.getDenominationSubstance();
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
         List<String> params = new ArrayList<>() ;
         String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE, G.LIBELLE as generique, P.PRIX  FROM PRESENTATION P " +
@@ -47,6 +48,7 @@ public class SqlService {
                 "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
                 "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " +
                 "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
+                "LEFT JOIN COMPOSITIONS C on M.CODECIS = C.CODECIS " +
                 "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
 
         if (critereRecherche.getLibellePresentation() != null) {
@@ -76,10 +78,24 @@ public class SqlService {
                 myQuery+=")";
             }
         }
+        if (critereRecherche.getDenominationSubstance() != null) {
+            myQuery+="AND (UPPER(C.DENOMINATIONSUBSTANCE) LIKE ?) ";
+            params.add("%"+denominationSubstance.toUpperCase()+"%");
+
+        }
         PreparedStatement pst = con.prepareStatement(myQuery);
         for(int i = 0; i < params.size(); i++){
             pst.setString(i+1, params.get(i));
         }
         return pst.executeQuery();
     }
+
+    public static ResultSet getAllPrincipesActifs() throws SQLException{
+        Connection con = DbConnection.getConnection();
+        String myQuery = "SELECT DISTINCT C.DENOMINATIONSUBSTANCE FROM COMPOSITIONS C ";
+        PreparedStatement pst = con.prepareStatement(myQuery);
+        return pst.executeQuery();
+
+    }
+
 }
