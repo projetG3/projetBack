@@ -44,12 +44,9 @@ public class SqlService {
         List<String> voieAdministrations = critereRecherche.getVoieAdministrations();
         List<String> params = new ArrayList<>() ;
         String myQuery = "SELECT P.CODECIP7, P.QUANTITEDISPO, M.NOM, A2.TYPEDEVOIE, P.LIBELLE, G.LIBELLE as generique, P.PRIX  FROM PRESENTATION P " +
-                "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " +
-                "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
-                "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " +
-                "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
-                "LEFT JOIN COMPOSITIONS C on M.CODECIS = C.CODECIS " +
-                "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
+                "LEFT JOIN MEDICAMENT M ON P.CODECIS = M.CODECIS " + "LEFT JOIN APOURGENERIQUE A1 on M.CODECIS = A1.CODECIS " +
+                "LEFT JOIN GENERIQUE G on A1.IDGENERIQUE = G.IDGENERIQUE " + "LEFT JOIN ADMINISTREPAR A2 on M.CODECIS = A2.CODECIS " +
+                "LEFT JOIN COMPOSITIONS C on M.CODECIS = C.CODECIS " + "WHERE P.ETATCOMMERCIALISATION='Déclaration de commercialisation' ";
 
         if (critereRecherche.getLibellePresentation() != null) {
             myQuery+="AND (UPPER(M.NOM) LIKE ?) ";
