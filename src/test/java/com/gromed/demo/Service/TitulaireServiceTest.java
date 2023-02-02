@@ -22,23 +22,4 @@ class TitulaireServiceTest {
         assertThat(titulaireService.getTitulaire("test").get().getId()).isEqualTo("test");
         System.out.println("ADD TITULAIRE OK");
     }
-
-    /*@Test
-    void updateTitulaire() throws SQLException {
-        Connection con = DbConnection.getConnection();
-        con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-
-        String sql;
-        PreparedStatement statement;
-
-        sql = "UPDATE titulaire SET nom = ? WHERE nom = ?";
-        statement = con.prepareStatement(sql);
-        statement.setString(1, "bob2");
-        statement.setString(2, "bob");
-        statement.executeUpdate();
-
-        Optional<Titulaire> t = titulaireService.getTitulaire("bob");
-        System.out.println(t.get().getId());
-    }
-     */
 }
