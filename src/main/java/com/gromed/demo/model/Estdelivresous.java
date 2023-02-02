@@ -9,7 +9,7 @@ public class Estdelivresous {
     private EstdelivresousId id;
 
     @MapsId("PRESCRIPTION")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "PRESCRIPTION", nullable = false)
     private Conditionsmedicamenteuse prescription;
 

@@ -32,6 +32,10 @@ public class Medicament {
     @JoinColumn(name = "etatcommercialisation")
     private EtatCommercialisation etatcommercialisation;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codecis")
+    private List<Informe> informes = new ArrayList<>();
+
     @Column(name = "dateamm", nullable = false)
     private LocalDate dateamm;
 
@@ -44,21 +48,17 @@ public class Medicament {
     @Column(name = "surveillancerenforcee", nullable = false)
     private String surveillancerenforcee;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "codecis")
     private List<Administrepar> administrepars = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "codecis")
     private List<Estcreepar> estcreepars = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "codecis")
     private List<Estdelivresous> estdelivresous = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codecis")
-    private List<Informe> informes = new ArrayList<>();
 
     public List<Estcreepar> getEstcreepars() {
         return estcreepars;

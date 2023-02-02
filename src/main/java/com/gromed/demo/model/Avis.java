@@ -33,7 +33,7 @@ public class Avis{
     @Column(name = "LIBELLE")
     private String libelle;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CODECIS")
     private Medicament codecis;
 

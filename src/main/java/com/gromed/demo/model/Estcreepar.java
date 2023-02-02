@@ -9,7 +9,7 @@ public class Estcreepar {
     private EstcreeparId id;
 
     @MapsId("nom")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "NOM", nullable = false)
     private Titulaire nom;
 

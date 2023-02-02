@@ -9,7 +9,7 @@ public class Estrembourseea {
     private EstrembourseeaId id;
 
     @MapsId("taux")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TAUX", nullable = false)
     private Tauxderemboursement taux;
 
